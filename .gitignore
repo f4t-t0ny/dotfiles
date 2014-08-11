@@ -8,5 +8,6 @@
 !.bash/*
 
 /*vim files*/
+!.vimrc
 !.vim/
 !.vim/*
