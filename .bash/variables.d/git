@@ -1,0 +1,3 @@
+#!/bin/bash
+#export GIT_PAGER=vimpager
+#export GIT_PAGER=cat

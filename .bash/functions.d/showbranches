@@ -1,0 +1,9 @@
+#!/bin/bash
+function showbranches(){
+_CWD=$PWD
+echo "current branch app:"
+cd ~/git/tenstamps && git branch
+echo "current branch core:"
+cd assets/core && git branch
+cd $_CWD
+}

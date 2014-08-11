@@ -1,0 +1,18 @@
+#!/bin/bash
+SL_DIR=~/.screenlayout
+function myrandr(){
+      case "$1" in
+        lvds)
+              $SL_DIR/lvds.sh
+              ;;
+        extend)
+              $SL_DIR/extend.sh
+              ;;
+        hdmi)
+              $SL_DIR/hdmi.sh
+              ;;
+        *)
+              echo wrong params
+              ;;
+      esac
+}

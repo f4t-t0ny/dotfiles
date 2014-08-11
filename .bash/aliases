@@ -1,0 +1,57 @@
+#!/bin/sh
+#################################
+#Aliase bitte hier definieren...#
+#################################
+
+#Farben
+alias ls='ls --color=auto --file-type -F'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias cgrep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+#Ende Farben
+
+#Verschiedenes
+
+alias less="less -r"
+#alias emacs="emacs -nw"
+alias bc="bc -l"
+alias cls="clear"
+alias celar="clear" #for typo's :)
+alias translate='leodict'
+
+#Ende Verschiedenes
+
+alias ldvcmake='cmake -G "Eclipse CDT4 - Unix Makefiles" -D CMAKE_BUILD_TYPE=Debug'
+
+alias openfile='xdg-open'
+alias minecraft='java -jar ~/.minecraft/minecraft.jar'
+alias seepasswords='emacs -nw ~/Dropbox/Dokumente/pwdir/pwf.cpt'
+alias cl=clementine
+alias o=xdg-open
+alias umdb='fusermount -u ~/decrypted'
+alias xlock='xscreensaver-command -lock'
+alias xopen='xdg-open'
+alias agud='ag update && ag dist-upgrade -y'
+alias quit=exit
+alias ligatabelle="elinks -dump www.dasrundemussinseckige.eu/tabellen | grep --color=never -B 2 -A 23 -m 1 '|Pos                             Mannschaft      Sp.   Tore    G  U V Pkt|' | sed 's/\[[0-9][0-9]\]/\ \ \ \ /g'"
+alias kreisklasse="elinks -dump www.fussball-vorort.de/vereine/w/sv-weichs | grep -m 1 'Platz Team                     Spiele Tore  Pkt' -A 14 --color=never | sed 's/\[[0-9][0-9][0-9]\]//g'"
+alias s="screen -d -m"
+alias cpf="rsync --progress"
+alias functions="compgen -A function | grep -v ^_"
+alias vialias="vi ~/.bash_aliases"
+alias rld="source ~/.bashrc"
+
+alias lc="logcat-color"
+alias g="grep"
+alias v="vim"
+
+alias count='COUNT=0 ;find res src AndroidManifest.xml \( -iname "*.java" -o -iname "*.xml" \) -exec wc -l {} \; | while read line; do COUNT=$(($COUNT+$(echo $line|awk '"'"'{print $1}'"'"')));echo $COUNT $(echo $line|awk '"'"'{print $2}'"'"');done'
+alias macfndisable='sudo bash -c "echo 0 > /sys/module/hid_apple/parameters/fnmode"'
+
+#CONTIGUA stuff
+alias node=nodejs
+
+alias sudo="sudo -E"
+alias timestamp="date +%s"

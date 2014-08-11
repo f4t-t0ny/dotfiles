@@ -1,0 +1,21 @@
+#!/bin/bash
+
+export CONTIGUA_ROOT=~/git/contigua
+
+# tenstamps
+export TENSTAMPS=$CONTIGUA_ROOT/10stamps-api/trunk
+export TENSTAMPS_ANDROID=~/git/tenstamps
+export TENSTAMPS_CORE=$TENSTAMPS_ANDROID/assets/core
+
+# vpos
+export VPOS=$CONTIGUA_ROOT/vpos-api
+export VPOS_INTERCEPTOR=$CONTIGUA_ROOT/vpos-interceptor
+export VPOS_ANALYZER=$CONTIGUA_ROOT/vpos-analyzer
+
+# device mac addresses
+export MAC_IPOD1="b0:34:95:b8:47:5f"
+export MAC_IPOD2="b0:34:95:bf:81:1c"
+export MAC_SGS3="10:a5:d0:58:6d:00"
+export MAC_SGT2="50:01:bb:47:a6:6e"
+
+export NODEJS_TEST=$CONTIGUA_ROOT/nodejs-test

@@ -1,0 +1,16 @@
+#!/bin/bash
+function bcb() {
+ARGS="$*"
+while getopts ":s" opt; do
+  case $opt in
+    s)
+      ARGS="scale=$OPTARG;$ARGS"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
+#execute bc
+echo "$ARGS" | bc
+}

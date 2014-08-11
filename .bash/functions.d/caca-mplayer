@@ -1,0 +1,5 @@
+#!/bin/bash
+function caca-mplayer(){
+export CACA_GEOMETRY=240x70
+mplayer -vo caca -framedrop "$1"
+}

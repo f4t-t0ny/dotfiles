@@ -1,0 +1,4 @@
+#!/bin/bash
+function findprog(){
+echo $(for i in $(printenv PATH | tr : " ");do find "$i" -name "$1";done;) | xargs -n 1 basename | sort
+}

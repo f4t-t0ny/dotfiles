@@ -1,0 +1,12 @@
+/*
+!.gitignore
+!.gitconfig
+
+/*bash files*/
+!.bashrc
+!.bash/
+!.bash/*
+
+/*vim files*/
+!.vim/
+!.vim/*

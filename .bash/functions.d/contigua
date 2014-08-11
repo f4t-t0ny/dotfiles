@@ -1,0 +1,25 @@
+#!/bin/bash
+# connect to remote pi
+function sshpi(){
+
+HOST_PI=$1
+SERVER_REMOTE_SSH=2207
+USER=contigua
+HOST=planck.10stamps.de
+case $HOST_PI in 
+        coffeefellows) 
+                LOCAL_PORT=4446
+                ;;
+        treemans)
+                LOCAL_PORT=4441
+                ;;
+        wirecard1)
+                LOCAL_PORT=4450
+                ;;
+        wirecard2)
+                LOCAL_PORT=4451
+                ;;
+esac
+ssh -p $SERVER_REMOTE_SSH $USER@$HOST \
+    -t "ssh -p $LOCAL_PORT pi@localhost"
+}
