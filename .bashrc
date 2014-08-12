@@ -59,7 +59,7 @@ fi
 
 
 for file in .bash/*;
-  do if [ -f ~/$file ]; then
+  do if [ -f ~/"$file" ]; then
     . $HOME/$file
   fi
 done

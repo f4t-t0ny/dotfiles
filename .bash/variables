@@ -77,3 +77,5 @@ export ROBOT_DIR=$DA_REPO/robot
 export PATH=$PATH:$ROBOT_DIR/scripts
 export PATH=$PATH:$ROBOT_DIR/lwr/scripts
 
+export OPT=~/opt
+
