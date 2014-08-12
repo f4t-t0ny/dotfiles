@@ -4,7 +4,7 @@ export CONTIGUA_ROOT=~/git/contigua
 
 # tenstamps
 export TENSTAMPS=$CONTIGUA_ROOT/10stamps-api/trunk
-export TENSTAMPS_ANDROID=~/git/tenstamps
+export TENSTAMPS_ANDROID=$CONTIGUA_ROOT/tenstamps-android
 export TENSTAMPS_CORE=$TENSTAMPS_ANDROID/assets/core
 
 # vpos

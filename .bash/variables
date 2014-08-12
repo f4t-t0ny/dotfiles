@@ -1,7 +1,11 @@
 #!/bin/bash
+. ~/.bash/functions.d/log
 
-
-for i in ~/.bash/variables.d/*; do . $i;done
+for file in ~/.bash/variables.d/*; 
+  do 
+    log "loading $file"
+    . $file
+done
 
 
 export ANDROID_SDK=/opt/android/sdk
@@ -71,11 +75,6 @@ export SLEEP_MODULE=kernel
 #wine
 WINEPREFIX=/home/andreas/.wine
 
-# diploma thesis vars
-export DA_REPO=~/da/repo
-export ROBOT_DIR=$DA_REPO/robot
-export PATH=$PATH:$ROBOT_DIR/scripts
-export PATH=$PATH:$ROBOT_DIR/lwr/scripts
-
 export OPT=~/opt
 
+export BASH_LOG=~/.bash_log

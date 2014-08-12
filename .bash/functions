@@ -1,6 +1,9 @@
 #!/bin/bash
 
-#for i in ~/.bash_functions.d/*; do . $i;done
+for file in ~/.bash/functions.d/*; do 
+  log "loading $file"
+  . $file;
+done
 
 function ag(){
 arg=$1

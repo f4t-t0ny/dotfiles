@@ -1,0 +1,6 @@
+function log(){
+  if [ ! -z "$DEBUG" ]
+    then echo $*
+  fi
+  echo $* >> ~/.bash_log
+}
