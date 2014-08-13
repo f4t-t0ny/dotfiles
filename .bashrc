@@ -49,7 +49,7 @@ DIRECTORY_COLOR='38;5;81m'
 GIT_BRANCH_COLOR='38;5;197m'
 DOLLAR_COLOR='38;5;148m'
 
-if [[ $TERM == 'xterm' ]]; then 
+if [[ $TERM == 'xterm' ]] || [[ $TERM == 'screen' ]] || [[ $TERM == 'linux' ]]; then 
   if [[ $EUID == 0 ]] ; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[${ROOT_PROMPT_COLOR}\]\u@\h\[\033[${DIRECTORY_COLOR}\] \W \[\033[${DOLLAR_COLOR}\]\$\[\033[00m\] '
   else
