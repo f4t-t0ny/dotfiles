@@ -1,6 +1,9 @@
+/*just ignore everything*/
 /*
+
 !.gitignore
 !.gitconfig
+!.gitmodules
 
 /*bash files*/
 !.bashrc
