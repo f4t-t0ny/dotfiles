@@ -90,3 +90,6 @@ let g:NERDTreeShowHidden=1
 
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
+
+"vimwiki settings
+set nocompatible
