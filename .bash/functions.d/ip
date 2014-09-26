@@ -1,0 +1,50 @@
+#!/bin/bash
+function ip() {
+METHOD=$1
+INTERFACE=$2
+IP=$(which ip)
+
+  #function usage() {
+    #echo "Usage: ip get interface"
+  #}
+
+  # get ip of interface
+  function _ip_get(){
+    $IP addr show $1|grep -Eo '([0-9]{,3}\.){3}[0-9]{,3}'|head -n 1
+  }
+  # get all interfaces except lo
+  function _get_interfaces(){
+    $IP -o link|cut -d: -f2|tail -n +2
+  }
+
+  case "$METHOD" in
+    get)
+      if [[ -z "$INTERFACE" ]] 
+        then
+          for i in $(_get_interfaces) 
+            do 
+              OUT=$(_ip_get $i)
+              if [[ -n $OUT ]]; then
+                break
+              fi
+          done
+          if [[ -z $OUT ]]
+            then
+              echo "None of the network interfaces has an ip address. Exiting..." >&2
+            else
+              echo $OUT
+          fi
+        else 
+          OUT=$(_ip_get $INTERFACE)
+          if [[ -z $OUT ]]; then
+              echo "$INTERFACE currently has no ip assigned. Please try another one!" >&2
+            else
+              echo $OUT
+          fi
+      fi
+      ;;
+    *)
+      $IP $*
+      ;;
+  esac
+}

@@ -1,3 +1,6 @@
 "Open nerd tree tabs after startup.
-autocmd vimenter * NERDTreeTabsToggle
-autocmd vimenter * wincmd l
+"echo &l:ft
+"if &l:ft != 'man'
+  "autocmd vimenter * NERDTreeTabsToggle
+  "autocmd vimenter * wincmd l
+"endif

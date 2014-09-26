@@ -1,4 +1,4 @@
 #!/bin/bash
 CM_DEVICE=i9300
-CM_ROOT=~/android/system
+CM_ROOT=/media/data/phone/android/system
 CM_OUT=$CM_ROOT/out/target/product/$CM_DEVICE

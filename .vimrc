@@ -1,3 +1,4 @@
+
 " abaenderung der directories mit autovervollstaendigung
 map <C-x><C-x><C-T> :!ctags -R -f ~/.vim/commontags /usr/include /usr/local/include /usr/src/linux/include .<CR><CR>
 set tags+=~/.vim/commontags
@@ -36,13 +37,13 @@ set grepprg=grep\ -nH\ $*
 " The following changes the default filetype back to 'tex':
 " let g:tex_flavor='latex'
 syntax on
-se makeprg=make
+"se makeprg=make
 se foldmethod=marker
 se tabstop=2
 se shiftwidth=2
 se expandtab
 se mouse=a
-se smartindent
+"se smartindent
 
 "read .vim.custom in cwd 
 if filereadable(".vim.custom")
@@ -72,19 +73,6 @@ set laststatus=2
 "dont yank when pasting
 xnoremap p pgvy
 
-""loop over directories for project settings
-""let parent=1
-"let local_vimrc = ".vim.custom"
-"let local_tags = "tags"
-"while parent <= 8
-  "if filewritable(local_vimrc)
-    "exe ":so " . local_vimrc
-  "endif
-  "let local_vimrc = "../". local_vimrc
-  "let parent = parent+1
-"endwhile
-"unlet parent local_vimrc
-"
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeShowHidden=1
 
@@ -93,3 +81,9 @@ set omnifunc=syntaxcomplete#Complete
 
 "vimwiki settings
 set nocompatible
+
+"switch easily between windows
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>

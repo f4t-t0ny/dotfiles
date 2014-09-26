@@ -43,7 +43,7 @@ alias functions="compgen -A function | grep -v ^_"
 alias vialias="vi ~/.bash_aliases"
 alias rld="source ~/.bashrc"
 
-alias lc="logcat-color"
+alias lc="logcat-color -v time"
 alias g="grep"
 alias v="vim"
 
@@ -54,4 +54,5 @@ alias macfndisable='sudo bash -c "echo 0 > /sys/module/hid_apple/parameters/fnmo
 alias node=nodejs
 
 alias sudo="sudo -E"
-alias timestamp="date +%s"
+alias utimestamp="date '+%s'"
+alias timestamp="date '+%d-%m-%Y'"

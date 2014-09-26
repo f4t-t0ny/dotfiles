@@ -1,0 +1,4 @@
+function ddd(){
+echo $if
+
+}

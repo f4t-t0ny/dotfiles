@@ -7,10 +7,11 @@ for file in ~/.bash/variables.d/*;
     . $file
 done
 
-
-export ANDROID_SDK=/opt/android/sdk
-export ANDROID_NDK=/opt/android-ndk-r7b
-export BB_HOME=/opt/blackberry
+export DATA=/media/data
+export OPT=$DATA/opt
+export ANDROID_SDK=$OPT/android/sdk
+export ANDROID_NDK=$OPT/android-ndk-r7b
+export BB_HOME=$OPT/blackberry
 export BB_SDK=$BB_HOME/tools/SDK
 export ECLIPSE_HOME=~/.eclipse/
 
@@ -75,6 +76,5 @@ export SLEEP_MODULE=kernel
 #wine
 WINEPREFIX=/home/andreas/.wine
 
-export OPT=~/opt
 
 export BASH_LOG=~/.bash_log
