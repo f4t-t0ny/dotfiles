@@ -19,3 +19,12 @@
 [submodule ".vim/bundle/vimwiki"]
 	path = .vim/bundle/vimwiki
 	url = git://github.com/vim-scripts/vimwiki.git
+[submodule ".vim/bundle/vim-gradle"]
+	path = .vim/bundle/vim-gradle
+	url = https://github.com/tfnico/vim-gradle.git
+[submodule ".vim/bundle/YouCompleteMe"]
+	path = .vim/bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe
+[submodule "/home/f4t-t0ny/.vim/bundle/syntastic"]
+	path = /home/f4t-t0ny/.vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git

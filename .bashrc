@@ -65,12 +65,14 @@ if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
 
-
-for file in ~/.bash/*;
-  do if [ -f "$file" ]; then
+# load files in order, this is important
+for file_base in variables functions aliases completion
+do 
+    export file="$HOME/.bash/$file_base"
+    if [ -f "$file" ]; then
     log "loading $file"
     . $file
-  fi
+    fi
 done
 
 # turn annoying bell off, KEEP THIS AT ANY COST!!!

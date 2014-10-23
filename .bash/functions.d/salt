@@ -1,0 +1,14 @@
+#!/bin/bash 
+
+function salt(){
+  [ $# -eq 0 ] && {
+    echo "usage: salt <length>">&2
+    return      
+  }
+  strings </dev/urandom | while read line; do
+          echo $line | tr '\n\t ' $RANDOM:0:1 >> /tmp/.salt.$$
+          salt=$(cat /tmp/.salt.$$)
+          [ ${#salt} -ge $1 ] && salt=${salt:0:$1} && echo $salt && break
+  done
+  rm -f /tmp/.salt.$$
+}

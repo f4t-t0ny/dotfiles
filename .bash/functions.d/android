@@ -1,0 +1,52 @@
+#!/bin/bash
+
+function android() {
+
+ANDROID=$(which android)
+
+  function usage() {
+    echo "Usage: android search <import>"
+  } 
+
+  function import() {
+    F_TMP="/tmp/classes.txt";
+    F_TMP_PROJECT="/tmp/project_classes.txt"
+
+    # android and central library sources
+    if [[ ! -e $F_TMP ]]
+    then
+      # standard android classes
+      jar tf $ANDROID_SDK/platforms/android-${ANDROID_SEARCH_API}/android.jar >> $F_TMP
+      # gson stuff
+      for jar in $(find ~/opt/android-studio/lib/ -type f -iname "*.jar")
+      do
+        jar tf $jar >> $F_TMP
+      done
+    fi
+    #project sources
+    >$F_TMP_PROJECT #clear tmp file
+    WD=$(pwd)
+    for CLS_DIR in $(find . -path "*build/intermediates/classes*" -name "debug" -type d)
+    do
+      cd $CLS_DIR 
+      find $CLS_DIR -name "*.class" >> $F_TMP_PROJECT 
+      cd $WD
+    done
+    grep --color=never $1 $F_TMP $F_TMP_LOCAL| tr '/' '.' 
+  }
+
+  case $1 in 
+    import)
+      if [[ -n $2 ]]
+        then
+          import $2
+        else
+          usage
+      fi
+      ;;
+    *)
+      #dont break android sdk manager also named android
+      $ANDROID $*
+  esac
+
+}

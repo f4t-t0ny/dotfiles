@@ -62,9 +62,6 @@ filetype plugin indent on
 "for pathogen
 execute pathogen#infect()
 
-"vim-nerdtree-tabs
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
-
 
 "powerline
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
@@ -87,3 +84,8 @@ nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
+
+let mapleader=","
+
+"vim-nerdtree-tabs
+map <Leader>n <plug>NERDTreeTabsToggle<CR>

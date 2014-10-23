@@ -1,21 +1,27 @@
 #!/bin/bash
 
-export CONTIGUA_ROOT=~/git/contigua
+export CONTIGUA=~/dev/contigua/
 
 # tenstamps
-export TENSTAMPS=$CONTIGUA_ROOT/10stamps-api/trunk
-export TENSTAMPS_ANDROID=$CONTIGUA_ROOT/tenstamps-android
-export TENSTAMPS_CORE=$TENSTAMPS_ANDROID/tenstamps/src/main/assets/core
+export TENSTAMPS=$CONTIGUA/10stamps-api/trunk/
+export TENSTAMPS_ANDROID=$CONTIGUA/tenstamps-android/
+export TENSTAMPS_CORE=$TENSTAMPS_ANDROID/tenstamps/src/main/assets/core/
+export TENSTAMPS_TEST=$TENSTAMPS/modules/v1/test/
+export TENSTAMPS_PARTNER=$CONTIGUA/10stamps-partner
+export TENSTAMPS_PACKAGE=de.contigua.tenstamps.release
+export TENSTAMPS_MAIN=$TENSTAMPS_PACKAGE/.activity.BootActivity
+export TENSTAMPS_APK_DEBUG=$TENSTAMPS_ANDROID/tenstamps/build/outputs/apk/tenstamps-debug.apk
 
 # vpos
-export VPOS=$CONTIGUA_ROOT/vpos-api
-export VPOS_INTERCEPTOR=$CONTIGUA_ROOT/vpos-interceptor
-export VPOS_ANALYZER=$CONTIGUA_ROOT/vpos-analyzer
+export VPOS=$CONTIGUA/vpos-api
+export VPOS_INTERCEPTOR=$CONTIGUA/vpos-interceptor
+export VPOS_ANALYZER=$CONTIGUA/vpos-analyzer
 
 # device mac addresses
-export MAC_IPOD1="b0:34:95:b8:47:5f"
-export MAC_IPOD2="b0:34:95:bf:81:1c"
-export MAC_SGS3="10:a5:d0:58:6d:00"
-export MAC_SGT2="50:01:bb:47:a6:6e"
+export MAC_IPOD1="B0:34:95:B8:47:5F"
+export MAC_IPOD2="B0:34:95:BF:81:1C"
+export MAC_SGS3="10:A5:D0:58:6D:00"
+export MAC_SGT2="50:01:BB:47:A6:6E"
+export MAC_THINKPAD_DANIEL="F0:DE:F1:85:76:9E"
 
-export NODEJS_TEST=$CONTIGUA_ROOT/nodejs-test
+export NODEJS_TEST=$CONTIGUA/other/nodejs-test

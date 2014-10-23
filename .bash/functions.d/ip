@@ -31,6 +31,7 @@ IP=$(which ip)
           if [[ -z $OUT ]]
             then
               echo "None of the network interfaces has an ip address. Exiting..." >&2
+              return 1
             else
               echo $OUT
           fi
@@ -38,6 +39,7 @@ IP=$(which ip)
           OUT=$(_ip_get $INTERFACE)
           if [[ -z $OUT ]]; then
               echo "$INTERFACE currently has no ip assigned. Please try another one!" >&2
+              return 1
             else
               echo $OUT
           fi

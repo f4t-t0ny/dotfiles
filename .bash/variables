@@ -1,16 +1,8 @@
 #!/bin/bash
 . ~/.bash/functions.d/log
 
-for file in ~/.bash/variables.d/*; 
-  do 
-    log "loading $file"
-    . $file
-done
-
 export DATA=/media/data
 export OPT=$DATA/opt
-export ANDROID_SDK=$OPT/android/sdk
-export ANDROID_NDK=$OPT/android-ndk-r7b
 export BB_HOME=$OPT/blackberry
 export BB_SDK=$BB_HOME/tools/SDK
 export ECLIPSE_HOME=~/.eclipse/
@@ -24,16 +16,12 @@ export MATLABPATH=~/matlab
 
 #########################################
 
+export DEV=~/dev
 
 SCRIPT_DIR=~/Dropbox/unencrypted/Programmierung\ und\ Programme/Skripte
 export PATH=$PATH:/usr/sbin
 export PATH=$PATH:/sbin
 export PATH=$PATH:~/bin
-#Android stuff
-export PATH=$PATH:$ANDROID_SDK/platform-tools
-export PATH=$PATH:$ANDROID_SDK/tools
-export PATH=$PATH:$ANDROID_NDK
-export PATH=$PATH:$BB_SDK/bin
 
 export HEALTHMANAGER=$HOME/git/biocomfort/healthmanager
 export thesis=$HOME/workspace/Studienarbeit/bachelor-thesis
@@ -67,14 +55,14 @@ export TEXMFHOME=~/.texmf
 # tuxonice
 export SLEEP_MODULE=kernel
 
-# xilinx ise webpack location
-#export XILINX_HOME=~/opt/14.5/ISE_DS
-#source $XILINX_HOME/settings64.sh
-#export GRLIB=~/da/grlib
-
-
 #wine
 WINEPREFIX=/home/andreas/.wine
+
+for file in ~/.bash/variables.d/*; 
+  do 
+    log "loading $file"
+    . $file
+done
 
 
 export BASH_LOG=~/.bash_log

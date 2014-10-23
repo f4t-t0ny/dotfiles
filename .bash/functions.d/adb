@@ -1,0 +1,20 @@
+#!/bin/bash
+
+function adb(){
+  CMD=$1
+  ADB=$(which adb)
+
+  case $CMD in 
+    custlog)
+      echo "custom logcat for application filtering"
+      #parse arguments
+      #-
+      ;;
+
+    *)
+      #echo "regular adb command: $ADB $CMD"
+      $ADB $*
+      ;;
+  esac
+
+}

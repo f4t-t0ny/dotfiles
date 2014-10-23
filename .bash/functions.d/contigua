@@ -23,3 +23,34 @@ esac
 ssh -p $SERVER_REMOTE_SSH $USER@$HOST \
     -t "ssh -p $LOCAL_PORT pi@localhost"
 }
+
+tenstamps(){
+  CMD=$1
+  shift
+  #echo $*
+  case $CMD in 
+    start|run) 
+      adb $* shell am start $TENSTAMPS_MAIN
+      ;;
+    force-stop|stop|kill)
+      adb $* shell am force-stop $TENSTAMPS_PACKAGE
+      ;;
+    install)
+        SUB_CMD=$1
+        shift
+        case $SUB_CMD in 
+          debug)
+            adb $* install -r $TENSTAMPS_APK_DEBUG
+            ;;
+          *)
+            echo "wrong arguments"
+        esac
+        ;;
+    uninstall|remove)
+      adb $* uninstall $TENSTAMPS_PACKAGE
+      ;;
+    *)
+      echo "wrong arguments"
+      ;;
+  esac
+}

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+filewitch(){
+  file $(which $1)
+}
