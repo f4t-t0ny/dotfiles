@@ -56,7 +56,7 @@ alias node=nodejs
 alias sudo="sudo -E"
 alias utimestamp="date '+%s'"
 alias timestamp="date '+%d-%m-%Y'"
-alias scan="sudo nmap -sP $(ip get)/24"
+alias scan='sudo nmap -sP $(ip get)/24'
 
 for file in ~/.bash/aliases.d/*; 
   do 

@@ -1,12 +1,12 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-#cd
 
 #export DEBUG=true
 
-#load logger function
 source ~/.bash/functions.d/log
+source ~/.bash/functions.d/git-prompt
+
 log "loading $HOME/.bashrc"
 
 TTYTYPE=`tty`
@@ -36,24 +36,27 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
   debian_chroot=$( cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-  xterm-color) color_prompt=yes;;
-esac
-
-
-#source ~/.git-prompt.sh
 ROOT_PROMPT_COLOR='38;5;197m' # red
 USER_PROMPT_COLOR='38;5;141m' # dark green
 DIRECTORY_COLOR='38;5;81m'
 GIT_BRANCH_COLOR='38;5;197m'
 DOLLAR_COLOR='38;5;148m'
 
+DEB_CHROOT='${debian_chroot:+($debian_chroot)}' 
+USER_PROMPT='\[\033[${USER_PROMPT_COLOR}\]\u@\h'
+ROOT_PROMPT='\[\033[${ROOT_PROMPT_COLOR}\]\u@\h'
+DIRECTORY_PROMPT_SHORT='\[\033[${DIRECTORY_COLOR}\]\W'
+DIRECTORY_PROMPT_FULL='\[\033[${DIRECTORY_COLOR}\]\w'
+GIT_PROMPT='\[\033[${GIT_BRANCH_COLOR}\]'$(__git_ps1)
+EXIT_STATUS_PROMPT='$(if [[ $? == 0 ]]; then echo "\[\033[${DOLLAR_COLOR}\]✓"; else echo "\[\033[${ROOT_PROMPT_COLOR}\]✗"; fi)'
+#END_PROMPT='\[\033[${DOLLAR_COLOR}\]\$\[\033[00m\]'
+END_PROMPT='$(if [[ $? == 0 ]]; then echo "\[\033[${DOLLAR_COLOR}\]\$\[\033[00m\]"; else echo "\[\033[${ROOT_PROMPT_COLOR}\]\$\[\033[00m\]"; fi)'
+
 if [[ $TERM == 'xterm' ]] || [[ $TERM == 'screen' ]] || [[ $TERM == 'linux' ]]; then 
   if [[ $EUID == 0 ]] ; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[${ROOT_PROMPT_COLOR}\]\u@\h\[\033[${DIRECTORY_COLOR}\] \W \[\033[${DOLLAR_COLOR}\]\$\[\033[00m\] '
+    PS1="${DEB_CHROOT}${ROOT_PROMPT} ${DIRECTORY_PROMPT_SHORT} ${END_PROMPT} "
   else
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[${USER_PROMPT_COLOR}\]\u@\h\[\033[${DIRECTORY_COLOR}\] \W\[\033[${GIT_BRANCH_COLOR}\]$(__git_ps1) \[\033[${DOLLAR_COLOR}\]\$\[\033[00m\] '
+    PS1="${DEB_CHROOT}${USER_PROMPT} ${DIRECTORY_PROMPT_FULL}${GIT_PROMPT} ${END_PROMPT} "
   fi
 fi
 
