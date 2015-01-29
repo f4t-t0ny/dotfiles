@@ -89,3 +89,6 @@ let mapleader=","
 
 "vim-nerdtree-tabs
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
+
+"YCM Completer
+nnoremap <leader>jd :YcmCompleter GoTo<CR>

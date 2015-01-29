@@ -69,7 +69,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 # load files in order, this is important
-for file_base in variables functions aliases completion
+for file_base in variables functions aliases completion rc
 do 
     export file="$HOME/.bash/$file_base"
     if [ -f "$file" ]; then

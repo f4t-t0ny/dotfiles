@@ -46,7 +46,7 @@ export HS=~/Dropbox/unencrypted/Studium/Hauptseminar
 
 export FFMPEG_DATADIR=~/.ffmpeg/
 export OCTAVE_HOME=~/Dropbox/unencrypted/Programmieren/octave/
-export PAGER=vimpager
+export PAGER=most
 export S=/media/andreas/F4AD-DCDC/
 
 # latex include

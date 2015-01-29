@@ -9,16 +9,16 @@
 	url = https://github.com/kchmck/vim-coffee-script.git
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
-	url = git://github.com/tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
 [submodule ".vim/bundle/vim-jade"]
 	path = .vim/bundle/vim-jade
-	url = git://github.com/digitaltoad/vim-jade.git
+	url = https://github.com/digitaltoad/vim-jade.git
 [submodule ".vim/bundle/vim-nerdtree-tabs"]
 	path = .vim/bundle/vim-nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
 [submodule ".vim/bundle/vimwiki"]
 	path = .vim/bundle/vimwiki
-	url = git://github.com/vim-scripts/vimwiki.git
+	url = https://github.com/vim-scripts/vimwiki.git
 [submodule ".vim/bundle/vim-gradle"]
 	path = .vim/bundle/vim-gradle
 	url = https://github.com/tfnico/vim-gradle.git
@@ -26,5 +26,5 @@
 	path = .vim/bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe
 [submodule "/home/f4t-t0ny/.vim/bundle/syntastic"]
-	path = /home/f4t-t0ny/.vim/bundle/syntastic
+	path = .vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
