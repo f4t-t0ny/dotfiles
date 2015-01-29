@@ -54,7 +54,7 @@ endif
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
 "use system clipboard
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 "activate filetype plugins, needed for nerdcomment
 filetype plugin indent on
@@ -92,3 +92,13 @@ map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
 "YCM Completer
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
+
+if has("unix")
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin"
+    " mac stuff
+    let g:ycm_path_to_python_interpreter = '/Users/andreas.wallner/bin/python'
+    set backspace=indent,eol,start
+  endif
+endif
+        

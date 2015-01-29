@@ -52,7 +52,7 @@ EXIT_STATUS_PROMPT='$(if [[ $? == 0 ]]; then echo "\[\033[${DOLLAR_COLOR}\]✓";
 #END_PROMPT='\[\033[${DOLLAR_COLOR}\]\$\[\033[00m\]'
 END_PROMPT='$(if [[ $? == 0 ]]; then echo "\[\033[${DOLLAR_COLOR}\]\$\[\033[00m\]"; else echo "\[\033[${ROOT_PROMPT_COLOR}\]\$\[\033[00m\]"; fi)'
 
-if [[ $TERM == 'xterm' ]] || [[ $TERM == 'screen' ]] || [[ $TERM == 'linux' ]]; then 
+if [[ $TERM == 'xterm' ]] ||[[ $TERM == 'xterm-256color' ]] || [[ $TERM == 'screen' ]] || [[ $TERM == 'linux' ]]; then 
   if [[ $EUID == 0 ]] ; then
     PS1="${DEB_CHROOT}${ROOT_PROMPT} ${DIRECTORY_PROMPT_SHORT} ${END_PROMPT} "
   else
@@ -83,3 +83,5 @@ if [ -n "$DISPLAY" ]; then
 xset b off
 fi
 
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
