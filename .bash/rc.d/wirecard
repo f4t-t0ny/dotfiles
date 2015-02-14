@@ -20,10 +20,12 @@ EZLINK_SAMPLE_CEPAS_REDEMPTION_AWARD="02014436303030303030303030313046313030301c
 DYLD_FORCE_FLAT_NAMESPACE=1
 
 #initialize ruby
-eval "$(rbenv init -)"
+#eval "$(rbenv init -)"
 
 alias vim="DYLD_FORCE_FLAT_NAMESPACE=1 vim"
 
 export PYTHONPATH=$PYTHONPATH:~/dev/
 export MANPATH="$HOME/share/man/:$MANPATH"
 export MANPATH="$HOME/homebrew/share/man/:$MANPATH"
+
+alias apb="ansible-playbook app.yml -i hosts"
