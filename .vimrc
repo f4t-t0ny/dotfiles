@@ -98,7 +98,7 @@ if has("unix")
   if s:uname == "Darwin"
     " mac stuff
     let g:ycm_path_to_python_interpreter = '/Users/andreas.wallner/bin/python'
-    set backspace=indent,eol,start
   endif
 endif
+set backspace=indent,eol,start
         

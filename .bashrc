@@ -47,7 +47,7 @@ USER_PROMPT='\[\033[${USER_PROMPT_COLOR}\]\u@\h'
 ROOT_PROMPT='\[\033[${ROOT_PROMPT_COLOR}\]\u@\h'
 DIRECTORY_PROMPT_SHORT='\[\033[${DIRECTORY_COLOR}\]\W'
 DIRECTORY_PROMPT_FULL='\[\033[${DIRECTORY_COLOR}\]\w'
-GIT_PROMPT='\[\033[${GIT_BRANCH_COLOR}\]'$(__git_ps1)
+GIT_PROMPT='\[\033[${GIT_BRANCH_COLOR}\]$(__git_ps1)'
 EXIT_STATUS_PROMPT='$(if [[ $? == 0 ]]; then echo "\[\033[${DOLLAR_COLOR}\]✓"; else echo "\[\033[${ROOT_PROMPT_COLOR}\]✗"; fi)'
 #END_PROMPT='\[\033[${DOLLAR_COLOR}\]\$\[\033[00m\]'
 END_PROMPT='$(if [[ $? == 0 ]]; then echo "\[\033[${DOLLAR_COLOR}\]\$\[\033[00m\]"; else echo "\[\033[${ROOT_PROMPT_COLOR}\]\$\[\033[00m\]"; fi)'

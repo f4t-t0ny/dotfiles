@@ -1,6 +1,6 @@
 [user]
 	name = Andreas Wallner
-	email = aw@contigua.de
+	email = wallner1986@gmail.com
 [diff]
 	tool = vimdiff
 [core]
@@ -21,3 +21,5 @@
 	showtool = "!sh -c 'if [ -z $1 ]; then REVISION=HEAD; else REVISION=$1; fi; git difftool $REVISION~ $REVISION' -"
 [difftool]
 	prompt = false
+[push]
+	default = matching
