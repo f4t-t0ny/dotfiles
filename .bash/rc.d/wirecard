@@ -29,3 +29,13 @@ export MANPATH="$HOME/share/man/:$MANPATH"
 export MANPATH="$HOME/homebrew/share/man/:$MANPATH"
 
 alias apb="ansible-playbook app.yml -i hosts"
+function docker(){
+
+DOCKER=/usr/bin/docker
+
+if [[ $1 == "ips" ]]; then
+  $DOCKER inspect -f '{{ .NetworkSettings.IPAddress }}' $($DOCKER ps -a -q)
+else
+  $DOCKER $*
+fi
+}

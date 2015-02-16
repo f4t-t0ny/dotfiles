@@ -82,6 +82,3 @@ done
 if [ -n "$DISPLAY" ]; then
 xset b off
 fi
-
-export CLICOLOR=1
-export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
