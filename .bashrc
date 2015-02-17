@@ -71,10 +71,10 @@ fi
 # load files in order, this is important
 for file_base in variables functions aliases completion rc
 do 
-    export file="$HOME/.bash/$file_base"
-    if [ -f "$file" ]; then
-    log "loading $file"
-    . $file
+    export _file="$HOME/.bash/$file_base"
+    if [ -f "$_file" ]; then
+    log "loading $_file"
+    . $_file
     fi
 done
 
@@ -82,3 +82,7 @@ done
 if [ -n "$DISPLAY" ]; then
 xset b off
 fi
+
+export JRUBY_VERSION=1.7.19
+export JRUBY_HOME="/usr/share/jruby-${JRUBY_VERSION}"
+export PATH=$JRUBY_HOME/bin:$PATH

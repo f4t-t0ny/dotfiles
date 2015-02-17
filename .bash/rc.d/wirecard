@@ -29,13 +29,16 @@ export MANPATH="$HOME/share/man/:$MANPATH"
 export MANPATH="$HOME/homebrew/share/man/:$MANPATH"
 
 alias apb="ansible-playbook app.yml -i hosts"
+
 function docker(){
 
-DOCKER=/usr/bin/docker
-
-if [[ $1 == "ips" ]]; then
-  $DOCKER inspect -f '{{ .NetworkSettings.IPAddress }}' $($DOCKER ps -a -q)
-else
-  $DOCKER $*
-fi
+  DOCKER=/usr/bin/docker
+  if [[ $1 == "ips" ]]; then
+    for CID in $(${DOCKER} ps -q); do echo "$CID $(${DOCKER} inspect --format '{{ .NetworkSettings.IPAddress }}' $CID)";done
+  elif [[ $1 == "ip" && -n $2 ]]; then
+    CID=$2
+    echo "$CID $(${DOCKER} inspect --format '{{ .NetworkSettings.IPAddress }}' $CID)"
+  else
+    $DOCKER $*
+  fi
 }
