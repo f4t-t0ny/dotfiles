@@ -102,3 +102,4 @@ if has("unix")
 endif
 set backspace=indent,eol,start
         
+autocmd BufRead,BufNewFile ~/.bash/* set syntax=sh
