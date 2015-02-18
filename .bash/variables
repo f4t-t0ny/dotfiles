@@ -4,7 +4,6 @@
 export DATA=/media/data
 export BB_HOME=$OPT/blackberry
 export BB_SDK=$BB_HOME/tools/SDK
-export ECLIPSE_HOME=~/.eclipse/
 
 export EDITOR=vim
 
@@ -17,10 +16,12 @@ export MATLABPATH=~/matlab
 
 export DEV=~/dev
 
-SCRIPT_DIR=~/Dropbox/unencrypted/Programmierung\ und\ Programme/Skripte
+export DEFAULT_PATH=/usr/local/sbin:/usr/local/bin
 export PATH=$PATH:/usr/sbin
 export PATH=$PATH:/sbin
 export PATH=~/bin:$PATH
+export PATH=$PATH:~/bin
+export PATH=$PATH:~/.bash/scripts.d
 
 export HEALTHMANAGER=$HOME/git/biocomfort/healthmanager
 export thesis=$HOME/workspace/Studienarbeit/bachelor-thesis
@@ -58,9 +59,9 @@ export SLEEP_MODULE=kernel
 WINEPREFIX=/home/andreas/.wine
 
 for file in ~/.bash/variables.d/*; 
-  do 
-    log "loading $file"
-    . $file
+do 
+  log "loading $file"
+  . $file
 done
 
 

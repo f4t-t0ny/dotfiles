@@ -9,7 +9,6 @@ alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 alias cgrep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 #Ende Farben
 
 #Verschiedenes
@@ -55,11 +54,12 @@ alias node=nodejs
 
 alias sudo="sudo -E"
 alias utimestamp="date '+%s'"
-alias timestamp="date '+%d-%m-%Y'"
+alias datestamp="date '+%Y%m%d'"
+alias timestamp="date '+%Y%m%d-%H:%M:%S'"
 alias scan='sudo nmap -sP $(ip get)/24'
 
 for file in ~/.bash/aliases.d/*; 
-  do 
-    log "loading $file"
-    . $file
+do 
+  log "loading $file"
+  . $file
 done

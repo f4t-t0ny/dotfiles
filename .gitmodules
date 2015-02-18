@@ -1,45 +1,45 @@
 [submodule ".vim/bundle/nerdtree"]
-	path = .vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree
+  path = .vim/bundle/nerdtree
+  url = https://github.com/scrooloose/nerdtree
 [submodule ".vim/bundle/powerline"]
-	path = .vim/bundle/powerline
-	url = https://github.com/Lokaltog/powerline
+  path = .vim/bundle/powerline
+  url = https://github.com/Lokaltog/powerline
 [submodule ".vim/bundle/vim-coffee-script"]
-	path = .vim/bundle/vim-coffee-script
-	url = https://github.com/kchmck/vim-coffee-script.git
+  path = .vim/bundle/vim-coffee-script
+  url = https://github.com/kchmck/vim-coffee-script.git
 [submodule ".vim/bundle/vim-fugitive"]
-	path = .vim/bundle/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive.git
+  path = .vim/bundle/vim-fugitive
+  url = https://github.com/tpope/vim-fugitive.git
 [submodule ".vim/bundle/vim-jade"]
-	path = .vim/bundle/vim-jade
-	url = https://github.com/digitaltoad/vim-jade.git
+  path = .vim/bundle/vim-jade
+  url = https://github.com/digitaltoad/vim-jade.git
 [submodule ".vim/bundle/vim-nerdtree-tabs"]
-	path = .vim/bundle/vim-nerdtree-tabs
-	url = https://github.com/jistr/vim-nerdtree-tabs.git
+  path = .vim/bundle/vim-nerdtree-tabs
+  url = https://github.com/jistr/vim-nerdtree-tabs.git
 [submodule ".vim/bundle/vimwiki"]
-	path = .vim/bundle/vimwiki
-	url = https://github.com/vim-scripts/vimwiki.git
+  path = .vim/bundle/vimwiki
+  url = https://github.com/vim-scripts/vimwiki.git
 [submodule ".vim/bundle/vim-gradle"]
-	path = .vim/bundle/vim-gradle
-	url = https://github.com/tfnico/vim-gradle.git
+  path = .vim/bundle/vim-gradle
+  url = https://github.com/tfnico/vim-gradle.git
 [submodule ".vim/bundle/YouCompleteMe"]
-	path = .vim/bundle/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe
+  path = .vim/bundle/YouCompleteMe
+  url = https://github.com/Valloric/YouCompleteMe
 [submodule ".vim/bundle/syntastic"]
-	path = .vim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
+  path = .vim/bundle/syntastic
+  url = https://github.com/scrooloose/syntastic.git
 [submodule ".vim/bundle/vim-rails"]
-	path = .vim/bundle/vim-rails
-	url = https://github.com/tpope/vim-rails.git
+  path = .vim/bundle/vim-rails
+  url = https://github.com/tpope/vim-rails.git
 [submodule ".vim/bundle/vim-bundler"]
-	path = .vim/bundle/vim-bundler
-	url = https://github.com/tpope/vim-bundler.git
+  path = .vim/bundle/vim-bundler
+  url = https://github.com/tpope/vim-bundler.git
 [submodule ".vim/bundle/Dockerfile"]
-	path = .vim/bundle/Dockerfile
-	url = https://github.com/ekalinin/Dockerfile.vim.git
+  path = .vim/bundle/Dockerfile
+  url = https://github.com/ekalinin/Dockerfile.vim.git
 [submodule "/home/wirecard/.vim/bundle/vim-ansible-yaml"]
-	path = /home/wirecard/.vim/bundle/vim-ansible-yaml
-	url = https://github.com/chase/vim-ansible-yaml.git
+  path = /home/wirecard/.vim/bundle/vim-ansible-yaml
+  url = https://github.com/chase/vim-ansible-yaml.git
 [submodule ".vim/bundle/vim-ansible-yaml"]
-	path = .vim/bundle/vim-ansible-yaml
-	url = https://github.com/chase/vim-ansible-yaml
+  path = .vim/bundle/vim-ansible-yaml
+  url = https://github.com/chase/vim-ansible-yaml

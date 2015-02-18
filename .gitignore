@@ -1,9 +1,9 @@
 /*just ignore everything*/
 /*
 
-!.gitignore
-!.gitconfig
-!.gitmodules
+   !.gitignore
+   !.gitconfig
+   !.gitmodules
 
 /*bash files*/
 !.bashrc
@@ -14,3 +14,5 @@
 !.vimrc
 !.vim/
 !.vim/*
+/*ignore vim eclim folder*/
+.vim/eclim/*

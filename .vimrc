@@ -1,7 +1,7 @@
 
-" abaenderung der directories mit autovervollstaendigung
-map <C-x><C-x><C-T> :!ctags -R -f ~/.vim/commontags /usr/include /usr/local/include /usr/src/linux/include .<CR><CR>
-set tags+=~/.vim/commontags
+"" abaenderung der directories mit autovervollstaendigung
+"map <C-x><C-x><C-T> :!ctags -R -f ~/.vim/commontags /usr/include /usr/local/include /usr/src/linux/include .<CR><CR>
+"set tags+=~/.vim/commontags
 " tabs for python
 set expandtab
 "colorscheme Tomorrow-Night-Blue
@@ -47,7 +47,7 @@ se mouse=a
 
 "read .vim.custom in cwd 
 if filereadable(".vim.custom")
-    so .vim.custom
+  so .vim.custom
 endif
 
 "check spell and limit width for git commit messages
@@ -85,6 +85,7 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
+"set leader key
 let mapleader=","
 
 "vim-nerdtree-tabs
@@ -101,5 +102,75 @@ if has("unix")
   endif
 endif
 set backspace=indent,eol,start
-        
+
 autocmd BufRead,BufNewFile ~/.bash/* set syntax=sh
+"tab switching
+nnoremap th  :tabfirst<CR>
+nnoremap tj  :tabnext<CR>
+nnoremap tk  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
+nnoremap tm  :tabm<Space>
+nnoremap td  :tabclose<CR>
+
+"let .vim.custom files get vim syntax
+au BufNewFile,BufRead *.vim.custom set filetype=vim
+
+" Restore cursor position, window position, and last search after running a
+" command.
+function! Preserve(command)
+  "{{{
+  " Save the last search.
+  let search = @/
+
+  " Save the current cursor position.
+  let cursor_position = getpos('.')
+
+  " Save the current window position.
+  normal! H
+  let window_position = getpos('.')
+  call setpos('.', cursor_position)
+
+  " Execute the command.
+  execute a:command
+
+  " Restore the last search.
+  let @/ = search
+
+  " Restore the previous window position.
+  call setpos('.', window_position)
+  normal! zt
+
+  " Restore the previous cursor position.
+  call setpos('.', cursor_position)
+  "}}}
+endfunction
+
+" Re-indent the whole buffer.
+function! Indent()
+  call Preserve('normal gg=G')
+endfunction
+
+" Indent on save hook
+au BufWritePre <buffer> call Indent()
+
+"source all .vim.custom files from / till current directory
+let vim_custom_file = '.vim.custom'
+let cwd_saved = getcwd()
+chdir / "goto root 
+for dir in split( cwd_saved, '/') "split full current path into directories
+  let fullname = getcwd() . '/' . vim_custom_file
+  if filereadable(vim_custom_file) "check in every dir if a custom vim file exists
+    "source it if so
+    exe ':so ' . fullname 
+  endif
+  "goto next dir
+  exe 'lcd ' . dir 
+endfor
+
+let g:EclimCompletionMethod = 'omnifunc'
+let g:EclimFileTypeValidate=0
+let g:EclimJavascriptValidate=0
+
+let g:ycm_confirm_extra_conf = 0
