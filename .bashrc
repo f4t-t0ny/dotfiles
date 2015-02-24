@@ -52,12 +52,10 @@ EXIT_STATUS_PROMPT='$(if [[ $? == 0 ]]; then echo "\[\033[${DOLLAR_COLOR}\]✓";
 #END_PROMPT='\[\033[${DOLLAR_COLOR}\]\$\[\033[00m\]'
 END_PROMPT='$(if [[ $? == 0 ]]; then echo "\[\033[${DOLLAR_COLOR}\]\$\[\033[00m\]"; else echo "\[\033[${ROOT_PROMPT_COLOR}\]\$\[\033[00m\]"; fi)'
 
-if [[ $TERM == 'xterm' ]] ||[[ $TERM == 'xterm-256color' ]] || [[ $TERM == 'screen' ]] || [[ $TERM == 'linux' ]]; then 
-  if [[ $EUID == 0 ]] ; then
-    PS1="${DEB_CHROOT}${ROOT_PROMPT} ${DIRECTORY_PROMPT_SHORT} ${END_PROMPT} "
-  else
-    PS1="${DEB_CHROOT}${USER_PROMPT} ${DIRECTORY_PROMPT_FULL}${GIT_PROMPT} ${END_PROMPT} "
-  fi
+if [[ $EUID == 0 ]] ; then
+  PS1="${DEB_CHROOT}${ROOT_PROMPT} ${DIRECTORY_PROMPT_SHORT} ${END_PROMPT} "
+else
+  PS1="${DEB_CHROOT}${USER_PROMPT} ${DIRECTORY_PROMPT_FULL}${GIT_PROMPT} ${END_PROMPT} "
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -71,16 +69,16 @@ fi
 # load files in order, this is important
 for file_base in variables functions aliases completion rc
 do 
-    export _file="$HOME/.bash/$file_base"
-    if [ -f "$_file" ]; then
+  export _file="$HOME/.bash/$file_base"
+  if [ -f "$_file" ]; then
     log "loading $_file"
     . $_file
-    fi
+  fi
 done
 
 # turn annoying bell off, KEEP THIS AT ANY COST!!!
 if [ -n "$DISPLAY" ]; then
-xset b off
+  xset b off
 fi
 
 export JRUBY_VERSION=1.7.19
