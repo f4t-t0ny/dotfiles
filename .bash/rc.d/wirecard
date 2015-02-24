@@ -37,8 +37,11 @@ function docker(){
     for CID in $(${DOCKER} ps -q); do echo "$CID $(${DOCKER} inspect --format '{{ .NetworkSettings.IPAddress }}' $CID)";done
   elif [[ $1 == "ip" && -n $2 ]]; then
     CID=$2
-    echo "$CID $(${DOCKER} inspect --format '{{ .NetworkSettings.IPAddress }}' $CID)"
+    echo "$(${DOCKER} inspect --format '{{ .NetworkSettings.IPAddress }}' $CID)"
   else
     $DOCKER $*
   fi
 }
+
+export KUBERNETES_PROVIDER=local
+export PATH=~/git/kubernetes/cluster:$PATH

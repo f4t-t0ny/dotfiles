@@ -46,7 +46,7 @@ export HS=~/Dropbox/unencrypted/Studium/Hauptseminar
 
 export FFMPEG_DATADIR=~/.ffmpeg/
 export OCTAVE_HOME=~/Dropbox/unencrypted/Programmieren/octave/
-export PAGER=most
+export PAGER=less
 export S=/media/andreas/F4AD-DCDC/
 
 # latex include
@@ -66,3 +66,5 @@ done
 
 
 export BASH_LOG=~/.bash_log
+
+export PATH=$PATH:/usr/local/go/bin
