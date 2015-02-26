@@ -175,3 +175,4 @@ let g:EclimJavascriptValidate=0
 
 let g:ycm_confirm_extra_conf = 0
 autocmd BufRead,BufNewFile /etc/icinga2/* set syntax=cpp
+autocmd BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
