@@ -1,5 +1,6 @@
 #!/bin/bash
 . ~/.bash/functions.d/log
+. ~/.bash/functions.d/updatepath
 
 export DATA=/media/data
 export BB_HOME=$OPT/blackberry
@@ -17,11 +18,10 @@ export MATLABPATH=~/matlab
 export DEV=~/dev
 
 export DEFAULT_PATH=/usr/local/sbin:/usr/local/bin
-export PATH=$PATH:/usr/sbin
-export PATH=$PATH:/sbin
-export PATH=~/bin:$PATH
-export PATH=$PATH:~/bin
-export PATH=$PATH:~/.bash/scripts.d
+updatepath /usr/sbin
+updatepath /sbin
+updatepath ~/bin
+updatepath ~/.bash/scripts.d
 
 export HEALTHMANAGER=$HOME/git/biocomfort/healthmanager
 export thesis=$HOME/workspace/Studienarbeit/bachelor-thesis
@@ -67,4 +67,5 @@ done
 
 export BASH_LOG=~/.bash_log
 
-export PATH=$PATH:/usr/local/go/bin
+updatepath /usr/local/go/bin
+updatepath /usr/local/share/jruby/bin

@@ -6,6 +6,7 @@
 
 source ~/.bash/functions.d/log
 source ~/.bash/functions.d/git-prompt
+source ~/.bash/functions.d/updatepath
 
 log "loading $HOME/.bashrc"
 
@@ -81,6 +82,3 @@ if [ -n "$DISPLAY" ]; then
   xset b off
 fi
 
-export JRUBY_VERSION=1.7.19
-export JRUBY_HOME="/usr/share/jruby-${JRUBY_VERSION}"
-export PATH=$JRUBY_HOME/bin:$PATH

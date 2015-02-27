@@ -1,4 +1,3 @@
-#!/bin/bash
 #export GIT_PAGER=vimpager
 #export GIT_PAGER=cat
-export PATH=$PATH:/usr/lib/git-core
+updatepath /usr/lib/git-core

@@ -2,7 +2,7 @@
 
 function ss(){
 
-  echo $2 |xxd -r -p |tee $1
+echo $2 |xxd -r -p |tee $1
 }
 
 EZLINK_SAMPLE_SALE="02005036303030303030303030313032303030301c343000123030303030303030313131311c44360010313233343536373839301c030F"
@@ -32,16 +32,16 @@ alias apb="ansible-playbook app.yml -i hosts"
 
 function docker(){
 
-  DOCKER=/usr/bin/docker
-  if [[ $1 == "ips" ]]; then
-    for CID in $(${DOCKER} ps -q); do echo "$CID $(${DOCKER} inspect --format '{{ .NetworkSettings.IPAddress }}' $CID)";done
-  elif [[ $1 == "ip" && -n $2 ]]; then
-    CID=$2
-    echo "$(${DOCKER} inspect --format '{{ .NetworkSettings.IPAddress }}' $CID)"
-  else
-    $DOCKER $*
-  fi
+DOCKER=/usr/bin/docker
+if [[ $1 == "ips" ]]; then
+  for CID in $(${DOCKER} ps -q); do echo "$CID $(${DOCKER} inspect --format '{{ .NetworkSettings.IPAddress }}' $CID)";done
+elif [[ $1 == "ip" && -n $2 ]]; then
+  CID=$2
+  echo "$(${DOCKER} inspect --format '{{ .NetworkSettings.IPAddress }}' $CID)"
+else
+  $DOCKER $*
+fi
 }
 
 export KUBERNETES_PROVIDER=local
-export PATH=~/git/kubernetes/cluster:$PATH
+updatepath ~/git/kubernetes/cluster

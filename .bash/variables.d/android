@@ -1,4 +1,5 @@
 #!/bin/bash
+. ~/.bash/functions.d/updatepath
 
 export ANDROID_SDK=$OPT/android/sdk
 export ANDROID_NDK=$OPT/android-ndk-r7b
@@ -7,7 +8,7 @@ export ANDROID_SEARCH_API=19
 export ANDROID_HOME=$ANDROID_SDK # used in vim-android
 
 #Adjust path
-export PATH=$PATH:$ANDROID_SDK/platform-tools
-export PATH=$PATH:$ANDROID_SDK/tools
-export PATH=$PATH:$ANDROID_NDK
-export PATH=$PATH:$BB_SDK/bin
+updatepath $ANDROID_SDK/platform-tools
+updatepath $ANDROID_SDK/tools
+updatepath $ANDROID_NDK
+updatepath $BB_SDK/bin

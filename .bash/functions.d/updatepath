@@ -1,0 +1,12 @@
+function updatepath(){
+
+  NEWPATH=$1;
+
+  if [[ -d $NEWPATH ]] #check if path exists
+    then 
+      case ":$PATH:" in
+      *":$NEWPATH:"*) :;;
+  *) PATH=$PATH:$NEWPATH;;
+  esac
+    fi
+}
