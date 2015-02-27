@@ -64,6 +64,6 @@ do
   . $file
 done
 
-if [[ $(lsb_release -si) == "RedHatEnterpriseServer" ]] 
+if [[ $(lsb_release >/dev/null 2>&1 && lsb_release -si) == "RedHatEnterpriseServer" ]] 
 then alias sudosu='sudo bash -c "sed -ie s/^Defaults.*always_set_home// /etc/sudoers" && sudo -s'
 fi
