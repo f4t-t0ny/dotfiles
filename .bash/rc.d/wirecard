@@ -26,7 +26,6 @@ alias vim="DYLD_FORCE_FLAT_NAMESPACE=1 vim"
 
 export PYTHONPATH=$PYTHONPATH:~/dev/
 export MANPATH="$HOME/share/man/:$MANPATH"
-export MANPATH="$HOME/homebrew/share/man/:$MANPATH"
 
 alias apb="ansible-playbook app.yml -i hosts"
 
