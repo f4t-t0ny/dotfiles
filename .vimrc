@@ -74,7 +74,7 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeShowHidden=1
 
 filetype plugin on
-set omnifunc=syntaxcomplete#Complete
+"set omnifunc=syntaxcomplete#Complete
 
 "vimwiki settings
 set nocompatible
@@ -153,7 +153,7 @@ function! Indent()
 endfunction
 
 " Indent on save hook
-au BufWritePre <buffer> call Indent()
+"au BufWritePre <buffer> call Indent()
 
 "source all .vim.custom files from / till current directory
 let vim_custom_file = '.vim.custom'
@@ -174,5 +174,7 @@ let g:EclimFileTypeValidate=0
 let g:EclimJavascriptValidate=0
 
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 autocmd BufRead,BufNewFile /etc/icinga2/* set syntax=cpp
 autocmd BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
+
