@@ -1,18 +1,22 @@
-/*just ignore everything*/
-/*
+#just ignore everything
+*
 
-   !.gitignore
-   !.gitconfig
-   !.gitmodules
+#except git files
+!.gitignore
+!.gitconfig
+!.gitmodules
 
-/*bash files*/
+#except bash files
 !.bashrc
 !.bash/
 !.bash/*
 
-/*vim files*/
+#except vim files
 !.vimrc
 !.vim/
 !.vim/*
-/*ignore vim eclim folder*/
+#ignore vim eclim folder
 .vim/eclim/*
+
+#but still ignore binary files
+*.pyc

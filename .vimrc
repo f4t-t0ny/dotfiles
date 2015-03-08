@@ -116,6 +116,7 @@ nnoremap td  :tabclose<CR>
 
 "let .vim.custom files get vim syntax
 au BufNewFile,BufRead *.vim.custom set filetype=vim
+au BufNewFile,BufRead *.gitignore set filetype=conf
 
 " Restore cursor position, window position, and last search after running a
 " command.
@@ -174,7 +175,7 @@ let g:EclimFileTypeValidate=0
 let g:EclimJavascriptValidate=0
 
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 autocmd BufRead,BufNewFile /etc/icinga2/* set syntax=cpp
 autocmd BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
 
