@@ -27,3 +27,5 @@
   ui = auto
 [receive]
   denyCurrentBranch = warn
+[url "https://"]
+	insteadOf = git://

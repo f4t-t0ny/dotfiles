@@ -6,7 +6,7 @@ function updatepath(){
     then 
       case ":$PATH:" in
       *":$NEWPATH:"*) :;;
-  *) PATH=$PATH:$NEWPATH;;
+  *) PATH=$NEWPATH:$PATH;;
   esac
     fi
 }
