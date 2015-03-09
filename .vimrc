@@ -179,3 +179,5 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 autocmd BufRead,BufNewFile /etc/icinga2/* set syntax=cpp
 autocmd BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
 
+"nerd custom delimiters for puppet
+let g:NERDCustomDelimiters = { 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' } }
