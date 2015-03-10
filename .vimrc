@@ -117,6 +117,7 @@ nnoremap td  :tabclose<CR>
 "let .vim.custom files get vim syntax
 au BufNewFile,BufRead *.vim.custom set filetype=vim
 au BufNewFile,BufRead *.gitignore set filetype=conf
+au BufNewFile,BufRead *.jshintrc set filetype=json
 
 " Restore cursor position, window position, and last search after running a
 " command.
@@ -181,3 +182,6 @@ autocmd BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
 
 "nerd custom delimiters for puppet
 let g:NERDCustomDelimiters = { 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' } }
+
+"check js files with jshint
+let g:syntastic_javascript_checkers = ['jshint']

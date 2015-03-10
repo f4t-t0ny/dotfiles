@@ -18,5 +18,8 @@
 #ignore vim eclim folder
 .vim/eclim/*
 
+#jshint config
+!.jshintrc
+
 #but still ignore binary files
 *.pyc
