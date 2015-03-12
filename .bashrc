@@ -6,7 +6,7 @@
 
 source ~/.bash/functions.d/log
 source ~/.bash/functions.d/git-prompt
-source ~/.bash/functions.d/updatepath
+source ~/.bash/functions.d/path
 
 log "loading $HOME/.bashrc"
 

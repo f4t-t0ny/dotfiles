@@ -1,6 +1,52 @@
+#print path in
 function path(){
-    old=$IFS
-    IFS=:
-    printf "%s\n" $PATH
-    IFS=$old
+  for TMP_PATH in ${PATH//:/ }
+    do echo $TMP_PATH
+  done
+}
+
+#add to path, but check before, if already present
+function updatepath(){
+
+  local OPTIND
+  local OPT_REVERSE=false
+
+  while getopts r FLAG; do
+    case $FLAG in
+      r) OPT_REVERSE=true
+         ;;
+    esac
+  done 
+
+  shift $((OPTIND-1)) #shift args
+
+  log $OPT_REVERSE
+
+  NEWPATH=$1;
+  log "trying to add $NEWPATH to PATH"
+  if [[ -d $NEWPATH ]] #check if path exists
+  then 
+    case ":$PATH:" in
+    *":$NEWPATH:"*) :
+      log "$NEWPATH is a duplicate"
+      ;;
+    *) 
+      log "$NEWPATH not present, adding to PATH"
+      if $OPT_REVERSE; then
+        PATH=$PATH:$NEWPATH
+      else 
+        PATH=$NEWPATH:$PATH
+      fi
+      ;;
+    esac
+  else
+    log "$NEWPATH doesnt exist"
+  fi
+}
+function checkpath(){
+  PATH_SAVE=$PATH 
+  PATH=
+  for TMP_PATH in ${PATH_SAVE//:/ }
+    do updatepath -r $TMP_PATH
+  done
 }

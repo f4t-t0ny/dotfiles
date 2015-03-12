@@ -1,5 +1,5 @@
 #!/bin/bash
-. ~/.bash/functions.d/updatepath
+. ~/.bash/functions.d/path
 
 export ANDROID_SDK=$OPT/android/sdk
 export ANDROID_NDK=$OPT/android-ndk-r7b

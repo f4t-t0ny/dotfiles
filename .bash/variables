@@ -1,6 +1,6 @@
 #!/bin/bash
 . ~/.bash/functions.d/log
-. ~/.bash/functions.d/updatepath
+. ~/.bash/functions.d/path
 
 export DATA=/media/data
 export BB_HOME=$OPT/blackberry

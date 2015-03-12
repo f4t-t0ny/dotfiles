@@ -1,2 +1,3 @@
 #initialize ruby
-rbenv version 2>&1 >/dev/null && eval "$(rbenv init -)"
+rbenv version >/dev/null 2>&1 && eval "$(rbenv init -)"
+checkpath
