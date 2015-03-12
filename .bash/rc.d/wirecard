@@ -19,8 +19,6 @@ EZLINK_SAMPLE_CEPAS_REDEMPTION_AWARD="02014436303030303030303030313046313030301c
 
 DYLD_FORCE_FLAT_NAMESPACE=1
 
-#initialize ruby
-#eval "$(rbenv init -)"
 
 alias vim="DYLD_FORCE_FLAT_NAMESPACE=1 vim"
 
@@ -44,3 +42,4 @@ fi
 
 export KUBERNETES_PROVIDER=local
 updatepath ~/git/kubernetes/cluster
+
