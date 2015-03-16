@@ -59,8 +59,6 @@ set clipboard=unnamed
 "activate filetype plugins, needed for nerdcomment
 filetype plugin indent on
 
-"for pathogen
-execute pathogen#infect()
 
 
 "powerline
@@ -185,3 +183,6 @@ let g:NERDCustomDelimiters = { 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightA
 
 "check js files with jshint
 let g:syntastic_javascript_checkers = ['jshint']
+
+"enable pathogen plugins
+execute pathogen#infect()
