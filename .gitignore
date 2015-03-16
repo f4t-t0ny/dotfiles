@@ -15,6 +15,11 @@
 !.vimrc
 !.vim/
 !.vim/*
+
+#but vim plugins
+.vim/bundle/
+!.vim/bundle/vundle/*
+
 #ignore vim eclim folder
 .vim/eclim/*
 

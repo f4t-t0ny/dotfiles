@@ -74,9 +74,6 @@ let g:NERDTreeShowHidden=1
 filetype plugin on
 "set omnifunc=syntaxcomplete#Complete
 
-"vimwiki settings
-set nocompatible
-
 "switch easily between windows
 nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
@@ -184,5 +181,34 @@ let g:NERDCustomDelimiters = { 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightA
 "check js files with jshint
 let g:syntastic_javascript_checkers = ['jshint']
 
-"enable pathogen plugins
-execute pathogen#infect()
+"initialize vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+"vundle plugin manager
+Bundle 'gmarik/vundle'
+"vim plugins
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'cakebaker/scss-syntax.vim'
+Bundle 'chase/vim-ansible-yaml'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'ekalinin/Dockerfile.vim'
+Bundle 'fatih/vim-go'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'powerline/powerline'
+Bundle 'rodjek/vim-puppet'
+Bundle 'scrooloose/Syntastic'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tfnico/vim-gradle'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-git'
+Bundle 'tpope/vim-rails'
+Bundle 'vim-scripts/vimwiki'
+
+"set filetype back on
+filetype on
+
