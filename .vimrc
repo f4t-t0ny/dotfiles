@@ -203,7 +203,7 @@ if has("unix")
   endif
 endif
 
-if !s:youcompleteme_disabled
+if !exists(s:youcompleteme_disabled)
   Bundle 'Valloric/YouCompleteMe'
 endif
 Bundle 'cakebaker/scss-syntax.vim'
