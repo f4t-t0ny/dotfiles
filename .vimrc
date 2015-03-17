@@ -189,8 +189,23 @@ call vundle#rc()
 
 "vundle plugin manager
 Bundle 'gmarik/vundle'
+
 "vim plugins
-Bundle 'Valloric/YouCompleteMe'
+"
+if has("unix") 
+  let s:uname = system("uname -s")
+  if s:uname =~ "Linux"
+    let s:distributor = system("lsb_release -si")
+    let s:release = system("lsb_release -sr")
+    if s:distributor =~ "RedHatEnterpriseServer" && str2float(s:release) <= 6.6 "redhat6 got no glibc 2.14, so disable youcompleteme
+      let s:youcompleteme_disabled = 1
+    endif
+  endif
+endif
+
+if !s:youcompleteme_disabled
+  Bundle 'Valloric/YouCompleteMe'
+endif
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'chase/vim-ansible-yaml'
 Bundle 'digitaltoad/vim-jade'
