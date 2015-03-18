@@ -98,7 +98,7 @@ if has("unix")
 endif
 set backspace=indent,eol,start
 
-autocmd BufRead,BufNewFile ~/.bash/* set syntax=sh
+autocmd BufRead,BufNewFile ~/.bash/* set filetype=sh
 "tab switching
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabnext<CR>
@@ -192,20 +192,22 @@ Bundle 'gmarik/vundle'
 
 "vim plugins
 "
-if has("unix") 
-  let s:uname = system("uname -s")
-  if s:uname =~ "Linux"
-    let s:distributor = system("lsb_release -si")
-    let s:release = system("lsb_release -sr")
-    if s:distributor =~ "RedHatEnterpriseServer" && str2float(s:release) <= 6.6 "redhat6 got no glibc 2.14, so disable youcompleteme
-      let s:youcompleteme_disabled = 1
-    endif
-  endif
-endif
+"if has("unix") 
+  "let s:uname = system("uname -s")
+  "if s:uname =~ "Linux"
+    "let s:distributor = system("lsb_release -si")
+    "let s:release = system("lsb_release -sr")
+    "if s:distributor =~ "RedHatEnterpriseServer" && str2float(s:release) <= 6.6 "redhat6 got no glibc 2.14, so disable youcompleteme
+      "let s:youcompleteme_disabled = 1
+    "endif
+  "endif
+"endif
 
-if !exists("s:youcompleteme_disabled")
-  Bundle 'Valloric/YouCompleteMe'
-endif
+"if !exists("s:youcompleteme_disabled")
+  "Bundle 'Valloric/YouCompleteMe'
+"endif
+
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'chase/vim-ansible-yaml'
 Bundle 'digitaltoad/vim-jade'
