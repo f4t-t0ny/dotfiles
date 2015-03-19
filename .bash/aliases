@@ -9,6 +9,7 @@ alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 alias cgrep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias rigrep='cgrep -rni'
 #Ende Farben
 
 #Verschiedenes
