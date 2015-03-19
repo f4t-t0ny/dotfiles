@@ -170,8 +170,10 @@ let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimFileTypeValidate=0
 let g:EclimJavascriptValidate=0
 
+"YouCompleteMe Options 
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_filepath_completion_use_working_dir = 1
 autocmd BufRead,BufNewFile /etc/icinga2/* set syntax=cpp
 autocmd BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
 
