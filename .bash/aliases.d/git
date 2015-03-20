@@ -1,0 +1,10 @@
+GIT_CORE_DIR=/usr/libexec/git-core
+updatepath -r $GIT_CORE_DIR
+
+# create aliases for git
+test ! -d $GIT_CORE_DIR && return #return if git dir not present
+for _cmd in $(echo $GIT_CORE_DIR/*|xargs -n1 basename|grep -v '^git$'); #get all except git binary itself
+do _alias=$(echo $_cmd|sed s/^git-/g/g)
+  alias $_alias=$_cmd
+done
+
