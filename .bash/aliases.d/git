@@ -1,4 +1,18 @@
-GIT_CORE_DIR=/usr/libexec/git-core
+git --version >/dev/null 2>&1 || return #check if git installed, return else
+GIT_VERSION=$(git --version|cut -d' ' -f3)
+
+case $(uname) in 
+  Linux)
+    GIT_CORE_DIR=/usr/libexec/git-core
+    ;;
+  Darwin)
+    GIT_CORE_DIR=~/homebrew/Cellar/git/${GIT_VERSION}/libexec/git-core
+    ;;
+  *)
+    return
+    ;;
+esac
+
 updatepath -r $GIT_CORE_DIR
 
 # create aliases for git
