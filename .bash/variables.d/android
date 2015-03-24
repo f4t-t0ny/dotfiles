@@ -1,7 +1,12 @@
 #!/bin/bash
 . ~/.bash/functions.d/path
 
-export ANDROID_SDK=$OPT/android/sdk
+if [[ $(uname) == "Darwin" ]]; then
+  export ANDROID_SDK=~/library/Android/sdk
+elif [[ $(uname) == "Linux" ]]; then
+  export ANDROID_SDK=$OPT/android/sdk
+fi
+
 export ANDROID_NDK=$OPT/android-ndk-r7b
 
 export ANDROID_SEARCH_API=19

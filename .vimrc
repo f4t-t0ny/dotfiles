@@ -192,22 +192,37 @@ call vundle#rc()
 "vundle plugin manager
 Bundle 'gmarik/vundle'
 
+"shift line forward (Ctrl-Shift-Tab for backward shift)
+nmap <C-Tab> i_<Esc>mz:set ve=all<CR>o<C-o>`z<Down>_<Esc>:exe "normal >>"<CR>my`z:exe "normal >>"<CR>`y<Up>mz<Down>dd`z:set ve=<CR>i<Del><Right><Esc>
+nmap <C-S-Tab> i_<Esc>mz:set ve=all<CR>o<C-o>`z<Down>_<Esc>:exe "normal <<"<CR>my`zi<Del><Esc>:exe "normal <<"<CR>`y<Up>mz<Down>dd`z:set ve=<CR>:<Del>
+imap <C-Tab> _<Esc>mz:set ve=all<CR>o<C-o>`z<Down>_<Esc>:exe "normal >>"<CR>my`z:exe "normal >>"<CR>`y<Up>mz<Down>dd`z:set ve=<CR>i<Del>
+imap <C-S-Tab> _<Esc>mz:set ve=all<CR>o<C-o>`z<Down>_<Esc>:exe "normal <<"<CR>my`zi<Del><Esc>:exe "normal <<"<CR>`y<Up>mz<Down>dd`z:set ve=<CR>i
+
 "vim plugins
 "
-"if has("unix") 
-  "let s:uname = system("uname -s")
-  "if s:uname =~ "Linux"
-    "let s:distributor = system("lsb_release -si")
-    "let s:release = system("lsb_release -sr")
-    "if s:distributor =~ "RedHatEnterpriseServer" && str2float(s:release) <= 6.6 "redhat6 got no glibc 2.14, so disable youcompleteme
-      "let s:youcompleteme_disabled = 1
-    "endif
-  "endif
-"endif
+if has("unix") 
+  let s:uname = system("uname -s")
+  if s:uname =~ "Linux"
+    let s:distributor = system("lsb_release -si")
+    let s:release = system("lsb_release -sr")
+    if s:distributor =~ "RedHatEnterpriseServer" && str2float(s:release) <= 6.6 "redhat6 got no glibc 2.14, so disable youcompleteme
+      let s:youcompleteme_disabled = 1
+    endif
+  elseif s:uname =~"Darwin"
+  endif
+endif
 
 "if !exists("s:youcompleteme_disabled")
   "Bundle 'Valloric/YouCompleteMe'
 "endif
+
+set guifont=Inconsolata\ for\ Powerline:h15
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
 
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'cakebaker/scss-syntax.vim'
@@ -217,7 +232,8 @@ Bundle 'ekalinin/Dockerfile.vim'
 Bundle 'fatih/vim-go'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'powerline/powerline'
+"Bundle 'powerline/powerline'
+Bundle 'bling/vim-airline'
 Bundle 'rodjek/vim-puppet'
 Bundle 'scrooloose/Syntastic'
 Bundle 'scrooloose/nerdcommenter'
