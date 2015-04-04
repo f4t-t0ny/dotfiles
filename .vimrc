@@ -10,11 +10,11 @@ set expandtab
 "colorscheme cobalt
 
 " DONT REMOVE THIS, ELSE COLORSCHEMES DONT WORK!!!!!!
-colorscheme 256-grayvim
+"colorscheme 256-grayvim
 " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 "colorscheme Monokai-chris
-colorscheme Monokai
+"colorscheme Monokai
 set noswapfile
 se nu 
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
@@ -243,6 +243,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-scripts/vimwiki'
+Bundle 'flazz/vim-colorschemes'
 
 "set filetype back on
 filetype on
