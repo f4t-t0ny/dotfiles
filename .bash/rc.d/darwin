@@ -1,4 +1,4 @@
 if [[ -d ~/homebrew/share/man ]] 
 then export MANPATH="$HOME/homebrew/share/man/:$MANPATH"
 fi
-export LSCOLORS=exfxcxdxcxexexabagacad
+export LSCOLORS=exgxcxdxcxexexabagacad

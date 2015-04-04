@@ -1,3 +1,14 @@
-export M2_HOME=/usr/local/share/apache-maven
-export M2=$M2_HOME/bin
-updatepath $M2
+case $(uname) in 
+  Linux)
+    export M2_HOME=/usr/local/share/apache-maven
+    export M2=$M2_HOME/bin
+    updatepath $M2
+    ;;
+  Darwin)
+    #M2_HOME=~/homebrew/Cellar/maven/3.2.5/
+    unset M2 M2_HOME
+    ;;
+  *)
+    return
+    ;;
+esac
