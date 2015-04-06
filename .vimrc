@@ -244,7 +244,20 @@ Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-scripts/vimwiki'
 Bundle 'flazz/vim-colorschemes'
+Bundle 'vim-scripts/darkspectrum'
+Bundle 'thinca/vim-guicolorscheme'
 
 "set filetype back on
 filetype on
 
+"go stuff
+let g:go_fmt_command = "goimports"
+
+if (&t_Co == 256 || &t_Co == 88) && !has('gui_running')
+  runtime ! bundle/vim-guicolorscheme/plugin/guicolorscheme.vim
+  "set background=dark
+  "GuiColorScheme base16-atelierlakeside
+  GuiColorScheme darkspectrum
+else
+  colorscheme darkspectrum
+endif

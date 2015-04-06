@@ -1,3 +1,1 @@
-#export GOROOT=~/.local/share/go
-#export GOPATH=$GOROOT
-#updatepath $GOROOT/bin
+export GOPATH=~/.go
