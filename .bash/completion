@@ -1,3 +1,4 @@
-if [ -d ~/.bash_completion.d ]; then
-    . ~/.bash_completion.d/*
-fi
+for file in ~/.bash/completion.d/*; do 
+  log "loading $file"
+  . $file;
+done
