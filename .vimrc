@@ -232,13 +232,14 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'fatih/vim-go'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kchmck/vim-coffee-script'
-"Plugin 'powerline/powerline'
 Plugin 'bling/vim-airline'
 Plugin 'rodjek/vim-puppet'
 Plugin 'scrooloose/Syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tfnico/vim-gradle'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-rails'
@@ -246,6 +247,8 @@ Plugin 'vim-scripts/vimwiki'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-scripts/darkspectrum'
 Plugin 'thinca/vim-guicolorscheme'
+"----old stuff
+"Plugin 'powerline/powerline'
 
 "set filetype back on
 filetype on
@@ -261,3 +264,13 @@ if (&t_Co == 256 || &t_Co == 88) && !has('gui_running')
 else
   colorscheme darkspectrum
 endif
+
+"vimwiki settings
+let vimwiki_path=$HOME.'/vimwiki/'
+let vimwiki_html_path=$HOME.'/vimwiki_html/'
+let g:vimwiki_list = [{'path_html':vimwiki_html_path,
+                       \ 'template_path':vimwiki_html_path.'assets/',
+                       \ 'template_default': 'default',
+                       \ 'template_ext': '.tpl',
+                       \ 'auto_export': 1}]
+
