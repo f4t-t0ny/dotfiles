@@ -224,29 +224,32 @@ set fillchars+=stl:\ ,stlnc:\
 set term=xterm-256color
 set termencoding=utf-8
 
+"Basic plugins
+Plugin 'scrooloose/nerdtree'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'bling/vim-airline'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'fatih/vim-go'
+Plugin 'flazz/vim-colorschemes'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'bling/vim-airline'
 Plugin 'rodjek/vim-puppet'
 Plugin 'scrooloose/Syntastic'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
 Plugin 'tfnico/vim-gradle'
+Plugin 'thinca/vim-guicolorscheme'
 Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-rails'
-Plugin 'vim-scripts/vimwiki'
-Plugin 'flazz/vim-colorschemes'
+Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/darkspectrum'
-Plugin 'thinca/vim-guicolorscheme'
+Plugin 'vim-scripts/vimwiki'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'airblade/vim-gitgutter'
 "----old stuff
 "Plugin 'powerline/powerline'
 
@@ -269,7 +272,7 @@ endif
 let vimwiki_path=$HOME.'/vimwiki/'
 let vimwiki_html_path=$HOME.'/vimwiki_html/'
 let g:vimwiki_list = [{'path_html':vimwiki_html_path,
-                       \ 'template_path':vimwiki_html_path.'assets/',
+                       \ 'template_path':vimwiki_html_path,
                        \ 'template_default': 'default',
                        \ 'template_ext': '.tpl',
                        \ 'auto_export': 1}]
