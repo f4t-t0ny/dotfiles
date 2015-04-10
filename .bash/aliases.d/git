@@ -3,7 +3,12 @@ GIT_VERSION=$(git --version|cut -d' ' -f3)
 
 case $(uname) in 
   Linux)
-    GIT_CORE_DIR=/usr/libexec/git-core
+    case $(lsb_release -is) in
+      Ubuntu)
+        GIT_CORE_DIR=/usr/lib/git-core;;
+      *)
+        GIT_CORE_DIR=/usr/libexec/git-core;;
+    esac
     ;;
   Darwin)
     GIT_CORE_DIR=~/homebrew/Cellar/git/${GIT_VERSION}/libexec/git-core
