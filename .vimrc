@@ -250,6 +250,8 @@ Plugin 'vim-scripts/darkspectrum'
 Plugin 'vim-scripts/vimwiki'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'rosenfeld/conque-term'
+Plugin 'bruno-/vim-man'
 "----old stuff
 "Plugin 'powerline/powerline'
 
