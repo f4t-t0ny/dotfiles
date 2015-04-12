@@ -279,3 +279,4 @@ let g:vimwiki_list = [{'path_html':vimwiki_html_path,
                        \ 'template_ext': '.tpl',
                        \ 'auto_export': 1}]
 
+let g:ConqueTerm_StartMessages = 0
