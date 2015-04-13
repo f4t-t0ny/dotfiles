@@ -261,12 +261,12 @@ filetype on
 "go stuff
 let g:go_fmt_command = "goimports"
 
-if (isdirectory("~/.vim/bundle/vim-guicolorscheme") && &t_Co == 256 || &t_Co == 88) && !has('gui_running')
+if (isdirectory(expand("$HOME/.vim/bundle/vim-guicolorscheme")) && &t_Co == 256 || &t_Co == 88) && !has('gui_running')
   runtime ! bundle/vim-guicolorscheme/plugin/guicolorscheme.vim
   "set background=dark
   "GuiColorScheme base16-atelierlakeside
   GuiColorScheme darkspectrum
-elseif isdirectory("~/.vim/bundle/darkspectrum")
+elseif isdirectory(expand("$HOME/.vim/bundle/darkspectrum"))
   colorscheme darkspectrum
 endif
 
