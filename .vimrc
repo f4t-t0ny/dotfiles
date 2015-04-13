@@ -233,20 +233,27 @@ Plugin 'chase/vim-ansible-yaml'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'fatih/vim-go'
-Plugin 'flazz/vim-colorschemes'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'rodjek/vim-puppet'
 Plugin 'scrooloose/Syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tfnico/vim-gradle'
-Plugin 'thinca/vim-guicolorscheme'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-surround'
-Plugin 'vim-scripts/darkspectrum'
+Plugin 'flazz/vim-colorschemes'
+
+"Colorschemes start
+Plugin 'thinca/vim-guicolorscheme'
+"Plugin 'vim-scripts/darkspectrum'
+"Plugin 'atelierbram/vim-colors_atelier-schemes'
+"Plugin 'vim-scripts/playroom'
+Plugin 'vim-scripts/summerfruit256.vim'
+"Plugin 'altercation/vim-colors-solarized'
+
 Plugin 'vim-scripts/vimwiki'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'airblade/vim-gitgutter'
@@ -261,14 +268,18 @@ filetype on
 "go stuff
 let g:go_fmt_command = "goimports"
 
-if (isdirectory(expand("$HOME/.vim/bundle/vim-guicolorscheme")) && &t_Co == 256 || &t_Co == 88) && !has('gui_running')
-  runtime ! bundle/vim-guicolorscheme/plugin/guicolorscheme.vim
+"if (isdirectory(expand("$HOME/.vim/bundle/vim-guicolorscheme")) && &t_Co == 256 || &t_Co == 88) && !has('gui_running')
+  "runtime ! bundle/vim-guicolorscheme/plugin/guicolorscheme.vim
   "set background=dark
-  "GuiColorScheme base16-atelierlakeside
-  GuiColorScheme darkspectrum
-elseif isdirectory(expand("$HOME/.vim/bundle/darkspectrum"))
-  colorscheme darkspectrum
-endif
+  ""set background=light
+  ""GuiColorScheme base16-atelierlakeside
+  ""GuiColorScheme darkspectrum
+  ""GuiColorScheme playroom
+  "GuiColorScheme solarized
+"elseif isdirectory(expand("$HOME/.vim/bundle/darkspectrum"))
+  "colorscheme darkspectrum
+"endif
+colorscheme summerfruit256
 
 "vimwiki settings
 let vimwiki_path=$HOME.'/vimwiki/'
