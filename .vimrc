@@ -190,7 +190,9 @@ let g:EclimJavascriptValidate=0
 "Colorscheme plugins
 Plugin 'thinca/vim-guicolorscheme'
 Plugin 'vim-scripts/summerfruit256.vim'
-colorscheme summerfruit256
+if isdirectory(expand("~/.vim/bundle/summerfruit256.vim"))
+  colorscheme summerfruit256
+endif
 
 "Other plugins
 Plugin 'vim-scripts/vimwiki'
