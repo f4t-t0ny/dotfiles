@@ -2,7 +2,7 @@
 . ~/.bash/functions.d/path
 
 if [[ $(uname) == "Darwin" ]]; then
-  export ANDROID_SDK=~/library/Android/sdk
+  export ANDROID_SDK=~/Library/Android/sdk
 elif [[ $(uname) == "Linux" ]]; then
   export ANDROID_SDK=$OPT/android/sdk
 fi

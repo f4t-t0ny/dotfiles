@@ -1,0 +1,11 @@
+case $(uname) in 
+  Linux)
+    ;;
+  Darwin)
+    ECLIPSE_HOME=~/.local/share/eclipse
+    updatepath $ECLIPSE_HOME
+    ;;
+  *)
+    return
+    ;;
+esac
