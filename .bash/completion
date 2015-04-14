@@ -1,3 +1,4 @@
+#completion
 for file in ~/.bash/completion.d/*; do 
   log "loading $file"
   . $file;

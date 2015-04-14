@@ -1,4 +1,4 @@
-case $(uname) in 
+case $UNAME in 
   Linux)
     ;;
   Darwin)

@@ -1,0 +1,7 @@
+function checkload() {
+  _file=$1
+  if [ -f "$_file" ]; then
+    log "loading $_file"
+    . $_file
+  fi
+}

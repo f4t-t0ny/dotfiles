@@ -1,9 +1,9 @@
 #!/bin/bash
 . ~/.bash/functions.d/path
 
-if [[ $(uname) == "Darwin" ]]; then
+if [[ $UNAME == "Darwin" ]]; then
   export ANDROID_SDK=~/Library/Android/sdk
-elif [[ $(uname) == "Linux" ]]; then
+elif [[ $UNAME == "Linux" ]]; then
   export ANDROID_SDK=$OPT/android/sdk
 fi
 

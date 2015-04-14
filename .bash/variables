@@ -1,71 +1,21 @@
 #!/bin/bash
-. ~/.bash/functions.d/log
 . ~/.bash/functions.d/path
 
-export DATA=/media/data
-export BB_HOME=$OPT/blackberry
-export BB_SDK=$BB_HOME/tools/SDK
-
 export EDITOR=vim
+export PAGER=less
 
-#########################################
-#Diploma Thesis
-export MATLABPATH=~/matlab
-
-
-#########################################
-
-export DEV=~/dev
-
-export DEFAULT_PATH=/usr/local/sbin:/usr/local/bin
 updatepath /usr/sbin
 updatepath /sbin
 updatepath ~/bin
 updatepath ~/.bash/scripts.d
+updatepath /usr/local/go/bin
+updatepath /usr/local/share/jruby/bin
 
-export HEALTHMANAGER=$HOME/git/biocomfort/healthmanager
-export thesis=$HOME/workspace/Studienarbeit/bachelor-thesis
-
-# ROS
-export ROS_VMI_SVN=~/workspace/Forschungspraxis/vmi-ros-pkg
-export ROS_VMI_ROALTER_BRANCH=$ROS_VMI_SVN/branch/0.4-roalter
-export ROS_VMI_COGNITIVE_LOCATIONS=$ROS_VMI_SVN/trunk/vmi_cognitive_environment:$ROS_VMI_ROALTER_BRANCH/vmi_cognitive_environment:$ROS_VMI_ROALTER_BRANCH/vmi_external_dependencies
-export ROS_WORKSPACE=~/workspace/ros/packages
-export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ROS_VMI_COGNITIVE_LOCATIONS:$ROS_WORKSPACE
-
-export EXTERNAL_DISK_256GB=/media/andreas/9580b6e2-65f4-4e1f-aba4-468eef03b95a
-export Z=$EXTERNAL_DISK_256GB
-export WF=$Z/Privat/Fussball/Weihnachtsfeier/2012
-
-export PYTHONPATH=$PYTHONPATH:/usr/lib/gimp/2.0/python/
-
-export BBTH="$EXTERNAL_DISK_256GB/Video/Serien/Big-Bang-Theory"
-export SPD="$EXTERNAL_DISK_256GB/Video/Serien/Southpark"
-
-export HS=~/Dropbox/unencrypted/Studium/Hauptseminar
-
-export FFMPEG_DATADIR=~/.ffmpeg/
-export OCTAVE_HOME=~/Dropbox/unencrypted/Programmieren/octave/
-export PAGER=less
-export S=/media/andreas/F4AD-DCDC/
-
-# latex include
-export TEXMFHOME=~/.texmf
-
-# tuxonice
-export SLEEP_MODULE=kernel
-
-#wine
-WINEPREFIX=/home/andreas/.wine
+UNAME=$(uname)
+DISTRIBUTION=$(lsb_release >/dev/null 2>&1 && lsb_release -si)
 
 for file in ~/.bash/variables.d/*; 
 do 
   log "loading $file"
   . $file
 done
-
-
-export BASH_LOG=~/.bash_log
-
-updatepath /usr/local/go/bin
-updatepath /usr/local/share/jruby/bin

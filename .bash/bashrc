@@ -1,0 +1,18 @@
+# .bashrc
+. ~/.bash/functions.d/log
+. ~/.bash/functions.d/checkload
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return 
+
+# load files in .bash
+log "loading .bashrc"
+for file_base in \
+  'completion' \
+  'functions' \
+  'variables' \
+  'aliases' \
+  'rc'
+do 
+  checkload ".bash/$file_base"
+done

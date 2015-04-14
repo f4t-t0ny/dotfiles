@@ -1,0 +1,52 @@
+function ag(){
+arg=$1
+case $arg in
+    u|ud) arg=update;;
+    ug) arg=upgrade;;
+    i)  arg=install;;
+    r)  arg=remove;;
+    ar) arg=autoremove;;
+    p)  arg=purge;;
+    dl) arg=download;;
+    du) arg=dist-upgrade;;
+    bd) arg=build-dep;;
+    src) arg=source;;
+    *)  echo 'bad arguments';
+        return 1;
+esac
+shift
+sudo apt-get $arg $*
+}
+
+function ac(){
+  arg=$1
+  case $arg in 
+      s) arg="search -n";;
+      dp) arg=depends;;
+      sh) arg=show;;
+      *) echo 'bad arguments';
+         return 1;
+  esac
+  shift
+  apt-cache $arg $*
+}
+
+function apt-history(){
+case "$1" in
+  install)
+    cat /var/log/dpkg.log | grep 'install '
+    ;;
+  upgrade|remove)
+    cat /var/log/dpkg.log | grep $1
+    ;;
+  rollback)
+    cat /var/log/dpkg.log | grep upgrade | \
+      grep "$2" -A10000000 | \
+      grep "$3" -B10000000 | \
+      awk '{print $4"="$5}'
+    ;;
+  *)
+    cat /var/log/dpkg.log
+    ;;
+esac
+}

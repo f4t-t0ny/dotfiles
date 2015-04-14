@@ -1,5 +1,5 @@
-if [[ $(uname) == "Linux" ]]
+if [[ $UNAME == "Linux" ]]
 then alias ls="ls --color"
-elif [[ $(uname) == "Darwin" ]]
+elif [[ $UNAME == "Darwin" ]]
 then alias ls="ls -G"
 fi

@@ -1,7 +1,7 @@
 git --version >/dev/null 2>&1 || return #check if git installed, return else
 GIT_VERSION=$(git --version|cut -d' ' -f3)
 
-case $(uname) in 
+case $UNAME in 
   Linux)
     case $(lsb_release -is) in
       Ubuntu)

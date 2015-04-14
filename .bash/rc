@@ -1,8 +1,5 @@
-#!/bin/bash
-. ~/.bash/functions.d/log
-
-for file in ~/.bash/rc.d/*; 
-  do 
+#rc
+for file in ~/.bash/rc.d/*; do 
     log "loading $file"
     . $file
 done
