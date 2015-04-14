@@ -76,7 +76,6 @@ function SourceRecursive(vim_custom_filename)
   "}}}
 endfunction
 
-
 """"""""""""""""
 " Autocommands "
 """"""""""""""""
@@ -91,17 +90,14 @@ au Filetype           gitcommit setlocal spell textwidth=72
 
 """"""""""""""""""""""""
 " OS dependent settings"
-"""""""""""""""""""""""
-if has("unix") 
-  let s:uname = system("uname -s")
-  if s:uname =~ "Linux"
-    let s:distributor = system("lsb_release -si")
-    let s:release = system("lsb_release -sr")
-    if s:distributor =~ "RedHatEnterpriseServer" && str2float(s:release) <= 6.6 "redhat6 got no glibc 2.14, so disable youcompleteme
-      let s:youcompleteme_disabled = 1
-    endif
-  elseif s:uname =~"Darwin"
-  endif
+""""""""""""""""""""""""
+let s:uname = system("uname -s")
+let s:distribution = system("lsb_release >/dev/null 2>&1 && lsb_release -si")
+let s:release = system("lsb_release >/dev/null 2>&1 && lsb_release -sr")
+if !has("unix") 
+  "dont do anything if not unix
+elseif s:uname =~ "Linux" && s:distributor =~ "RedHatEnterpriseServer" && str2float(s:release) <= 6.6 "redhat6 got no glibc 2.14, so disable youcompleteme
+  let s:youcompleteme_disabled = 1
 endif
 
 """"""""""""""""""""
@@ -212,7 +208,3 @@ let g:ConqueTerm_StartMessages = 0
 Plugin 'bruno-/vim-man'
 
 filetype on "set filetype back on
-"""""""""""""""""""""
-" Vundle Plugins END"
-"""""""""""""""""""""
-
