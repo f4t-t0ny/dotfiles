@@ -9,20 +9,21 @@
 """"""""""""""""""
 syntax on
 set noswapfile
-se nu 
-se foldmethod=marker
-se tabstop=2
-se shiftwidth=2
-se expandtab
-se mouse=a "always use mouse
+set nu 
+set foldmethod=marker
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set mouse=a "always use mouse
 set backspace=indent,eol,start
+set wildmode=longest,list "wildcard type in ex mode
 set clipboard=unnamed "use system clipboard
 filetype plugin indent on "activate all filetype triggers
 let mapleader="," "set leader key
 
-""""""""""""""""
-" Key mappings "
-""""""""""""""""
+""""""""""""""""""""""""
+" General key mappings "
+""""""""""""""""""""""""
 "dont yank when pasting
 xnoremap p pgvy
 "tab switching
@@ -94,8 +95,12 @@ au BufNewFile,BufRead *.jshintrc set filetype=json
 au BufRead,BufNewFile /etc/icinga2/* set syntax=cpp
 au BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
 au Filetype gitcommit setlocal spell textwidth=72
-au Filetype java setlocal foldmethod=syntax
+au Filetype java setlocal foldmethod=indent
 "au BufWritePre <buffer> call Indent() " Indent on save hook
+
+"autosave folding
+au BufWinLeave *.* mkview
+au BufWinEnter *.* silent loadview
 
 """"""""""""""""""""""""
 " OS dependent settings"
@@ -181,6 +186,7 @@ let g:NERDCustomDelimiters = { 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightA
 "}}}
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-surround'
+Plugin 'SirVer/ultisnips'
 
 "Language/syntax plugins
 Plugin 'fatih/vim-go'
@@ -201,6 +207,10 @@ let g:EclimCompletionMethod = 'omnifunc'
 "let g:EclimFileTypeValidate=0 "disable eclim validation, enable syntastic
 let g:EclimJavascriptValidate=0
 let g:EclimJavaValidate=1
+au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
+au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
+au FileType java nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
+au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 "}}}
 
 "Colorscheme plugins

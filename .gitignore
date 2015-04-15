@@ -2,29 +2,30 @@
 /*
 
 #except git files
-!.gitignore
-!.gitconfig
-!.gitmodules
+!/.gitignore
+!/.gitconfig
+!/.gitmodules
 
 #except bash files
-!.bashrc
-!.bash/
-!.bash/*
+!/.bashrc
+!/.bash/
+!/.bash/*
 
 #except vim files
-!.vimrc
-!.vim/
-!.vim/*
+!/.vimrc
+!/.vim/
+!/.vim/*
 
 #but vim plugins
-.vim/bundle/
-!.vim/bundle/vundle/*
+/.vim/bundle/
+!/.vim/bundle/vundle/*
 
 #ignore vim eclim folder
-.vim/eclim/*
+/.vim/eclim/*
+/.vim/view/*
 
 #jshint config
-!.jshintrc
+!/.jshintrc
 
 #but still ignore binary files
 *.pyc
