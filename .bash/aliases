@@ -24,6 +24,7 @@ alias datestamp="date '+%Y%m%d'"
 alias timestamp="date '+%Y%m%d-%H:%M:%S'"
 alias scan='sudo nmap -sP $(ip get)/24'
 alias blackscreen="xset dpms force off"
+alias rld="source ~/.bashrc"
 
 if [[ $UNAME == "Linux" && $DISTRIBUTION == "RedHatEnterpriseServer" ]]; then
   alias sudosu='sudo bash -c "sed -ie s/^Defaults.*always_set_home// /etc/sudoers" && sudo -s'

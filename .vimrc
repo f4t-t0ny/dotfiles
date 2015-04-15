@@ -26,14 +26,16 @@ let mapleader="," "set leader key
 "dont yank when pasting
 xnoremap p pgvy
 "tab switching
-nnoremap th  :tabfirst<CR>
-nnoremap tj  :tabnext<CR>
-nnoremap tk  :tabprev<CR>
-nnoremap tl  :tablast<CR>
-nnoremap tt  :tabedit<CR>
-nnoremap tn  :tabnext<CR>
-nnoremap tm  :tabm<CR>
-nnoremap td  :tabclose<CR>
+nnoremap th  :tabfirst<cr>
+nnoremap tj  :tabnext<cr>
+nnoremap tk  :tabprev<cr>
+nnoremap tl  :tablast<cr>
+nnoremap tt  :tabedit<cr>
+nnoremap tn  :tabnext<cr>
+nnoremap tm  :tabm<cr>
+nnoremap td  :tabclose<cr>
+"edit vimrc in split
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
 """""""""""""
 " functions "
@@ -91,7 +93,8 @@ au BufNewFile,BufRead *.gitignore set filetype=conf
 au BufNewFile,BufRead *.jshintrc set filetype=json
 au BufRead,BufNewFile /etc/icinga2/* set syntax=cpp
 au BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
-au Filetype           gitcommit setlocal spell textwidth=72
+au Filetype gitcommit setlocal spell textwidth=72
+au Filetype java setlocal foldmethod=syntax
 "au BufWritePre <buffer> call Indent() " Indent on save hook
 
 """"""""""""""""""""""""
@@ -142,9 +145,17 @@ set fillchars+=stl:\ ,stlnc:\
 set term=xterm-256color
 set termencoding=utf-8
 "}}}
-Plugin 'scrooloose/Syntastic'
+"Plugin 'scrooloose/Syntastic'
 "{{{
 let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 "}}}
 "Nerdtree and plugins
 Plugin 'scrooloose/nerdtree'
@@ -187,8 +198,9 @@ Plugin 'tpope/vim-rails'
 Plugin 'dansomething/vim-eclim'
 "{{{
 let g:EclimCompletionMethod = 'omnifunc'
-let g:EclimFileTypeValidate=0
+"let g:EclimFileTypeValidate=0 "disable eclim validation, enable syntastic
 let g:EclimJavascriptValidate=0
+let g:EclimJavaValidate=1
 "}}}
 
 "Colorscheme plugins
