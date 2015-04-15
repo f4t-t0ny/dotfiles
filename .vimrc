@@ -1,3 +1,9 @@
+"       _
+"__   _(_)_ __ ___  _ __ ___
+"\ \ / / | '_ ` _ \| '__/ __|
+" \ V /| | | | | | | | | (__
+"  \_/ |_|_| |_| |_|_|  \___|
+
 """"""""""""""""""
 " basic settings "
 """"""""""""""""""
@@ -106,9 +112,12 @@ endif
 call SourceRecursive('.vim.custom')
 
 
-""""""""""""""""""
-" Vundle Plugins "
-""""""""""""""""""
+"                       _ _
+"__   ___   _ _ __   __| | | ___
+"\ \ / / | | | '_ \ / _` | |/ _ \
+" \ V /| |_| | | | | (_| | |  __/
+"  \_/  \__,_|_| |_|\__,_|_|\___|
+
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
@@ -175,7 +184,6 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'rodjek/vim-puppet'
 Plugin 'tfnico/vim-gradle'
 Plugin 'tpope/vim-rails'
-
 Plugin 'dansomething/vim-eclim'
 "{{{
 let g:EclimCompletionMethod = 'omnifunc'
