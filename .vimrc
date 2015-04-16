@@ -42,7 +42,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " functions "
 """""""""""""
 " Restore cursor position, window position, and last search after running a command.
-function! Preserve(command)
+fun! Preserve(command)
   "{{{
   " Save the last search.
   let search = @/
@@ -68,8 +68,8 @@ function! Preserve(command)
   " Restore the previous cursor position.
   call setpos('.', cursor_position)
   "}}}
-endfunction
-function SourceRecursive(vim_custom_filename, targetdir)
+endfun
+fun SourceRecursive(vim_custom_filename, targetdir)
   "{{{
   chdir / "goto root 
   for dir in split( a:targetdir, '/') "split full current path into directories
@@ -87,7 +87,7 @@ function SourceRecursive(vim_custom_filename, targetdir)
     endif
   endfor
   "}}}
-endfunction
+endfun
 
 """"""""""""""""
 " Autocommands "
@@ -194,9 +194,7 @@ Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-surround'
 Plugin 'SirVer/ultisnips'
 "{{{
-let g:UltiSnipsExpandTrigger="<c-j>"
-"let g:UltiSnipsJumpForwardTrigger="<c-f>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsExpandTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
 "}}}
 Plugin 'honza/vim-snippets'
