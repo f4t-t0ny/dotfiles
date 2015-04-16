@@ -74,10 +74,15 @@ function SourceRecursive(vim_custom_filename, targetdir)
   chdir / "goto root 
   for dir in split( a:targetdir, '/') "split full current path into directories
     "goto next dir
-    exe 'lcd ' . dir 
+    "echom "sourcing " . dir
+    if isdirectory(dir)
+      exe 'lcd ' . dir 
+    else
+      return
+    endif
     let fullname = getcwd() . '/' . a:vim_custom_filename
     if filereadable( fullname ) "check in every dir if a custom vim file exists
-      echom 'sourcing ' . fullname
+      "echom 'sourcing ' . fullname
       exe ':so ' . fullname 
     endif
   endfor
@@ -93,14 +98,19 @@ au BufNewFile,BufRead *.gitignore set filetype=conf
 au BufNewFile,BufRead *.jshintrc set filetype=json
 au BufRead,BufNewFile /etc/icinga2/* set syntax=cpp
 au BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
-"au! bufwritepost .vimrc source % "source vimrc after save
 au Filetype gitcommit setlocal spell textwidth=72
 au Filetype java setlocal foldmethod=indent
-"au BufWritePre <buffer> call Indent() " Indent on save hook
 
-""autosave folding TODO only save folds, but nothing else
+"load all .vim.custom files for each opened file
+au BufRead * if &l:modifiable | call SourceRecursive('.vim.custom', expand('%:p:h')) | endif
+"FIXME source vimrc after save
+"au! bufwritepost .vimrc source % "source vimrc after save
+"FIXME only save folds, but nothing else
 "au BufWinLeave *.* mkview
 "au BufWinEnter *.* silent loadview
+"DISABLED
+"au BufWritePre <buffer> call Indent() " Indent on save hook
+
 
 """"""""""""""""""""""""
 " OS dependent settings"
@@ -246,5 +256,4 @@ Plugin 'bruno-/vim-man'
 """"""""""""""""""""
 
 filetype on "set filetype back on
-call SourceRecursive('.vim.custom', getcwd())
-
+"call SourceRecursive('.vim.custom', getcwd())
