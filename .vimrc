@@ -69,18 +69,17 @@ function! Preserve(command)
   call setpos('.', cursor_position)
   "}}}
 endfunction
-function SourceRecursive(vim_custom_filename)
+function SourceRecursive(vim_custom_filename, targetdir)
   "{{{
-  let cwd_saved = getcwd()
   chdir / "goto root 
-  for dir in split( cwd_saved, '/') "split full current path into directories
-    let fullname = getcwd() . '/' . a:vim_custom_filename
-    if filereadable( a:vim_custom_filename ) "check in every dir if a custom vim file exists
-      "source it if so
-      exe ':so ' . fullname 
-    endif
+  for dir in split( a:targetdir, '/') "split full current path into directories
     "goto next dir
     exe 'lcd ' . dir 
+    let fullname = getcwd() . '/' . a:vim_custom_filename
+    if filereadable( fullname ) "check in every dir if a custom vim file exists
+      echom 'sourcing ' . fullname
+      exe ':so ' . fullname 
+    endif
   endfor
   "}}}
 endfunction
@@ -94,13 +93,14 @@ au BufNewFile,BufRead *.gitignore set filetype=conf
 au BufNewFile,BufRead *.jshintrc set filetype=json
 au BufRead,BufNewFile /etc/icinga2/* set syntax=cpp
 au BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
+"au! bufwritepost .vimrc source % "source vimrc after save
 au Filetype gitcommit setlocal spell textwidth=72
 au Filetype java setlocal foldmethod=indent
 "au BufWritePre <buffer> call Indent() " Indent on save hook
 
-"autosave folding
-au BufWinLeave *.* mkview
-au BufWinEnter *.* silent loadview
+""autosave folding TODO only save folds, but nothing else
+"au BufWinLeave *.* mkview
+"au BufWinEnter *.* silent loadview
 
 """"""""""""""""""""""""
 " OS dependent settings"
@@ -113,11 +113,6 @@ if !has("unix")
 elseif s:uname =~ "Linux" && s:distributor =~ "RedHatEnterpriseServer" && str2float(s:release) <= 6.6 "redhat6 got no glibc 2.14, so disable youcompleteme
   let s:youcompleteme_disabled = 1
 endif
-
-""""""""""""""""""""
-" Custom init code "
-""""""""""""""""""""
-call SourceRecursive('.vim.custom')
 
 
 "                       _ _
@@ -177,6 +172,7 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'gregsexton/gitv'
 
 "General editing plugins
 Plugin 'scrooloose/nerdcommenter'
@@ -187,6 +183,13 @@ let g:NERDCustomDelimiters = { 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightA
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-surround'
 Plugin 'SirVer/ultisnips'
+"{{{
+let g:UltiSnipsExpandTrigger="<c-j>"
+"let g:UltiSnipsJumpForwardTrigger="<c-f>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsEditSplit="vertical"
+"}}}
+Plugin 'honza/vim-snippets'
 
 "Language/syntax plugins
 Plugin 'fatih/vim-go'
@@ -209,7 +212,7 @@ let g:EclimJavascriptValidate=0
 let g:EclimJavaValidate=1
 au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
 au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
-au FileType java nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
+au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
 au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 "}}}
 
@@ -237,4 +240,11 @@ let g:ConqueTerm_StartMessages = 0
 "}}}
 Plugin 'bruno-/vim-man'
 
+
+""""""""""""""""""""
+" Custom init code "
+""""""""""""""""""""
+
 filetype on "set filetype back on
+call SourceRecursive('.vim.custom', getcwd())
+
