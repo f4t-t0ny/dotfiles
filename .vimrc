@@ -1,12 +1,13 @@
-"       _
-"__   _(_)_ __ ___  _ __ ___
-"\ \ / / | '_ ` _ \| '__/ __|
-" \ V /| | | | | | | | | (__
-"  \_/ |_|_| |_| |_|_|  \___|
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               Basic Settings                               "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               _                                              "
+"                        __   _(_)_ __ ___  _ __ ___                           "
+"                        \ \ / / | '_ ` _ \| '__/ __|                          "
+"                         \ V /| | | | | | | | | (__                           "
+"                          \_/ |_|_| |_| |_|_|  \___|                          "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                Basic Settings                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 syntax on
@@ -15,6 +16,7 @@ set nu
 set foldmethod=marker
 set tabstop=2
 set shiftwidth=2
+set textwidth=80
 set expandtab
 set mouse=a "always use mouse
 set backspace=indent,eol,start
@@ -22,10 +24,13 @@ set wildmode=longest,list "wildcard type in ex mode
 set clipboard=unnamed "use system clipboard
 filetype plugin indent on "activate all filetype triggers
 let mapleader="," "set leader key
+set splitright
+set splitbelow
+set nowrap
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                            General key mappings                            "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             General key mappings                             "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 "dont yank when pasting
@@ -42,11 +47,12 @@ nnoremap td  :tabclose<cr>
 "edit vimrc in split
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 Functions                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Functions                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Restore cursor position, window position, and last search after running a command.
+" Restore cursor position, window position, and last search after running a
+" command.
 fun! Preserve(command)
   "{{{
   " Save the last search.
@@ -76,8 +82,12 @@ fun! Preserve(command)
 endfun
 fun SourceRecursive(vim_custom_filename, targetdir)
   "{{{
+  if &l:modifiable == 0
+    return
+  endif
   chdir / "goto root 
-  for dir in split( a:targetdir, '/') "split full current path into directories
+  "split full current path into directories
+  for dir in split( a:targetdir, '/') 
     "goto next dir
     "echom "sourcing " . dir
     if isdirectory(dir)
@@ -86,7 +96,8 @@ fun SourceRecursive(vim_custom_filename, targetdir)
       return
     endif
     let fullname = getcwd() . '/' . a:vim_custom_filename
-    if filereadable( fullname ) "check in every dir if a custom vim file exists
+    "check in every dir if a custom vim file exists
+    if filereadable( fullname ) 
       "echom 'sourcing ' . fullname
       exe ':so ' . fullname 
     endif
@@ -94,9 +105,9 @@ fun SourceRecursive(vim_custom_filename, targetdir)
   "}}}
 endfun
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                Autocommands                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 Autocommands                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "set custom filetypes 
 au BufRead,BufNewFile *.vim.custom setfiletype vim
@@ -112,7 +123,7 @@ au Filetype gitcommit setlocal spell textwidth=72
 au Filetype java setlocal foldmethod=indent
 
 "load all .vim.custom files for each opened file
-au BufRead * if &l:modifiable | call SourceRecursive('.vim.custom', expand('%:p:h')) | endif
+au BufRead * call SourceRecursive('.vim.custom', expand('%:p:h'))
 "FIXME source vimrc after save
 "au! bufwritepost .vimrc source % "source vimrc after save
 "FIXME only save folds, but nothing else
@@ -121,31 +132,42 @@ au BufRead * if &l:modifiable | call SourceRecursive('.vim.custom', expand('%:p:
 "DISABLED
 "au BufWritePre <buffer> call Indent() " Indent on save hook
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                           OS dependent settings                            "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            OS dependent settings                             "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 let s:uname = system("uname -s")
 let s:distribution = system("lsb_release >/dev/null 2>&1 && lsb_release -si")
 let s:release = system("lsb_release >/dev/null 2>&1 && lsb_release -sr")
 if !has("unix") 
   "dont do anything if not unix
-elseif s:uname =~ "Linux" && s:distributor =~ "RedHatEnterpriseServer" && str2float(s:release) <= 6.6 "redhat6 got no glibc 2.14, so disable youcompleteme
-  let s:youcompleteme_disabled = 1
+elseif s:uname =~ "Linux" &&
+  \ s:distribution =~ "RedHatEnterpriseServer" &&
+  \ str2float(s:release) <= 6.6 
+  echo "test"
 endif
 
 
-"                       _ _
-"__   ___   _ _ __   __| | | ___
-"\ \ / / | | | '_ \ / _` | |/ _ \
-" \ V /| |_| | | | | (_| | |  __/
-"  \_/  \__,_|_| |_|\__,_|_|\___|
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                           _ _                                " 
+"                    __   ___   _ _ __   __| | | ___                           " 
+"                    \ \ / / | | | '_ \ / _` | |/ _ \                          " 
+"                     \ V /| |_| | | | | (_| | |  __/                          " 
+"                      \_/  \__,_|_| |_|\__,_|_|\___|                          " 
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   Plugins                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Vim UI plugins
 Plugin 'Valloric/YouCompleteMe'
@@ -237,7 +259,6 @@ au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 
 "Colorscheme plugins
 Plugin 'thinca/vim-guicolorscheme'
-"Plugin 'vim-scripts/summerfruit256.vim' copied to ~/.vim/colors and edited
 colorscheme summerfruit256
 
 "Other plugins
@@ -250,6 +271,7 @@ let g:vimwiki_list = [{'path_html':vimwiki_html_path,
                        \ 'template_default': 'default',
                        \ 'template_ext': '.tpl',
                        \ 'auto_export': 1}]
+nnoremap <leader>wv :60vs \| VimwikiIndex<cr>
 "}}}
 Plugin 'rosenfeld/conque-term'
 "{{{
@@ -257,10 +279,14 @@ let g:ConqueTerm_StartMessages = 0
 "}}}
 Plugin 'bruno-/vim-man'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                              Custom init code                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               Custom init code                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"else filetype detection not working 
+filetype on 
 
-filetype on "set filetype back on
-"call SourceRecursive('.vim.custom', getcwd())
+"colorize after 80 columns
+let &colorcolumn=join(range(81,999),",")
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
