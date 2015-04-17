@@ -24,8 +24,9 @@
 /.vim/eclim/*
 /.vim/view/*
 
-#jshint config
+#add single files
 !/.jshintrc
+!/.screenrc
 
 #but still ignore binary files
 *.pyc

@@ -4,9 +4,11 @@
 " \ V /| | | | | | | | | (__
 "  \_/ |_|_| |_| |_|_|  \___|
 
-""""""""""""""""""
-" basic settings "
-""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               Basic Settings                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 syntax on
 set noswapfile
 set nu 
@@ -21,9 +23,11 @@ set clipboard=unnamed "use system clipboard
 filetype plugin indent on "activate all filetype triggers
 let mapleader="," "set leader key
 
-""""""""""""""""""""""""
-" General key mappings "
-""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            General key mappings                            "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 "dont yank when pasting
 xnoremap p pgvy
 "tab switching
@@ -38,9 +42,10 @@ nnoremap td  :tabclose<cr>
 "edit vimrc in split
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
-"""""""""""""
-" functions "
-"""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 Functions                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Restore cursor position, window position, and last search after running a command.
 fun! Preserve(command)
   "{{{
@@ -89,15 +94,20 @@ fun SourceRecursive(vim_custom_filename, targetdir)
   "}}}
 endfun
 
-""""""""""""""""
-" Autocommands "
-""""""""""""""""
-au BufRead,BufNewFile ~/.bash/* set filetype=sh
-au BufNewFile,BufRead *.vim.custom set filetype=vim
-au BufNewFile,BufRead *.gitignore set filetype=conf
-au BufNewFile,BufRead *.jshintrc set filetype=json
-au BufRead,BufNewFile /etc/icinga2/* set syntax=cpp
-au BufRead,BufNewFile /usr/share/icinga2/* set syntax=cpp
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                Autocommands                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"set custom filetypes 
+au BufRead,BufNewFile *.vim.custom setfiletype vim
+au BufRead,BufNewFile *.gitignore setfiletype conf
+au BufRead,BufNewFile *.jshintrc setfiletype json
+au BufRead,BufNewFile *.nmf setfiletype json
+"directory dependent filetypes
+au BufRead,BufNewFile ~/.bash/* setfiletype sh
+au BufRead,BufNewFile /etc/icinga2/* set filetype=cpp "overwrite ft
+au BufRead,BufNewFile /usr/share/icinga2/* set filetype=cpp
+
 au Filetype gitcommit setlocal spell textwidth=72
 au Filetype java setlocal foldmethod=indent
 
@@ -111,10 +121,10 @@ au BufRead * if &l:modifiable | call SourceRecursive('.vim.custom', expand('%:p:
 "DISABLED
 "au BufWritePre <buffer> call Indent() " Indent on save hook
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           OS dependent settings                            "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""""""""""""""""""""""""
-" OS dependent settings"
-""""""""""""""""""""""""
 let s:uname = system("uname -s")
 let s:distribution = system("lsb_release >/dev/null 2>&1 && lsb_release -si")
 let s:release = system("lsb_release >/dev/null 2>&1 && lsb_release -sr")
@@ -196,6 +206,7 @@ Plugin 'SirVer/ultisnips'
 "{{{
 let g:UltiSnipsExpandTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsListSnippets="<c-l>"
 "}}}
 Plugin 'honza/vim-snippets'
 
@@ -226,10 +237,8 @@ au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 
 "Colorscheme plugins
 Plugin 'thinca/vim-guicolorscheme'
-Plugin 'vim-scripts/summerfruit256.vim'
-if isdirectory(expand("~/.vim/bundle/summerfruit256.vim"))
-  colorscheme summerfruit256
-endif
+"Plugin 'vim-scripts/summerfruit256.vim' copied to ~/.vim/colors and edited
+colorscheme summerfruit256
 
 "Other plugins
 Plugin 'vim-scripts/vimwiki'
@@ -248,10 +257,10 @@ let g:ConqueTerm_StartMessages = 0
 "}}}
 Plugin 'bruno-/vim-man'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              Custom init code                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""""""""""""""""""""
-" Custom init code "
-""""""""""""""""""""
 
 filetype on "set filetype back on
 "call SourceRecursive('.vim.custom', getcwd())
