@@ -12,7 +12,7 @@
 
 syntax on
 set noswapfile
-set nu 
+set number 
 set foldmethod=marker
 set tabstop=2
 set shiftwidth=2
@@ -27,6 +27,7 @@ let mapleader="," "set leader key
 set splitright
 set splitbelow
 set nowrap
+set showtabline=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             General key mappings                             "
@@ -266,11 +267,18 @@ Plugin 'vim-scripts/vimwiki'
 "{{{
 let vimwiki_path=$HOME.'/vimwiki/'
 let vimwiki_html_path=$HOME.'/vimwiki_html/'
+"let g:vimwiki_list = [{'path_html':vimwiki_html_path,
+                       "\ 'template_path':vimwiki_html_path,
+                       "\ 'template_default': 'default',
+                       "\ 'template_ext': '.tpl',
+                       "\ 'auto_export': 1}]
 let g:vimwiki_list = [{'path_html':vimwiki_html_path,
                        \ 'template_path':vimwiki_html_path,
                        \ 'template_default': 'default',
-                       \ 'template_ext': '.tpl',
-                       \ 'auto_export': 1}]
+                       \ 'template_ext': '.tpl'}]
+au BufWritePost *.wiki
+  \ call vimwiki#html#Wiki2HTML(expand(VimwikiGet('path_html')),
+  \                             expand('%'))
 nnoremap <leader>wv :60vs \| VimwikiIndex<cr>
 "}}}
 Plugin 'rosenfeld/conque-term'
