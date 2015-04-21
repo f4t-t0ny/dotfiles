@@ -81,8 +81,9 @@ fun! Preserve(command)
   call setpos('.', cursor_position)
   "}}}
 endfun
-fun SourceRecursive(vim_custom_filename, targetdir)
+fun! SourceRecursive(vim_custom_filename, targetdir)
   "{{{
+  let savedir = getcwd() 
   if &l:modifiable == 0
     return
   endif
@@ -94,6 +95,7 @@ fun SourceRecursive(vim_custom_filename, targetdir)
     if isdirectory(dir)
       exe 'lcd ' . dir 
     else
+      exe 'lcd ' . savedir 
       return
     endif
     let fullname = getcwd() . '/' . a:vim_custom_filename
@@ -103,6 +105,7 @@ fun SourceRecursive(vim_custom_filename, targetdir)
       exe ':so ' . fullname 
     endif
   endfor
+  exe 'lcd ' . savedir 
   "}}}
 endfun
 
@@ -119,6 +122,7 @@ au BufRead,BufNewFile *.nmf setfiletype json
 au BufRead,BufNewFile ~/.bash/* setfiletype sh
 au BufRead,BufNewFile /etc/icinga2/* set filetype=cpp "overwrite ft
 au BufRead,BufNewFile /usr/share/icinga2/* set filetype=cpp
+au BufRead,BufNewFile /var/folders/* set filetype=sh
 
 au Filetype gitcommit setlocal spell textwidth=72
 au Filetype java setlocal foldmethod=indent
@@ -256,6 +260,7 @@ au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
 au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
 au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
 au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+set runtimepath+=~/.vim/bundle/vim-eclim/eclim
 "}}}
 
 "Colorscheme plugins
@@ -286,6 +291,20 @@ Plugin 'rosenfeld/conque-term'
 let g:ConqueTerm_StartMessages = 0
 "}}}
 Plugin 'bruno-/vim-man'
+Plugin 'vim-scripts/DrawIt'
+"{{{
+"FIXME fix Drawit in vimwiki
+"fun! DrawitEnable()
+  "let g:oldft=&ft
+  "DIstart
+"endf
+"fun! DrawitDisable()
+  "let &ft=g:oldft
+  "DIstop
+"endf
+"nnoremap <leader>di :call DrawitEnable()<cr>
+"nnoremap <leader>ds :call DrawitDisable()<cr>
+"}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Custom init code                               "
