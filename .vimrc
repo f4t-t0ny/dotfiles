@@ -32,8 +32,8 @@ set showtabline=2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             General key mappings                             "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
+              
+              
 "dont yank when pasting
 xnoremap p pgvy
 "tab switching
@@ -272,11 +272,7 @@ Plugin 'vim-scripts/vimwiki'
 "{{{
 let vimwiki_path=$HOME.'/vimwiki/'
 let vimwiki_html_path=$HOME.'/vimwiki_html/'
-"let g:vimwiki_list = [{'path_html':vimwiki_html_path,
-                       "\ 'template_path':vimwiki_html_path,
-                       "\ 'template_default': 'default',
-                       "\ 'template_ext': '.tpl',
-                       "\ 'auto_export': 1}]
+let g:vimwiki_table_auto_fmt = 0
 let g:vimwiki_list = [{'path_html':vimwiki_html_path,
                        \ 'template_path':vimwiki_html_path,
                        \ 'template_default': 'default',
@@ -296,12 +292,17 @@ Plugin 'vim-scripts/DrawIt'
 "FIXME fix Drawit in vimwiki
 "fun! DrawitEnable()
   "let g:oldft=&ft
+  "if g:oldft == "vimwiki"
+    "set ft=
+  "endif
   "DIstart
 "endf
 "fun! DrawitDisable()
   "let &ft=g:oldft
   "DIstop
 "endf
+"nnoremap <leader>dI <Plug>DrawItStart
+"nnoremap <leader>dS <Plug>DrawItStop
 "nnoremap <leader>di :call DrawitEnable()<cr>
 "nnoremap <leader>ds :call DrawitDisable()<cr>
 "}}}
