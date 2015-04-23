@@ -19,5 +19,5 @@ for file_base in \
   'aliases' \
   'rc'
 do 
-  checkload ".bash/$file_base"
+  checkload ~/.bash/$file_base
 done

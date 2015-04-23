@@ -1,5 +1,7 @@
 case $UNAME in 
   Linux)
+    ECLIPSE_HOME=~/.local/share/eclipse
+    updatepath $ECLIPSE_HOME
     ;;
   Darwin)
     ECLIPSE_HOME=~/.local/share/eclipse
