@@ -47,6 +47,13 @@ nnoremap tm  :tabm<cr>
 nnoremap td  :tabclose<cr>
 "edit vimrc in split
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ef :e $MYVIMRC<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               Custom commands                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+com! Reload so ~/.vimrc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Functions                                   "
@@ -267,6 +274,11 @@ set runtimepath+=~/.vim/bundle/vim-eclim/eclim
 Plugin 'thinca/vim-guicolorscheme'
 colorscheme summerfruit256
 
+" Debugging
+Plugin 'vim-scripts/Decho'
+"{{{
+"}}}
+
 "Other plugins
 Plugin 'vim-scripts/vimwiki'
 "{{{
@@ -289,22 +301,17 @@ let g:ConqueTerm_StartMessages = 0
 Plugin 'bruno-/vim-man'
 Plugin 'vim-scripts/DrawIt'
 "{{{
-"FIXME fix Drawit in vimwiki
-"fun! DrawitEnable()
-  "let g:oldft=&ft
-  "if g:oldft == "vimwiki"
-    "set ft=
-  "endif
-  "DIstart
-"endf
-"fun! DrawitDisable()
-  "let &ft=g:oldft
-  "DIstop
-"endf
-"nnoremap <leader>dI <Plug>DrawItStart
-"nnoremap <leader>dS <Plug>DrawItStop
-"nnoremap <leader>di :call DrawitEnable()<cr>
-"nnoremap <leader>ds :call DrawitDisable()<cr>
+fun! CutBlock(brush) range
+  "{{{
+  let b:drawit_brush= a:brush
+  if visualmode() == "\<c-v>" && ((a:firstline == line("'>") && a:lastline == line("'<")) || (a:firstline == line("'<") && a:lastline == line("'>")))
+   exe 'norm! gv"'.b:drawit_brush.'y'
+   exe 'norm! gvr "'
+  endif
+  "}}}
+endfun
+com! -nargs=1 -range CutBlock <line1>,<line2>call CutBlock(<q-args>)
+com! -nargs=1 -range CopyBlock <line1>,<line2>call DrawIt#SetBrush(<q-args>)
 "}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
