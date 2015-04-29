@@ -1,2 +1,2 @@
 setlocal foldmethod=manual
-setlocal foldlevelstart=5
+setlocal foldlevelstart=0

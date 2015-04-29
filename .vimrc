@@ -10,6 +10,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
+
 syntax on
 set noswapfile
 set number 
@@ -48,6 +49,7 @@ nnoremap td  :tabclose<cr>
 "edit vimrc in split
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>ef :e $MYVIMRC<cr>
+nnoremap <leader>ea :vsplit ~/.vim/misc/ascisnips.txt<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Custom commands                                "
@@ -257,8 +259,14 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'rodjek/vim-puppet'
 Plugin 'tfnico/vim-gradle'
 Plugin 'tpope/vim-rails'
-Plugin 'dansomething/vim-eclim'
+"Plugin 'dansomething/vim-eclim'
+Plugin 'ervandew/eclim', {'rtp': 'org.eclim.core/vim'}
 "{{{
+"HACK, but works
+for eclim_plugin in ['adt', 'cdt', 'dltk', 'dltkruby', 'groovy', 'jdt', 'pdt', 
+\ 'pydev', 'sdt', 'vimplugin', 'wst']
+  exec 'set rtp+='.$HOME.'/.vim/bundle/eclim/'.'org.eclim.'.eclim_plugin.'/vim/eclim'
+endfor
 let g:EclimCompletionMethod = 'omnifunc'
 "let g:EclimFileTypeValidate=0 "disable eclim validation, enable syntastic
 let g:EclimJavascriptValidate=0
@@ -267,7 +275,6 @@ au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
 au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
 au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
 au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
-set runtimepath+=~/.vim/bundle/vim-eclim/eclim
 "}}}
 
 "Colorscheme plugins
@@ -275,9 +282,10 @@ Plugin 'thinca/vim-guicolorscheme'
 colorscheme summerfruit256
 
 " Debugging
-Plugin 'vim-scripts/Decho'
-"{{{
-"}}}
+Plugin 'scripts/Decho'
+""{{{
+let g:dechomode=0
+""}}}
 
 "Other plugins
 Plugin 'vim-scripts/vimwiki'
@@ -299,7 +307,7 @@ Plugin 'rosenfeld/conque-term'
 let g:ConqueTerm_StartMessages = 0
 "}}}
 Plugin 'bruno-/vim-man'
-Plugin 'vim-scripts/DrawIt'
+Plugin 'f4t-t0ny/DrawIt'
 "{{{
 fun! CutBlock(brush) range
   "{{{
