@@ -4,16 +4,25 @@
 case $UNAME in 
   Linux)
     ANDROID_SDK=/opt/android/sdk
+    ANDROID_SDK=/opt/android/ndk
     ;;
   Darwin)
     ANDROID_SDK=~/Library/Android/sdk
+    ANDROID_NDK=~/Library/Android/android-ndk-r8c
     ;;
   *)
     return
     ;;
 esac
+# for gradle
+ANDROID_HOME=$ANDROID_SDK
 
+# python for android
+export ANDROIDSDK=$ANDROID_SDK
+export ANDROIDNDK=$ANDROID_NDK
+export ANDROIDNDKVER=r8c
+export ANDROIDAPI=14
 
-#Adjust path
+# Adjust path
 updatepath $ANDROID_SDK/platform-tools
 updatepath $ANDROID_SDK/tools

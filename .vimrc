@@ -260,22 +260,22 @@ Plugin 'rodjek/vim-puppet'
 Plugin 'tfnico/vim-gradle'
 Plugin 'tpope/vim-rails'
 "Plugin 'dansomething/vim-eclim'
-Plugin 'ervandew/eclim', {'rtp': 'org.eclim.core/vim'}
-"{{{
-"HACK, but works
-for eclim_plugin in ['adt', 'cdt', 'dltk', 'dltkruby', 'groovy', 'jdt', 'pdt', 
-\ 'pydev', 'sdt', 'vimplugin', 'wst']
-  exec 'set rtp+='.$HOME.'/.vim/bundle/eclim/'.'org.eclim.'.eclim_plugin.'/vim/eclim'
-endfor
-let g:EclimCompletionMethod = 'omnifunc'
-"let g:EclimFileTypeValidate=0 "disable eclim validation, enable syntastic
-let g:EclimJavascriptValidate=0
-let g:EclimJavaValidate=1
-au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
-au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
-au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
-au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
-"}}}
+"Plugin 'ervandew/eclim', {'rtp': 'org.eclim.core/vim'}
+""{{{
+""HACK, but works
+"for eclim_plugin in ['adt', 'cdt', 'dltk', 'dltkruby', 'groovy', 'jdt', 'pdt', 
+"\ 'pydev', 'sdt', 'vimplugin', 'wst']
+  "exec 'set rtp+='.$HOME.'/.vim/bundle/eclim/'.'org.eclim.'.eclim_plugin.'/vim/eclim'
+"endfor
+"let g:EclimCompletionMethod = 'omnifunc'
+""let g:EclimFileTypeValidate=0 "disable eclim validation, enable syntastic
+"let g:EclimJavascriptValidate=0
+"let g:EclimJavaValidate=1
+"au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
+"au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
+"au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
+"au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+""}}}
 
 "Colorscheme plugins
 Plugin 'thinca/vim-guicolorscheme'
@@ -293,10 +293,14 @@ Plugin 'vim-scripts/vimwiki'
 let vimwiki_path=$HOME.'/vimwiki/'
 let vimwiki_html_path=$HOME.'/vimwiki_html/'
 let g:vimwiki_table_auto_fmt = 0
-let g:vimwiki_list = [{'path_html':vimwiki_html_path,
-                       \ 'template_path':vimwiki_html_path,
-                       \ 'template_default': 'default',
-                       \ 'template_ext': '.tpl'}]
+let wiki = {}
+let wiki.path_html = vimwiki_html_path
+let wiki.template_path = vimwiki_html_path
+let wiki.template_default = 'default'
+let wiki.template_ext = '.tpl'
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+let g:vimwiki_list = [wiki]
+
 au BufWritePost *.wiki
   \ call vimwiki#html#Wiki2HTML(expand(VimwikiGet('path_html')),
   \                             expand('%'))
@@ -321,6 +325,7 @@ endfun
 com! -nargs=1 -range CutBlock <line1>,<line2>call CutBlock(<q-args>)
 com! -nargs=1 -range CopyBlock <line1>,<line2>call DrawIt#SetBrush(<q-args>)
 "}}}
+Plugin 'nathanaelkane/vim-indent-guides'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Custom init code                               "

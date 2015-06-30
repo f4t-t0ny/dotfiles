@@ -1,0 +1,12 @@
+#!/bin/bash
+
+case $UNAME in 
+  Linux)
+    ;;
+  Darwin)
+    export JYTHON_HOME="$HOME/homebrew/Cellar/jython/2.7.0/libexec/"
+    ;;
+  *)
+    return
+    ;;
+esac

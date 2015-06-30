@@ -1,3 +1,3 @@
-if [[ -d ~/.vim/bundle/vim-man && -x ~/.bash/scripts.d/viman ]]; then
-  alias man=viman
-fi
+#if [[ -d ~/.vim/bundle/vim-man && -x ~/.bash/scripts.d/viman ]]; then
+  #alias man=viman
+#fi
