@@ -5,6 +5,8 @@
 !/.gitignore
 !/.gitconfig
 !/.gitmodules
+#and mercurial files
+!/.hgrc
 
 #except bash files
 !/.bashrc
@@ -23,6 +25,7 @@
 #ignore vim eclim folder
 /.vim/eclim/*
 /.vim/view/*
+/.vim/plugin/eclim.vim
 
 #add single files
 !/.jshintrc
@@ -30,3 +33,6 @@
 
 #but still ignore binary files
 *.pyc
+
+#ignore eclim plugin file
+~/.vim/plugin/eclim.vim

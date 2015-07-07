@@ -1,3 +1,14 @@
 #export GIT_PAGER=vimpager
 #export GIT_PAGER=cat
 updatepath /usr/lib/git-core
+
+case $UNAME in 
+  Linux)
+    ;;
+  Darwin)
+    GIT_EDITOR=/usr/bin/vim
+    ;;
+  *)
+    return
+    ;;
+esac

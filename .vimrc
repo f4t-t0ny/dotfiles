@@ -229,6 +229,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'gregsexton/gitv'
+"Mercurial plugin
+Plugin 'ludovicchabant/vim-lawrencium'
 
 "General editing plugins
 Plugin 'scrooloose/nerdcommenter'
@@ -259,23 +261,21 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'rodjek/vim-puppet'
 Plugin 'tfnico/vim-gradle'
 Plugin 'tpope/vim-rails'
-"Plugin 'dansomething/vim-eclim'
-"Plugin 'ervandew/eclim', {'rtp': 'org.eclim.core/vim'}
-""{{{
+"{{{
 ""HACK, but works
 "for eclim_plugin in ['adt', 'cdt', 'dltk', 'dltkruby', 'groovy', 'jdt', 'pdt', 
 "\ 'pydev', 'sdt', 'vimplugin', 'wst']
   "exec 'set rtp+='.$HOME.'/.vim/bundle/eclim/'.'org.eclim.'.eclim_plugin.'/vim/eclim'
 "endfor
-"let g:EclimCompletionMethod = 'omnifunc'
-""let g:EclimFileTypeValidate=0 "disable eclim validation, enable syntastic
-"let g:EclimJavascriptValidate=0
-"let g:EclimJavaValidate=1
-"au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
-"au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
-"au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
-"au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
-""}}}
+let g:EclimCompletionMethod = 'omnifunc'
+"let g:EclimFileTypeValidate=0 "disable eclim validation, enable syntastic
+let g:EclimJavascriptValidate=0
+let g:EclimJavaValidate=1
+au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
+au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
+au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
+au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+"}}}
 
 "Colorscheme plugins
 Plugin 'thinca/vim-guicolorscheme'

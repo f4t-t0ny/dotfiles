@@ -20,7 +20,7 @@ function updatepath(){
 
   shift $((OPTIND-1)) #shift args
 
-  log $OPT_REVERSE
+  #log $OPT_REVERSE
 
   NEWPATH=$1;
   log "trying to add $NEWPATH to PATH"

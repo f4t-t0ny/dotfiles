@@ -10,3 +10,7 @@ case $UNAME in
     return
     ;;
 esac
+
+JYTHONPATH=$JYTHONPATH:~/git/
+JYTHONPATH=$JYTHONPATH:~/lib/python2.7/site-packages/
+export JYTHONPATH
