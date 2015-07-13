@@ -286,7 +286,9 @@ au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declaration
 au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 "}}}
 
-if !iswin
+if iswin
+  colorscheme pablo
+else
   "Colorscheme plugins
   Plugin 'thinca/vim-guicolorscheme'
   colorscheme summerfruit256
