@@ -150,9 +150,10 @@ au BufRead * call SourceRecursive('.vim.custom', expand('%:p:h'))
 "                            OS dependent settings                             "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
+let iswin = 0
 if has("win32") 
   "is a windows system
+  let iswin = 1
 elseif has("unix")
   set term=xterm-256color
 
@@ -165,6 +166,7 @@ elseif has("unix")
     echo "test"
   endif
 endif
+
 
 
 
@@ -188,13 +190,15 @@ Bundle 'gmarik/vundle'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Vim UI plugins
-Plugin 'Valloric/YouCompleteMe'
-"{{{
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_filepath_completion_use_working_dir = 1
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
-"}}}
+if !iswin
+  Plugin 'Valloric/YouCompleteMe'
+  "{{{
+  let g:ycm_confirm_extra_conf = 0
+  let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+  let g:ycm_filepath_completion_use_working_dir = 1
+  nnoremap <leader>jd :YcmCompleter GoTo<CR>
+  "}}}
+endif
 Plugin 'bling/vim-airline'
 "{{{
 set guifont=Inconsolata\ for\ Powerline:h15
@@ -243,13 +247,15 @@ let g:NERDCustomDelimiters = { 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightA
 "}}}
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-surround'
-Plugin 'SirVer/ultisnips'
-"{{{
-let g:UltiSnipsExpandTrigger="<c-b>"
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsListSnippets="<c-l>"
-"}}}
-Plugin 'honza/vim-snippets'
+if !iswin
+  Plugin 'SirVer/ultisnips'
+  "{{{
+  let g:UltiSnipsExpandTrigger="<c-b>"
+  let g:UltiSnipsEditSplit="vertical"
+  let g:UltiSnipsListSnippets="<c-l>"
+  "}}}
+  Plugin 'honza/vim-snippets'
+endif
 
 "Language/syntax plugins
 Plugin 'fatih/vim-go'
@@ -280,12 +286,14 @@ au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declaration
 au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 "}}}
 
-"Colorscheme plugins
-Plugin 'thinca/vim-guicolorscheme'
-colorscheme summerfruit256
+if !iswin
+  "Colorscheme plugins
+  Plugin 'thinca/vim-guicolorscheme'
+  colorscheme summerfruit256
+endif
 
 " Debugging
-Plugin 'scripts/Decho'
+Plugin 'vim-scripts/Decho'
 ""{{{
 let g:dechomode=0
 ""}}}
