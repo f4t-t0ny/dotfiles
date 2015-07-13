@@ -151,15 +151,19 @@ au BufRead * call SourceRecursive('.vim.custom', expand('%:p:h'))
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-let s:uname = system("uname -s")
-let s:distribution = system("lsb_release >/dev/null 2>&1 && lsb_release -si")
-let s:release = system("lsb_release >/dev/null 2>&1 && lsb_release -sr")
-if !has("unix") 
-  "dont do anything if not unix
-elseif s:uname =~ "Linux" &&
-  \ s:distribution =~ "RedHatEnterpriseServer" &&
-  \ str2float(s:release) <= 6.6 
-  echo "test"
+if has("win32") 
+  "is a windows system
+elseif has("unix")
+  set term=xterm-256color
+
+  let s:uname = system("uname -s")
+  let s:distribution = system("lsb_release >/dev/null 2>&1 && lsb_release -si")
+  let s:release = system("lsb_release >/dev/null 2>&1 && lsb_release -sr")
+  if s:uname =~ "Linux" &&
+    \ s:distribution =~ "RedHatEnterpriseServer" &&
+    \ str2float(s:release) <= 6.6 
+    echo "test"
+  endif
 endif
 
 
@@ -198,7 +202,6 @@ let g:Powerline_symbols = 'fancy'
 set encoding=utf-8
 set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
 set termencoding=utf-8
 "}}}
 "Plugin 'scrooloose/Syntastic'
