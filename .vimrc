@@ -27,7 +27,7 @@ filetype plugin indent on "activate all filetype triggers
 let mapleader="," "set leader key
 set splitright
 set splitbelow
-set nowrap
+set wrap
 set showtabline=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -5,6 +5,7 @@ username = Andreas Wallner <andreas.wallner@wirecard.com>
 color=
 hgext.convert=
 purge=
+rebase=
 
 [color]
 mode=auto
