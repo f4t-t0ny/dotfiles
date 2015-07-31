@@ -4,7 +4,7 @@
 case $UNAME in 
   Linux)
     ANDROID_SDK=/opt/android/sdk
-    ANDROID_SDK=/opt/android/ndk
+    ANDROID_NDK=/opt/android/ndk
     ;;
   Darwin)
     ANDROID_SDK=~/Library/Android/sdk
