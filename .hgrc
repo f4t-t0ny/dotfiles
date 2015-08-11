@@ -12,3 +12,5 @@ mode=auto
 
 [hostfingerprints]
 p-ops-vcs.wirecard.sys = 8f:d3:be:5b:cf:8c:fe:44:dd:f6:e5:5b:96:90:bd:10:9f:5d:a6:94
+
+%include ~/.hgauth
