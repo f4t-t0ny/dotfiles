@@ -6,6 +6,6 @@ cd .dotfiles
 shopt -s dotglob 
 mv * ..
 cd
-rmdir dotfiles
+rmdir .dotfiles
 git submodule update --init .
 vim +PluginInstall +qall
