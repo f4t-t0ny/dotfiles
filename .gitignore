@@ -18,6 +18,8 @@
 !/.vim/
 !/.vim/*
 
+!/setup.sh
+
 #but vim plugins
 /.vim/bundle/
 !/.vim/bundle/vundle/*
@@ -36,3 +38,4 @@
 
 #ignore eclim plugin file
 ~/.vim/plugin/eclim.vim
+

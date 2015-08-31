@@ -29,6 +29,8 @@ set splitright
 set splitbelow
 set wrap
 set showtabline=2
+set autoindent
+set cindent
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             General key mappings                             "
@@ -49,6 +51,7 @@ nnoremap td  :tabclose<cr>
 "edit vimrc in split
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>ef :e $MYVIMRC<cr>
+nnoremap <leader>et :tabe $MYVIMRC<cr>
 nnoremap <leader>ea :vsplit ~/.vim/misc/ascisnips.txt<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -284,6 +287,7 @@ au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
 au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
 au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
 au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+au FileType java nnoremap <silent> <buffer> <leader>c :JavaCorrect<cr>
 "}}}
 
 if iswin
