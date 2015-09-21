@@ -227,6 +227,7 @@ let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
 Plugin 'scrooloose/nerdtree'
 "{{{
 let g:NERDTreeShowHidden=1
+let NERDTreeIgnore = ['\.pyc$', '\$py.class']
 "}}}
 Plugin 'jistr/vim-nerdtree-tabs'
 "{{{

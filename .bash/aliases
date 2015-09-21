@@ -26,10 +26,20 @@ alias scan='sudo nmap -sP $(ip get)/24'
 alias blackscreen="xset dpms force off"
 alias rld="source ~/.bashrc"
 alias i="ping -c 5 8.8.8.8"
+alias vi='vim'
 
-if [[ $UNAME == "Linux" && $DISTRIBUTION == "RedHatEnterpriseServer" ]]; then
-  alias sudosu='sudo bash -c "sed -ie s/^Defaults.*always_set_home// /etc/sudoers" && sudo -s'
-fi
+case $UNAME in 
+  Linux)
+    if [[ $DISTRIBUTION == "RedHatEnterpriseServer" ]]; then
+      alias sudosu='sudo bash -c "sed -ie s/^Defaults.*always_set_home// /etc/sudoers" && sudo -s'
+    fi
+    ;;
+  Darwin)
+    alias lsusb="ioreg -b -p IOUSB"
+    ;;
+  *)
+    ;;
+esac
 
 for file in ~/.bash/aliases.d/*; do 
   log "loading $file"

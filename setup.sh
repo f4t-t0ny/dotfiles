@@ -9,3 +9,4 @@ cd
 rmdir .dotfiles
 git submodule update --init .
 vim +PluginInstall +qall
+. .bashrc

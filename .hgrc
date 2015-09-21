@@ -6,11 +6,18 @@ color=
 hgext.convert=
 purge=
 rebase=
+graphlog=
 
 [color]
 mode=auto
 
 [hostfingerprints]
 p-ops-vcs.wirecard.sys = 8f:d3:be:5b:cf:8c:fe:44:dd:f6:e5:5b:96:90:bd:10:9f:5d:a6:94
+
+[merge-tools]
+#fix hg merging
+vimdiff.executable = vimdiff
+vimdiff.args = -f -d $output -M $local $base $other -c "wincmd J" -c "set modifiable" -c "set write"
+vimdiff.premerge = keep
 
 %include ~/.hgauth
