@@ -19,27 +19,27 @@ set tabstop=2
 set shiftwidth=2
 set textwidth=80
 set expandtab
-set mouse=a "always use mouse
+set mouse=a " always use mouse
 set backspace=indent,eol,start
 set wildmode=longest,list "wildcard type in ex mode
-set clipboard=unnamed "use system clipboard
-filetype plugin indent on "activate all filetype triggers
-let mapleader="," "set leader key
+set clipboard=unnamed " use system clipboard
+filetype plugin indent on " activate all filetype triggers
+let mapleader="," " set leader key
 set splitright
 set splitbelow
 set wrap
-set showtabline=2
 set autoindent
 set cindent
+set nowrap
+set showtabline=2 " always show tabs
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             General key mappings                             "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-              
-              
-"dont yank when pasting
+
+" dont yank when pasting
 xnoremap p pgvy
-"tab switching
+" tab switching
 nnoremap th  :tabfirst<cr>
 nnoremap tj  :tabnext<cr>
 nnoremap tk  :tabprev<cr>
@@ -48,7 +48,7 @@ nnoremap tt  :tabedit<cr>
 nnoremap tn  :tabnext<cr>
 nnoremap tm  :tabm<cr>
 nnoremap td  :tabclose<cr>
-"edit vimrc in split
+" edit vimrc in split
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>ef :e $MYVIMRC<cr>
 nnoremap <leader>et :tabe $MYVIMRC<cr>
@@ -125,28 +125,28 @@ endfun
 "                                 Autocommands                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"set custom filetypes 
+" set custom filetypes 
 au BufRead,BufNewFile *.vim.custom setfiletype vim
 au BufRead,BufNewFile *.gitignore setfiletype conf
 au BufRead,BufNewFile *.jshintrc setfiletype json
 au BufRead,BufNewFile *.nmf setfiletype json
-"directory dependent filetypes
+" directory dependent filetypes
 au BufRead,BufNewFile ~/.bash/* setfiletype sh
-au BufRead,BufNewFile /etc/icinga2/* set filetype=cpp "overwrite ft
+au BufRead,BufNewFile /etc/icinga2/* set filetype=cpp " overwrite ft
 au BufRead,BufNewFile /usr/share/icinga2/* set filetype=cpp
 au BufRead,BufNewFile /var/folders/* set filetype=sh
 
 au Filetype gitcommit setlocal spell textwidth=72
 au Filetype java setlocal foldmethod=indent
 
-"load all .vim.custom files for each opened file
+" load all .vim.custom files for each opened file
 au BufRead * call SourceRecursive('.vim.custom', expand('%:p:h'))
-"FIXME source vimrc after save
+" FIXME source vimrc after save
 "au! bufwritepost .vimrc source % "source vimrc after save
-"FIXME only save folds, but nothing else
+" FIXME only save folds, but nothing else
 "au BufWinLeave *.* mkview
 "au BufWinEnter *.* silent loadview
-"DISABLED
+" DISABLED
 "au BufWritePre <buffer> call Indent() " Indent on save hook
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -192,7 +192,7 @@ Bundle 'gmarik/vundle'
 "                                   Plugins                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"Vim UI plugins
+" Vim UI plugins
 if !iswin
   Plugin 'Valloric/YouCompleteMe'
   "{{{
@@ -211,7 +211,7 @@ set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 "}}}
-"Plugin 'scrooloose/Syntastic'
+" Plugin 'scrooloose/Syntastic'
 "{{{
 let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
 "set statusline+=%#warningmsg#
@@ -223,7 +223,7 @@ let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 "}}}
-"Nerdtree and plugins
+" Nerdtree and plugins
 Plugin 'scrooloose/nerdtree'
 "{{{
 let g:NERDTreeShowHidden=1
@@ -234,7 +234,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 let g:nerdtree_tabs_focus_on_files=1
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 "}}}
-"Git plugins
+" Git plugins
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
@@ -243,7 +243,7 @@ Plugin 'gregsexton/gitv'
 "Mercurial plugin
 Plugin 'ludovicchabant/vim-lawrencium'
 
-"General editing plugins
+" General editing plugins
 Plugin 'scrooloose/nerdcommenter'
 "{{{
 "custom delimiters
@@ -261,7 +261,7 @@ if !iswin
   Plugin 'honza/vim-snippets'
 endif
 
-"Language/syntax plugins
+" Language/syntax plugins
 Plugin 'fatih/vim-go'
 "{{{
 let g:go_fmt_command = "goimports"
@@ -294,7 +294,7 @@ au FileType java nnoremap <silent> <buffer> <leader>c :JavaCorrect<cr>
 if iswin
   colorscheme pablo
 else
-  "Colorscheme plugins
+  " Colorscheme plugins
   Plugin 'thinca/vim-guicolorscheme'
   colorscheme summerfruit256
 endif
@@ -305,7 +305,7 @@ Plugin 'vim-scripts/Decho'
 let g:dechomode=0
 ""}}}
 
-"Other plugins
+" Other plugins
 Plugin 'vim-scripts/vimwiki'
 "{{{
 let vimwiki_path=$HOME.'/vimwiki/'
@@ -349,10 +349,10 @@ Plugin 'nathanaelkane/vim-indent-guides'
 "                               Custom init code                               "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"else filetype detection not working 
+" else filetype detection not working 
 filetype on 
 
-"colorize after 80 columns
+" colorize after 80 columns
 let &colorcolumn=join(range(81,999),",")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

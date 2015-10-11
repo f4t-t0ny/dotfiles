@@ -1,0 +1,4 @@
+function popline() {
+  # pop first line from file to stdout
+  sed -i -e '1 w /dev/stdout' -e '1d' $1
+}
