@@ -4,7 +4,7 @@ GIT_VERSION=$(git --version|cut -d' ' -f3)
 case $UNAME in 
   Linux)
     case $DISTRIBUTION in
-      Ubuntu)
+      Ubuntu|Arch)
         GIT_CORE_DIR=/usr/lib/git-core;;
       *)
         GIT_CORE_DIR=/usr/libexec/git-core;;
