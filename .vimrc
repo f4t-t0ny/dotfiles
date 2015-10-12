@@ -186,7 +186,8 @@ Plug 'junegunn/vim-plug'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Vim UI plugins
-if !has('win32')  && s:distribution =~ '' && hostname() =~ 'connector\n'
+if !has('win32')
+  \ && hostname() !~ 'connector'
   Plug 'Valloric/YouCompleteMe'
   "{{{
   let g:ycm_confirm_extra_conf = 0
