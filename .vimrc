@@ -130,6 +130,7 @@ au BufRead,BufNewFile *.vim.custom setfiletype vim
 au BufRead,BufNewFile *.gitignore setfiletype conf
 au BufRead,BufNewFile *.jshintrc setfiletype json
 au BufRead,BufNewFile *.nmf setfiletype json
+au BufRead,BufNewFile Podfile,*.podspec setfiletype ruby
 " directory dependent filetypes
 au BufRead,BufNewFile ~/.bash/* setfiletype sh
 au BufRead,BufNewFile /etc/icinga2/* set filetype=cpp " overwrite ft
@@ -290,6 +291,7 @@ au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declaration
 au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 au FileType java nnoremap <silent> <buffer> <leader>c :JavaCorrect<cr>
 "}}}
+Plugin 'keith/swift.vim'
 
 if iswin
   colorscheme pablo
