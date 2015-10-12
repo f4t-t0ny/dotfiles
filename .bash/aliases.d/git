@@ -3,7 +3,7 @@ GIT_VERSION=$(git --version|cut -d' ' -f3)
 
 case $UNAME in 
   Linux)
-    case $(lsb_release -is) in
+    case $DISTRIBUTION in
       Ubuntu)
         GIT_CORE_DIR=/usr/lib/git-core;;
       *)
