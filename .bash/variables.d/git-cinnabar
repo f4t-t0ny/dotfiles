@@ -1,0 +1,10 @@
+#!/bin/bash
+
+case $UNAME in 
+  Linux|Darwin)
+    updatepath ~/bin/git-cinnabar
+    ;;
+  *)
+    return
+    ;;
+esac
