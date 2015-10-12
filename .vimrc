@@ -183,11 +183,8 @@ endif
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-plug'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Plugins                                    "
@@ -195,7 +192,7 @@ Bundle 'gmarik/vundle'
 
 " Vim UI plugins
 if !iswin
-  Plugin 'Valloric/YouCompleteMe'
+  Plug 'Valloric/YouCompleteMe'
   "{{{
   let g:ycm_confirm_extra_conf = 0
   let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
@@ -203,7 +200,7 @@ if !iswin
   nnoremap <leader>jd :YcmCompleter GoTo<CR>
   "}}}
 endif
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 "{{{
 set guifont=Inconsolata\ for\ Powerline:h15
 let g:Powerline_symbols = 'fancy'
@@ -212,7 +209,7 @@ set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 "}}}
-" Plugin 'scrooloose/Syntastic'
+" Plug 'scrooloose/Syntastic'
 "{{{
 let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
 "set statusline+=%#warningmsg#
@@ -225,56 +222,56 @@ let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
 "let g:syntastic_check_on_wq = 0
 "}}}
 " Nerdtree and plugins
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 "{{{
 let g:NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$', '\$py.class']
 "}}}
-Plugin 'jistr/vim-nerdtree-tabs'
+Plug 'jistr/vim-nerdtree-tabs'
 "{{{
 let g:nerdtree_tabs_focus_on_files=1
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 "}}}
 " Git plugins
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-git'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'gregsexton/gitv'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git'
+Plug 'airblade/vim-gitgutter'
+Plug 'gregsexton/gitv'
 "Mercurial plugin
-Plugin 'ludovicchabant/vim-lawrencium'
+Plug 'ludovicchabant/vim-lawrencium'
 
 " General editing plugins
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 "{{{
 "custom delimiters
 let g:NERDCustomDelimiters = { 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' } }
 "}}}
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-surround'
 if !iswin
-  Plugin 'SirVer/ultisnips'
+  Plug 'SirVer/ultisnips'
   "{{{
   let g:UltiSnipsExpandTrigger="<c-b>"
   let g:UltiSnipsEditSplit="vertical"
   let g:UltiSnipsListSnippets="<c-l>"
   "}}}
-  Plugin 'honza/vim-snippets'
+  Plug 'honza/vim-snippets'
 endif
 
 " Language/syntax plugins
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 "{{{
 let g:go_fmt_command = "goimports"
 "}}}
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'chase/vim-ansible-yaml'
-Plugin 'digitaltoad/vim-jade'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'rodjek/vim-puppet'
-Plugin 'tfnico/vim-gradle'
-Plugin 'tpope/vim-rails'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'chase/vim-ansible-yaml'
+Plug 'digitaltoad/vim-jade'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'rodjek/vim-puppet'
+Plug 'tfnico/vim-gradle'
+Plug 'tpope/vim-rails'
 "{{{
 ""HACK, but works
 "for eclim_plugin in ['adt', 'cdt', 'dltk', 'dltkruby', 'groovy', 'jdt', 'pdt', 
@@ -291,24 +288,24 @@ au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declaration
 au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 au FileType java nnoremap <silent> <buffer> <leader>c :JavaCorrect<cr>
 "}}}
-Plugin 'keith/swift.vim'
+Plug 'keith/swift.vim'
 
 if iswin
   colorscheme pablo
 else
   " Colorscheme plugins
-  Plugin 'thinca/vim-guicolorscheme'
+  Plug 'thinca/vim-guicolorscheme'
   colorscheme summerfruit256
 endif
 
 " Debugging
-Plugin 'vim-scripts/Decho'
+Plug 'vim-scripts/Decho'
 ""{{{
 let g:dechomode=0
 ""}}}
 
 " Other plugins
-Plugin 'vim-scripts/vimwiki'
+Plug 'vim-scripts/vimwiki'
 "{{{
 let vimwiki_path=$HOME.'/vimwiki/'
 let vimwiki_html_path=$HOME.'/vimwiki_html/'
@@ -326,12 +323,12 @@ au BufWritePost *.wiki
   \                             expand('%'))
 nnoremap <leader>wv :60vs \| VimwikiIndex<cr>
 "}}}
-Plugin 'rosenfeld/conque-term'
+Plug 'rosenfeld/conque-term'
 "{{{
 let g:ConqueTerm_StartMessages = 0
 "}}}
-Plugin 'bruno-/vim-man'
-Plugin 'f4t-t0ny/DrawIt'
+Plug 'bruno-/vim-man'
+Plug 'f4t-t0ny/DrawIt'
 "{{{
 fun! CutBlock(brush) range
   "{{{
@@ -345,14 +342,13 @@ endfun
 com! -nargs=1 -range CutBlock <line1>,<line2>call CutBlock(<q-args>)
 com! -nargs=1 -range CopyBlock <line1>,<line2>call DrawIt#SetBrush(<q-args>)
 "}}}
-Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides'
+
+call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Custom init code                               "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" else filetype detection not working 
-filetype on 
 
 " colorize after 80 columns
 let &colorcolumn=join(range(81,999),",")
