@@ -1,0 +1,10 @@
+function waitssh(){
+  _host=$1
+  # while nc returns false, stay in loop
+  while $(nc -z -w 3 $1 22 && echo false || echo true)
+  do 
+    echo 'waiting for 6s...'
+    sleep 3
+  done
+  ssh $*
+}
