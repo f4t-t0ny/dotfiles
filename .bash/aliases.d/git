@@ -1,4 +1,7 @@
-git --version >/dev/null 2>&1 || return #check if git installed, return else
+# not if git not installed
+git --version >/dev/null 2>&1 || return 
+# not if on connector devices
+[[ $DISTRIBUTION -eq 'Arch' && $HOSTNAME -eq 'connector']] && return 
 GIT_VERSION=$(git --version|cut -d' ' -f3)
 
 case $UNAME in 
@@ -20,15 +23,15 @@ esac
 
 updatepath -r $GIT_CORE_DIR
 
-## create aliases for git
-#test ! -d $GIT_CORE_DIR && return #return if git dir not present
-#for _cmd in $(echo $GIT_CORE_DIR/*|xargs -n1 basename|grep -v '^git$'); #get all except git binary itself
-#do _alias=$(echo $_cmd|sed s/^git-/g/g)
-  #alias $_alias=$_cmd
-#done
+# create aliases for git
+test ! -d $GIT_CORE_DIR && return #return if git dir not present
+for _cmd in $(echo $GIT_CORE_DIR/*|xargs -n1 basename|grep -v '^git$'); #get all except git binary itself
+do _alias=$(echo $_cmd|sed s/^git-/g/g)
+  alias $_alias=$_cmd
+done
 
-##create aliases for git aliases
-#_git_alias_commands=$(git config --get-regexp ^alias\. | cut -f1 -d ' '| cut -d. -f2)
-#for _git_alias in $_git_alias_commands; do
-  #alias g${_git_alias}="git ${_git_alias}"
-#done
+#create aliases for git aliases
+_git_alias_commands=$(git config --get-regexp ^alias\. | cut -f1 -d ' '| cut -d. -f2)
+for _git_alias in $_git_alias_commands; do
+  alias g${_git_alias}="git ${_git_alias}"
+done
