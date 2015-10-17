@@ -131,7 +131,9 @@ au BufRead,BufNewFile *.gitignore setfiletype conf
 au BufRead,BufNewFile *.jshintrc setfiletype json
 au BufRead,BufNewFile *.nmf setfiletype json
 au BufRead,BufNewFile Podfile,*.podspec setfiletype ruby
-" directory dependent filetypes
+au BufRead,BufNewFile *.pde setfiletype arduino
+au BufRead,BufNewFile *.ino setfiletype arduino
+"directory dependent filetypes
 au BufRead,BufNewFile ~/.bash/* setfiletype sh
 au BufRead,BufNewFile /etc/icinga2/* set filetype=cpp " overwrite ft
 au BufRead,BufNewFile /usr/share/icinga2/* set filetype=cpp
@@ -285,6 +287,12 @@ au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 au FileType java nnoremap <silent> <buffer> <leader>c :JavaCorrect<cr>
 "}}}
 Plug 'keith/swift.vim'
+Plug 'sudar/vim-arduino-syntax'
+Plug 'jplaut/vim-arduino-ino'
+"{{{
+let g:vim_arduino_library_path = '/usr/share/arduino'
+let g:vim_arduino_serial_port = '/dev/ttyACM0' 
+"}}}
 
 if has('win32')
   colorscheme pablo
