@@ -17,7 +17,7 @@ set number
 set foldmethod=marker
 set tabstop=2
 set shiftwidth=2
-set textwidth=80
+"set textwidth=80
 set expandtab
 set mouse=a " always use mouse
 set backspace=indent,eol,start
