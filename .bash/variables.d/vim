@@ -4,6 +4,7 @@ case $UNAME in
   Linux)
     ;;
   Darwin)
+    export DYLD_FORCE_FLAT_NAMESPACE=1
     ;;
   *)
     return

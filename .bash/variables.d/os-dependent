@@ -4,7 +4,6 @@ case $UNAME in
   Linux)
     ;;
   Darwin)
-    HGEDITOR=/usr/bin/vim
     ;;
   *)
     return

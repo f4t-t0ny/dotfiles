@@ -1,7 +1,9 @@
 # not if git not installed
 git --version >/dev/null 2>&1 || return 
 # not if on connector devices
-[[ $DISTRIBUTION -eq 'Arch' && $HOSTNAME -eq 'connector']] && return 
+if [[ $DISTRIBUTION -eq 'Arch' && $HOSTNAME -eq 'connector' ]]; then 
+  return 
+fi
 GIT_VERSION=$(git --version|cut -d' ' -f3)
 
 case $UNAME in 

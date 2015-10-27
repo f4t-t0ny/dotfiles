@@ -1,32 +1,32 @@
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
-alias cgrep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias rigrep='cgrep -rni'
-alias less="less -r"
+alias agud='ag update && ag dist-upgrade -y'
 alias bc="bc -l"
-alias cls="clear"
+alias blackscreen="xset dpms force off"
 alias celar="clear" #for typo's :)
-alias openfile='xdg-open'
+alias cgrep='grep --color=auto'
+alias cls="clear"
+alias datestamp="date '+%Y%m%d'"
+alias dir='dir --color=auto'
+alias fgrep='fgrep --color=auto'
+alias functions="compgen -A function | grep -v ^_"
+alias g="grep"
+alias i="ping -c 5 8.8.8.8"
+alias lc="logcat-color -v time"
+alias less="less -r"
 alias o=xdg-open
+alias openfile='xdg-open'
+alias quit=exit
+alias rigrep='cgrep -rni'
+alias rld="source ~/.bashrc"
+alias scan='sudo nmap -sP $(ip get)/24'
+alias sudo="sudo -E"
+alias timestamp="date '+%Y%m%d-%H:%M:%S'"
 alias umdb='fusermount -u ~/decrypted'
+alias utimestamp="date '+%s'"
+alias v="vim"
+alias vdir='vdir --color=auto'
+alias vi='vim'
 alias xlock='xscreensaver-command -lock'
 alias xopen='xdg-open'
-alias agud='ag update && ag dist-upgrade -y'
-alias quit=exit
-alias functions="compgen -A function | grep -v ^_"
-alias lc="logcat-color -v time"
-alias g="grep"
-alias v="vim"
-alias sudo="sudo -E"
-alias utimestamp="date '+%s'"
-alias datestamp="date '+%Y%m%d'"
-alias timestamp="date '+%Y%m%d-%H:%M:%S'"
-alias scan='sudo nmap -sP $(ip get)/24'
-alias blackscreen="xset dpms force off"
-alias rld="source ~/.bashrc"
-alias i="ping -c 5 8.8.8.8"
-alias vi='vim'
 
 case $UNAME in 
   Linux)
