@@ -10,7 +10,7 @@ IP=$(which ip)
 
   # get ip of interface
   function _ip_get(){
-    $IP addr show $1|grep -Eo '([0-9]{,3}\.){3}[0-9]{,3}'|head -n 1
+    $IP addr show $1|grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}'|head -n 1
   }
   # get all interfaces except lo
   function _get_interfaces(){
