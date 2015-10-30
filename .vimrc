@@ -168,6 +168,9 @@ if has("unix")
   "endif
 endif
 
+if hostname() == 'connector'
+  set viminfo = "NONE"
+endif
 
 
 
