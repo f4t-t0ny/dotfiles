@@ -1,0 +1,9 @@
+function apps-packinstall() {
+  if [[ ! -f "Dockerfile" ]]; then
+    echo "no valid app directory!" >&2
+    return
+  fi
+  P="../$(basename $PWD).tar.gz"
+  tar -cvzf --exclude-vcs $P
+  apps-install $P
+}
