@@ -3,7 +3,7 @@ function apps-packinstall() {
     echo "no valid app directory!" >&2
     return
   fi
-  P="../$(basename $PWD).tar.gz"
+  P="/tmp/$(basename $PWD).tar.gz"
   tar -cvzf $P . --exclude-vcs 
   apps-install $P
 }
