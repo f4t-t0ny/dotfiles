@@ -4,6 +4,6 @@ function apps-packinstall() {
     return
   fi
   P="../$(basename $PWD).tar.gz"
-  tar -cvzf --exclude-vcs $P
+  tar -cvzf $P . --exclude-vcs 
   apps-install $P
 }
