@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PYTHONPATH=~/dev/python
+
 case $UNAME in 
   Linux)
     ;;
