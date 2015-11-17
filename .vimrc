@@ -246,7 +246,10 @@ Plug 'ludovicchabant/vim-lawrencium'
 Plug 'scrooloose/nerdcommenter'
 "{{{
 "custom delimiters
-let g:NERDCustomDelimiters = { 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' } }
+let g:NERDCustomDelimiters = { 
+  \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }, 
+  \ 'python': { 'left': '#', 'leftAlt': "'''", 'rightAlt': "'''"}
+  \ }
 "}}}
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
