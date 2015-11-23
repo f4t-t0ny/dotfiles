@@ -248,7 +248,7 @@ Plug 'scrooloose/nerdcommenter'
 "custom delimiters
 let g:NERDCustomDelimiters = { 
   \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }, 
-  \ 'python': { 'left': '#', 'leftAlt': "'''", 'rightAlt': "'''"}
+  \ 'python': { 'left': '#', 'leftAlt': "''' ", 'rightAlt': "'''"}
   \ }
 "}}}
 Plug 'tpope/vim-abolish'
