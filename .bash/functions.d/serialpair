@@ -1,3 +1,4 @@
 function serialpair(){
-  sudo socat -d -d pty,raw,echo=0,mode=666,link=$1 pty,raw,echo=0,mode=666,link=$2
+ socat -d -d pty,raw,echo=0,mode=666,link=$1 pty,raw,echo=0,mode=666,link=$2
 }
+export -f serialpair

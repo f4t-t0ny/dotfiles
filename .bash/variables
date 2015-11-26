@@ -4,6 +4,7 @@
 export EDITOR=vim
 export PAGER=less
 
+updatepath ~/homebrew/bin
 updatepath /usr/sbin
 updatepath /sbin
 updatepath ~/bin
