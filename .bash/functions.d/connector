@@ -8,3 +8,7 @@ function apps-packinstall() {
   docker build . 
   apps-install $P
 }
+function apps-flogs() {
+  APP_NAME=$1
+  docker logs -f $(apps-list |grep -A7 $APP_NAME | grep container | awk '{print $2}')
+}
