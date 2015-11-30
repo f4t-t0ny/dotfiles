@@ -37,6 +37,7 @@ case $UNAME in
     ;;
   Darwin)
     alias lsusb="ioreg -b -p IOUSB"
+    alias md5sum="md5 -r"
     ;;
   *)
     ;;
