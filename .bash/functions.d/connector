@@ -9,7 +9,7 @@ function apps-packinstall() {
   apps-install $P
 }
 function apps-flogs() {
-  if [ $# -le 1 ]; then
+  if [ $# -lt 1 ]; then
     echo 'App name not specified'
     return 1
   fi
