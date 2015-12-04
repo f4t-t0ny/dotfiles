@@ -1,5 +1,5 @@
 #print path in
-function path(){
+function lspath(){
   for TMP_PATH in ${PATH//:/ }
     do echo $TMP_PATH
   done
