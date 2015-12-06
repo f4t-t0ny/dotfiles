@@ -6,12 +6,12 @@ WGET_INSTALLED=$(wget -V >/dev/null 2>&1 && echo true || echo false)
 if ! $GIT_INSTALLED; then
   ERROR=$?
   echo 'git not installed, exiting...' >&2
-  exit($ERROR)
+  exit $ERROR
 fi
 if ! $CURL_INSTALLED && ! $WGET_INSTALLED; then
   ERROR=$?
   echo 'Both wget and curl not installed, exiting...' >&2
-  exit($ERROR)
+  exit $ERROR
 fi
 
 cd 
