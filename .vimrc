@@ -160,7 +160,7 @@ if has("unix")
   set term=xterm-256color
 
   let s:uname = system('uname -s')
-  let s:distribution = system('alsb_release >/dev/null 2>&1 && lsb_release -si')
+  let s:distribution = system('lsb_release >/dev/null 2>&1 && lsb_release -si')
   let s:release = system('lsb_release >/dev/null 2>&1 && lsb_release -sr')
   "if s:uname =~ 'Linux'
     "if s:distribution =~ 'RedHatEnterpriseServer' &&
@@ -193,6 +193,7 @@ Plug 'junegunn/vim-plug'
 " Vim UI plugins
 if !has('win32')
   \ && hostname() !~ 'connector'
+  \ && system('cmake -v >/dev/null 2>&1 && echo 1 || echo 0')
   Plug 'Valloric/YouCompleteMe'
   "{{{
   let g:ycm_confirm_extra_conf = 0
