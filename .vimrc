@@ -233,6 +233,7 @@ Plug 'scrooloose/nerdtree'
 let g:NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$', '\$py.class']
 "}}}
+Plug 'EvanDotPro/nerdtree-chmod'
 Plug 'jistr/vim-nerdtree-tabs'
 "{{{
 let g:nerdtree_tabs_focus_on_files=1
