@@ -202,6 +202,10 @@ if !has('win32')
   nnoremap <leader>jd :YcmCompleter GoTo<CR>
   "}}}
 endif
+Plug 'davidhalter/jedi-vim'
+"{{{
+let g:jedi#usages_command = "<leader>u"
+"}}}
 Plug 'bling/vim-airline'
 "{{{
 set guifont=Inconsolata\ for\ Powerline:h15

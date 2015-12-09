@@ -5,6 +5,7 @@
 !/.gitignore
 !/.gitconfig
 !/.gitmodules
+!/.gitcommit
 #and mercurial files
 !/.hgrc
 
