@@ -6,6 +6,7 @@
 !/.gitconfig
 !/.gitmodules
 !/.gitcommit
+!/.gitignore_global
 #and mercurial files
 !/.hgrc
 
