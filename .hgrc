@@ -9,6 +9,7 @@ rebase=
 graphlog=
 hgext.bookmarks=
 hggit=
+mercurial_keyring=
 
 [color]
 mode=auto
@@ -25,4 +26,7 @@ vimdiff.premerge = keep
 [git]
 intree = 1
 
-%include ~/.hgauth
+[auth]
+wirecard.schemes = http https
+wirecard.prefix = p-ops-vcs.wirecard.sys/scm-webapp/hg
+wirecard.username = andreas.wallner
