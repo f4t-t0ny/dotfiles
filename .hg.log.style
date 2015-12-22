@@ -1,0 +1,8 @@
+changeset = '{lrev}:{lhash}  {ldesc} {ltag} \n {lage} {luser} \n\n'
+
+lrev = "{label('custom.rev', rev)}"
+lhash = "{label('custom.hash{phase}',node|short)}"
+lage = "{label('custom.age', date|age)}"
+ldesc = "{desc|firstline}"
+luser = "{label('custom.user', author|user)}"
+ltag = "{label('custom.tag',tags)}"

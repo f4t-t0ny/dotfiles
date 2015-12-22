@@ -30,3 +30,14 @@ intree = 1
 wirecard.schemes = http https
 wirecard.prefix = p-ops-vcs.wirecard.sys/scm-webapp/hg
 wirecard.username = andreas.wallner
+
+[alias]
+lg = log -G -l 10 --style ~/.hg.log.style
+
+[color]
+custom.rev = yellow
+custom.user = bold cyan
+custom.tag = bold yellow
+custom.hashpublic = bold
+custom.hashdraft = bold green
+custom.hashsecret = bold red
