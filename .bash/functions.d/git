@@ -11,7 +11,7 @@ function git-set-ticket(){
   fi
   
   TICKET=$1
-  cat >$DIR/.gitmessage <<EOF
+  cat >$DIR/.commitmessage <<EOF
 $TICKET:
 
 -
