@@ -1,6 +1,8 @@
 [ui]
-
 username = Andreas Wallner <andreas.wallner@wirecard.com>
+editor = hgeditor
+ignore = ~/.hgignore_global
+
 [extensions]
 color=
 hgext.convert=

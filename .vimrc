@@ -190,6 +190,15 @@ Plug 'junegunn/vim-plug'
 "                                   Plugins                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+" Plugin developement
+Plug 'vim-scripts/Decho'
+"{{{
+let g:dechomode=0
+let g:decho_winheight=30
+"}}}
+Plug 'tpope/vim-scriptease'
+
 " Vim UI plugins
 if !has('win32')
   \ && hostname() !~ 'connector'
@@ -243,10 +252,14 @@ map <Leader>n <plug>NERDTreeTabsToggle<CR>
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
+"{{{
+let g:signify_vcs_list = [ 'hg', 'git' ]
+"}}}
 Plug 'gregsexton/gitv'
 "Mercurial plugin
 Plug 'ludovicchabant/vim-lawrencium'
+Plug 'f4t-t0ny/nerdtree-hg-plugin'
 
 " General editing plugins
 Plug 'scrooloose/nerdcommenter'
@@ -313,12 +326,6 @@ else
   Plug 'thinca/vim-guicolorscheme'
   colorscheme summerfruit256
 endif
-
-" Debugging
-Plug 'vim-scripts/Decho'
-""{{{
-let g:dechomode=0
-""}}}
 
 " Other plugins
 Plug 'vim-scripts/vimwiki'
