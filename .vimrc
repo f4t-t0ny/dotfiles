@@ -202,8 +202,9 @@ Plug 'tpope/vim-scriptease'
 " Vim UI plugins
 if !has('win32')
   \ && hostname() !~ 'connector'
-  \ && system('cmake -v >/dev/null 2>&1 && echo 1 || echo 0')
+  \ && system('cmake -h >/dev/null 2>&1 && echo 1 || echo 0')
   Plug 'Valloric/YouCompleteMe'
+  echom 'ycm enabled'
   "{{{
   let g:ycm_confirm_extra_conf = 0
   let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
@@ -213,7 +214,7 @@ if !has('win32')
 endif
 Plug 'davidhalter/jedi-vim'
 "{{{
-let g:jedi#usages_command = "<leader>u"
+let g:jedi#usages_command = '<leader>u'
 "}}}
 Plug 'bling/vim-airline'
 "{{{
