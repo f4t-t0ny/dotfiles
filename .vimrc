@@ -238,19 +238,19 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "}}}
 " Nerdtree and plugins
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': '<plug>NERDTreeTabsToggle' } |
+ \ Plug 'jistr/vim-nerdtree-tabs' |
+ \ Plug 'Xuyuanp/nerdtree-git-plugin' |
+ \ Plug 'f4t-t0ny/nerdtree-hg-plugin'
+Plug 'EvanDotPro/nerdtree-chmod', { 'on': '<plug>NERDTreeTabsToggle' } 
 "{{{
 let g:NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$', '\$py.class']
-"}}}
-Plug 'EvanDotPro/nerdtree-chmod'
-Plug 'jistr/vim-nerdtree-tabs'
-"{{{
 let g:nerdtree_tabs_focus_on_files=1
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 "}}}
-" Git plugins
-Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Version control plugins
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'mhinz/vim-signify'
@@ -258,9 +258,7 @@ Plug 'mhinz/vim-signify'
 let g:signify_vcs_list = [ 'hg', 'git' ]
 "}}}
 Plug 'gregsexton/gitv'
-"Mercurial plugin
 Plug 'ludovicchabant/vim-lawrencium'
-Plug 'f4t-t0ny/nerdtree-hg-plugin'
 
 " General editing plugins
 Plug 'scrooloose/nerdcommenter'
@@ -273,6 +271,7 @@ let g:NERDCustomDelimiters = {
 "}}}
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
+Plug 'nathanaelkane/vim-indent-guides'
 if !has('win32')
   Plug 'SirVer/ultisnips'
   "{{{
@@ -284,18 +283,18 @@ if !has('win32')
 endif
 
 " Language/syntax plugins
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for': 'go'}
 "{{{
 let g:go_fmt_command = "goimports"
 "}}}
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'chase/vim-ansible-yaml'
-Plug 'digitaltoad/vim-jade'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'rodjek/vim-puppet'
-Plug 'tfnico/vim-gradle'
-Plug 'tpope/vim-rails'
+Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss'}
+Plug 'chase/vim-ansible-yaml', { 'for': 'yaml'}
+Plug 'digitaltoad/vim-jade', { 'for': 'jade'}
+Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile'}
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee-script'}
+Plug 'rodjek/vim-puppet', { 'for': 'puppet'}
+Plug 'tfnico/vim-gradle', { 'for': 'gradle'}
+Plug 'tpope/vim-rails', { 'for': 'ruby'}
 "{{{
 ""HACK, but works
 "for eclim_plugin in ['adt', 'cdt', 'dltk', 'dltkruby', 'groovy', 'jdt', 'pdt', 
@@ -312,9 +311,9 @@ au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declaration
 au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 au FileType java nnoremap <silent> <buffer> <leader>c :JavaCorrect<cr>
 "}}}
-Plug 'keith/swift.vim'
-Plug 'sudar/vim-arduino-syntax'
-Plug 'jplaut/vim-arduino-ino'
+Plug 'keith/swift.vim', { 'for': 'swift'}
+Plug 'sudar/vim-arduino-syntax', { 'for': 'ino'}
+Plug 'jplaut/vim-arduino-ino', { 'for': 'ino'}
 "{{{
 let g:vim_arduino_library_path = '/usr/share/arduino'
 let g:vim_arduino_serial_port = '/dev/ttyACM0' 
@@ -351,7 +350,6 @@ Plug 'rosenfeld/conque-term'
 "{{{
 let g:ConqueTerm_StartMessages = 0
 "}}}
-Plug 'bruno-/vim-man'
 Plug 'f4t-t0ny/DrawIt'
 "{{{
 fun! CutBlock(brush) range
@@ -366,7 +364,6 @@ endfun
 com! -nargs=1 -range CutBlock <line1>,<line2>call CutBlock(<q-args>)
 com! -nargs=1 -range CopyBlock <line1>,<line2>call DrawIt#SetBrush(<q-args>)
 "}}}
-Plug 'nathanaelkane/vim-indent-guides'
 
 call plug#end()
 
