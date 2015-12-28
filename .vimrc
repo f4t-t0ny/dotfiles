@@ -59,7 +59,7 @@ nnoremap <leader>ea :vsplit ~/.vim/misc/ascisnips.txt<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 com! Reload so ~/.vimrc
-
+com! -nargs=* Hgv execute 'Hg! ' . <f-args> | wincmd L
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Functions                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -120,7 +120,6 @@ fun! SourceRecursive(vim_custom_filename, targetdir)
   exe 'lcd ' . savedir 
   "}}}
 endfun
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Autocommands                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -204,7 +203,6 @@ if !has('win32')
   \ && hostname() !~ 'connector'
   \ && system('cmake -h >/dev/null 2>&1 && echo 1 || echo 0')
   Plug 'Valloric/YouCompleteMe'
-  echom 'ycm enabled'
   "{{{
   let g:ycm_confirm_extra_conf = 0
   let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
