@@ -59,7 +59,7 @@ nnoremap <leader>ea :vsplit ~/.vim/misc/ascisnips.txt<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 com! Reload so ~/.vimrc
-com! -nargs=* Hgv execute 'Hg! ' . "<args>" | wincmd L
+com! -nargs=* Hgv execute 'Hg! ' . "<args>" | wincmd L|se nonu|vert res 50
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Functions                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -222,6 +222,10 @@ set encoding=utf-8
 set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
+" use airline tabs instead of normal tabs
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#show_buffers = 0
 "}}}
 Plug 'scrooloose/Syntastic'
 "{{{
@@ -236,16 +240,23 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "}}}
 " Nerdtree and plugins
-Plug 'scrooloose/nerdtree', { 'on': '<plug>NERDTreeTabsToggle' } |
- \ Plug 'jistr/vim-nerdtree-tabs' |
- \ Plug 'Xuyuanp/nerdtree-git-plugin' |
- \ Plug 'f4t-t0ny/nerdtree-hg-plugin'
+Plug 'scrooloose/nerdtree', { 'on': '<plug>NERDTreeTabsToggle' }
+ \ | Plug 'jistr/vim-nerdtree-tabs'
+ \ | Plug 'Xuyuanp/nerdtree-git-plugin'
+ \ | Plug 'f4t-t0ny/nerdtree-hg-plugin'
 Plug 'EvanDotPro/nerdtree-chmod', { 'on': '<plug>NERDTreeTabsToggle' } 
 "{{{
 let g:NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$', '\$py.class']
 let g:nerdtree_tabs_focus_on_files=1
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
+"}}}
+
+"Ctrl-P
+Plug 'ctrlpvim/ctrlp.vim'
+"{{{
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 "}}}
 
 " Version control plugins

@@ -12,6 +12,7 @@ graphlog=
 hgext.bookmarks=
 hggit=
 mercurial_keyring=
+mq=
 
 [color]
 mode=auto
