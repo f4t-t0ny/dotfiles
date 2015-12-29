@@ -1,4 +1,4 @@
-changeset = '{lrev}:{lhash}:{phase} {ldesc} {ltag} \n {lage} {luser} \n\n'
+changeset = '{lrev}:{lhash}:{phase} \n {ldesc} {ltag} \n {lage} {luser} \n\n'
 
 lrev = "{label('custom.rev', rev)}"
 lhash = "{label('custom.hash{phase}',node|short)}"
