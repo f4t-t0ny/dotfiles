@@ -59,7 +59,7 @@ nnoremap <leader>ea :vsplit ~/.vim/misc/ascisnips.txt<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 com! Reload so ~/.vimrc
-com! -nargs=* Hgv execute 'Hg! ' . <f-args> | wincmd L
+com! -nargs=* Hgv execute 'Hg! ' . "<args>" | wincmd L
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Functions                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -257,6 +257,12 @@ let g:signify_vcs_list = [ 'hg', 'git' ]
 "}}}
 Plug 'gregsexton/gitv'
 Plug 'ludovicchabant/vim-lawrencium'
+"{{{
+let g:lawrencium_hg_commands_file_types = { 
+  \ 'log': 'hglog',
+  \ 'lg': 'hglg' 
+  \ }
+"}}}
 
 " General editing plugins
 Plug 'scrooloose/nerdcommenter'
