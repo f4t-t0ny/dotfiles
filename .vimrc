@@ -21,7 +21,8 @@ set textwidth=0
 set expandtab
 set mouse=a " always use mouse
 set backspace=indent,eol,start
-set wildmode=longest,list "wildcard type in ex mode
+set wildmode=longest,list,full "wildcard type in ex mode
+set wildmenu
 set clipboard=unnamed " use system clipboard
 filetype plugin indent on " activate all filetype triggers
 let mapleader="," " set leader key
@@ -49,17 +50,8 @@ nnoremap tn  :tabnext<cr>
 nnoremap tm  :tabm<cr>
 nnoremap td  :tabclose<cr>
 " edit vimrc in split
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>ef :e $MYVIMRC<cr>
-nnoremap <leader>et :tabe $MYVIMRC<cr>
-nnoremap <leader>ea :vsplit ~/.vim/misc/ascisnips.txt<cr>
+nnoremap <leader>e :e $MYVIMRC<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               Custom commands                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-com! Reload so ~/.vimrc
-com! -nargs=* Hgv execute 'Hg! ' . "<args>" | wincmd L|se nonu|vert res 50
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Functions                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -120,6 +112,7 @@ fun! SourceRecursive(vim_custom_filename, targetdir)
   exe 'lcd ' . savedir 
   "}}}
 endfun
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Autocommands                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -225,7 +218,8 @@ set termencoding=utf-8
 " use airline tabs instead of normal tabs
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#show_buffers = 0
+"let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#buffer_nr_show = 1
 "}}}
 Plug 'scrooloose/Syntastic'
 "{{{
@@ -240,16 +234,15 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "}}}
 " Nerdtree and plugins
-Plug 'scrooloose/nerdtree', { 'on': '<plug>NERDTreeTabsToggle' }
- \ | Plug 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeClose'] }
  \ | Plug 'Xuyuanp/nerdtree-git-plugin'
- \ | Plug 'f4t-t0ny/nerdtree-hg-plugin'
-Plug 'EvanDotPro/nerdtree-chmod', { 'on': '<plug>NERDTreeTabsToggle' } 
+ \ | Plug 'https://github.com/f4t-t0ny/nerdtree-hg-plugin'
+Plug 'EvanDotPro/nerdtree-chmod', { 'on': '<plug>NERDTreeToggle' } 
 "{{{
 let g:NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$', '\$py.class']
 let g:nerdtree_tabs_focus_on_files=1
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
+noremap <Leader>n :NERDTreeToggle<CR>
 "}}}
 
 "Ctrl-P
@@ -258,6 +251,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 "}}}
+"Bbye
+Plug 'moll/vim-bbye'
 
 " Version control plugins
 Plug 'tpope/vim-fugitive'
@@ -267,7 +262,7 @@ Plug 'mhinz/vim-signify'
 let g:signify_vcs_list = [ 'hg', 'git' ]
 "}}}
 Plug 'gregsexton/gitv'
-Plug 'ludovicchabant/vim-lawrencium'
+Plug 'https://github.com/f4t-t0ny/vim-lawrencium'
 "{{{
 let g:lawrencium_hg_commands_file_types = { 
   \ 'log': 'hglog',
@@ -381,6 +376,27 @@ com! -nargs=1 -range CopyBlock <line1>,<line2>call DrawIt#SetBrush(<q-args>)
 "}}}
 
 call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               Custom commands                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"reload vimrc
+com! Reload so ~/.vimrc
+
+" vert split with open buffer
+com! -nargs=* Vsb vert sb <args>
+
+" Go to directory with nerdtree
+com! -nargs=1 -complete=dir Ncd NERDTreeClose | cd <args> |NERDTreeCWD
+
+" Full window help 
+com! -nargs=1 -complete=help H enew | h <args> | wincmd k | bd       
+
+" go to open buffer with <leader>i
+for i in range(1,10)
+  execute "noremap <leader>".i." :b".i."<cr>"
+endfor
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Custom init code                               "
