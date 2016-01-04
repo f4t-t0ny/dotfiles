@@ -1,7 +1,8 @@
 #!/bin/bash
 
 if [[ $UNAME == 'Darwin' ]]; then
-  export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home
+  #export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home
+  export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home
 elif [[ $UNAME == 'Linux' && $DISTRIBUTION == 'CentOS' ]]; then
   export JAVA_HOME=/usr/java/default
 fi
