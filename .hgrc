@@ -1,6 +1,6 @@
 [ui]
 username = Andreas Wallner <andreas.wallner@wirecard.com>
-editor = hgeditor
+editor = vim
 ignore = ~/.hgignore_global
 
 [extensions]
@@ -44,3 +44,9 @@ custom.tag = bold yellow
 custom.hashpublic = bold
 custom.hashdraft = bold green
 custom.hashsecret = bold red
+
+[hooks]
+# Prevent "hg pull" if MQ patches are applied.
+prechangegroup.mq-no-pull = ! hg qtop > /dev/null 2>&1
+# Prevent "hg push" if MQ patches are applied.
+preoutgoing.mq-no-push = ! hg qtop > /dev/null 2>&1

@@ -31,13 +31,9 @@ set splitbelow
 set wrap
 set autoindent
 set cindent
-set nowrap
 set showtabline=2 " always show tabs
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                             General key mappings                             "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" KEY_MAPPINGS: {{{1
 " dont yank when pasting
 xnoremap p pgvy
 " tab switching
@@ -52,14 +48,10 @@ nnoremap td  :tabclose<cr>
 " edit vimrc in split
 nnoremap <leader>e :e $MYVIMRC<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  Functions                                   "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" FUNCTION: Preserve(command) {{{1
 " Restore cursor position, window position, and last search after running a
 " command.
 fun! Preserve(command)
-  "{{{
   " Save the last search.
   let search = @/
 
@@ -83,10 +75,10 @@ fun! Preserve(command)
 
   " Restore the previous cursor position.
   call setpos('.', cursor_position)
-  "}}}
 endfun
+
+"FUNCTION: SourceRecursive(vim_custom_filename, targetdir) {{{1
 fun! SourceRecursive(vim_custom_filename, targetdir)
-  "{{{
   let savedir = getcwd() 
   if &l:modifiable == 0
     return
@@ -110,13 +102,22 @@ fun! SourceRecursive(vim_custom_filename, targetdir)
     endif
   endfor
   exe 'lcd ' . savedir 
-  "}}}
 endfun
+"}}}
+" FUNCTION: Output() {{{1
+function! Output()
+    let winnr = bufwinnr('^_output$')
+    if ( winnr >= 0 )
+        execute winnr . 'wincmd w'
+        execute 'normal ggdG'
+    else
+        new _output
+        setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+    endif
+    silent! r! ls
+endfunction
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 Autocommands                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" AUTOCOMMANDS: {{{1
 " set custom filetypes 
 au BufRead,BufNewFile *.vim.custom setfiletype vim
 au BufRead,BufNewFile *.gitignore setfiletype conf
@@ -139,15 +140,12 @@ au BufRead * call SourceRecursive('.vim.custom', expand('%:p:h'))
 " FIXME source vimrc after save
 "au! bufwritepost .vimrc source % "source vimrc after save
 " FIXME only save folds, but nothing else
-"au BufWinLeave *.* mkview
-"au BufWinEnter *.* silent loadview
+au BufWinLeave *.* mkview
+au BufWinEnter *.* silent loadview
 " DISABLED
 "au BufWritePre <buffer> call Indent() " Indent on save hook
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                            OS dependent settings                             "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" OS_DEPENDENT_SETTINGS: {{{1
 if has("unix")
   set term=xterm-256color
 
@@ -164,26 +162,11 @@ if hostname() == 'connector'
   set viminfo = "NONE"
 endif
 
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                           _ _                                " 
-"                    __   ___   _ _ __   __| | | ___                           " 
-"                    \ \ / / | | | '_ \ / _` | |/ _ \                          " 
-"                     \ V /| |_| | | | | (_| | |  __/                          " 
-"                      \_/  \__,_|_| |_|\__,_|_|\___|                          " 
-"                                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" PLUGINS: {{{1
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   Plugins                                    "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-" Plugin developement
+" DEVELOPMENT: {{{2
 Plug 'vim-scripts/Decho'
 "{{{
 let g:dechomode=0
@@ -191,7 +174,7 @@ let g:decho_winheight=30
 "}}}
 Plug 'tpope/vim-scriptease'
 
-" Vim UI plugins
+" UI: {{{2
 if !has('win32')
   \ && hostname() !~ 'connector'
   \ && system('cmake -h >/dev/null 2>&1 && echo 1 || echo 0')
@@ -233,7 +216,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "}}}
-" Nerdtree and plugins
+
+" NERDTREE: {{{2
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeClose'] }
  \ | Plug 'Xuyuanp/nerdtree-git-plugin'
  \ | Plug 'https://github.com/f4t-t0ny/nerdtree-hg-plugin'
@@ -245,7 +229,7 @@ let g:nerdtree_tabs_focus_on_files=1
 noremap <Leader>n :NERDTreeToggle<CR>
 "}}}
 
-"Ctrl-P
+" BUFFERS: {{{2
 Plug 'ctrlpvim/ctrlp.vim'
 "{{{
 let g:ctrlp_map = '<c-p>'
@@ -254,6 +238,7 @@ let g:ctrlp_cmd = 'CtrlP'
 "Bbye
 Plug 'moll/vim-bbye'
 
+" VCS: {{{2
 " Version control plugins
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
@@ -270,6 +255,7 @@ let g:lawrencium_hg_commands_file_types = {
   \ }
 "}}}
 
+" EDITING: {{{2
 " General editing plugins
 Plug 'scrooloose/nerdcommenter'
 "{{{
@@ -292,6 +278,7 @@ if !has('win32')
   Plug 'honza/vim-snippets'
 endif
 
+" SYNTAX: {{{2
 " Language/syntax plugins
 Plug 'fatih/vim-go', { 'for': 'go'}
 "{{{
@@ -328,16 +315,18 @@ Plug 'jplaut/vim-arduino-ino', { 'for': 'ino'}
 let g:vim_arduino_library_path = '/usr/share/arduino'
 let g:vim_arduino_serial_port = '/dev/ttyACM0' 
 "}}}
+Plug 'derekwyatt/vim-sbt', { 'for': 'sbt.scala'}
+Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
 
+" COLORSCHEME: {{{2
 if has('win32')
   colorscheme pablo
 else
-  " Colorscheme plugins
   Plug 'thinca/vim-guicolorscheme'
   colorscheme summerfruit256
 endif
 
-" Other plugins
+" OTHER: {{{2
 Plug 'vim-scripts/vimwiki'
 "{{{
 let vimwiki_path=$HOME.'/vimwiki/'
@@ -363,13 +352,11 @@ let g:ConqueTerm_StartMessages = 0
 Plug 'f4t-t0ny/DrawIt'
 "{{{
 fun! CutBlock(brush) range
-  "{{{
   let b:drawit_brush= a:brush
   if visualmode() == "\<c-v>" && ((a:firstline == line("'>") && a:lastline == line("'<")) || (a:firstline == line("'<") && a:lastline == line("'>")))
    exe 'norm! gv"'.b:drawit_brush.'y'
    exe 'norm! gvr "'
   endif
-  "}}}
 endfun
 com! -nargs=1 -range CutBlock <line1>,<line2>call CutBlock(<q-args>)
 com! -nargs=1 -range CopyBlock <line1>,<line2>call DrawIt#SetBrush(<q-args>)
@@ -377,10 +364,7 @@ com! -nargs=1 -range CopyBlock <line1>,<line2>call DrawIt#SetBrush(<q-args>)
 
 call plug#end()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               Custom commands                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" COMMANDS: {{{1
 "reload vimrc
 com! Reload so ~/.vimrc
 
@@ -398,10 +382,7 @@ for i in range(1,10)
   execute "noremap <leader>".i." :b".i."<cr>"
 endfor
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               Custom init code                               "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" INIT: {{{1
 " colorize after 80 columns
 let &colorcolumn=join(range(81,999),',')
 
