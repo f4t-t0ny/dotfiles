@@ -207,6 +207,9 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 Plug 'scrooloose/Syntastic'
 "{{{
 let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
+if hostname() =~ 'connector'
+  let g:syntastic_python_python_exec = 'python2'
+endif
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*

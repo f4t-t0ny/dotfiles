@@ -42,3 +42,5 @@
 #ignore eclim plugin file
 ~/.vim/plugin/eclim.vim
 
+# ignore plug plugin files
+/.vim/autoload/plug.vim
