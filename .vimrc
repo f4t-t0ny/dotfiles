@@ -321,13 +321,13 @@ let g:vim_arduino_serial_port = '/dev/ttyACM0'
 Plug 'derekwyatt/vim-sbt', { 'for': 'sbt.scala'}
 Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
 
-" COLORSCHEME: {{{2
-if has('win32')
-  colorscheme pablo
-else
-  Plug 'thinca/vim-guicolorscheme'
+"" COLORSCHEME: {{{2
+"if has('win32')
+  "colorscheme pablo
+"else
+  "Plug 'thinca/vim-guicolorscheme'
   colorscheme summerfruit256
-endif
+"endif
 
 " OTHER: {{{2
 Plug 'vim-scripts/vimwiki'
