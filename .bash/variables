@@ -13,6 +13,7 @@ updatepath ~/.bash/scripts.d
 updatepath /usr/local/go/bin
 updatepath /usr/local/share/jruby/bin
 updatepath /opt/gradle/bin
+updatepath ~/dev/python/connector/scripts
 
 UNAME=$(uname)
 DISTRIBUTION=$(lsb_release >/dev/null 2>&1 && lsb_release -si)

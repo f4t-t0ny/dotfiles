@@ -13,6 +13,7 @@ hgext.bookmarks=
 hggit=
 mercurial_keyring=
 mq=
+histedit=
 
 [color]
 mode=auto
