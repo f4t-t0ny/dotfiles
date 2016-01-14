@@ -1,27 +1,44 @@
 . ~/.bash/functions.d/git-prompt
 
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$( cat /etc/debian_chroot)
+if test -t 1; then
+
+    # see if it supports colors...
+    ncolors=$(tput colors)
+
+    if test -n "$ncolors" && test $ncolors -ge 8; then
+        bold="$(tput bold)"
+        underline="$(tput smul)"
+        standout="$(tput smso)"
+        normal="$(tput sgr0)"
+        black="$(tput setaf 0)"
+        red="$(tput setaf 1)"
+        green="$(tput setaf 2)"
+        yellow="$(tput setaf 3)"
+        blue="$(tput setaf 4)"
+        magenta="$(tput setaf 5)"
+        cyan="$(tput setaf 6)"
+        white="$(tput setaf 7)"
+    fi
+else 
+  echo "Terminal does not support colors..."
+  exit 1
 fi
 
-ROOT_PROMPT_COLOR='38;5;197m' # red
-USER_PROMPT_COLOR='38;5;141m' # dark green
-DIRECTORY_COLOR='38;5;81m'
-GIT_BRANCH_COLOR='38;5;197m'
-DOLLAR_COLOR='38;5;148m'
+#ROOT_PROMPT_COLOR='38;5;197m' # red
+#USER_PROMPT_COLOR='38;5;141m' # dark green
+#DIRECTORY_COLOR='38;5;81m'
+#GIT_BRANCH_COLOR='38;5;197m'
+#DOLLAR_COLOR='38;5;148m'
 
-DEB_CHROOT='${debian_chroot:+($debian_chroot)}' 
-USER_PROMPT='\[\033[${USER_PROMPT_COLOR}\]\u@\h'
-ROOT_PROMPT='\[\033[${ROOT_PROMPT_COLOR}\]\u@\h'
-DIRECTORY_PROMPT_SHORT='\[\033[${DIRECTORY_COLOR}\]\W'
-DIRECTORY_PROMPT_FULL='\[\033[${DIRECTORY_COLOR}\]\w'
-GIT_PROMPT='\[\033[${GIT_BRANCH_COLOR}\]$(__git_ps1)'
-EXIT_STATUS_PROMPT='$(if [[ $? == 0 ]]; then echo "\[\033[${DOLLAR_COLOR}\]✓"; else echo "\[\033[${ROOT_PROMPT_COLOR}\]✗"; fi)'
-#END_PROMPT='\[\033[${DOLLAR_COLOR}\]\$\[\033[00m\]'
-END_PROMPT='$(if [[ $? == 0 ]]; then echo "\[\033[${DOLLAR_COLOR}\]\$\[\033[00m\]"; else echo "\[\033[${ROOT_PROMPT_COLOR}\]\$\[\033[00m\]"; fi)'
+ROOT_PROMPT_COLOR="${red}"
+HOSTNAME_PROMPT_COLOR="${cyan}"
+USER_PROMPT_COLOR="${bold}${blue}"
+DIRECTORY_COLOR="${yellow}"
+GIT_BRANCH_COLOR="${magenta}"
+DOLLAR_COLOR="${green}"
 
 if [[ $EUID == 0 ]] ; then
-  PS1="${DEB_CHROOT}${ROOT_PROMPT} ${DIRECTORY_PROMPT_SHORT} ${END_PROMPT} "
+  PS1="${red}\u${cyan}@\h ${blue}\W ${normal}"
 else
-  PS1="${DEB_CHROOT}${USER_PROMPT} ${DIRECTORY_PROMPT_FULL}${GIT_PROMPT} ${END_PROMPT} "
+  PS1="${magenta}\u@\h ${blue}\w${red}$(__git_ps1)${green} \$ ${normal}"
 fi
