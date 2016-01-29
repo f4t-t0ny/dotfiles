@@ -177,7 +177,6 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
 
-" DEVELOPMENT: {{{2
 if index(['development'], s:config) != -1
 Plug 'vim-scripts/Decho'
 "{{{
@@ -187,7 +186,6 @@ let g:decho_winheight=30
 Plug 'tpope/vim-scriptease'
 endif
 
-" UI: {{{2
 if index(['default'], s:config) != -1
   Plug 'Valloric/YouCompleteMe'
   "{{{
@@ -196,30 +194,19 @@ if index(['default'], s:config) != -1
   let g:ycm_filepath_completion_use_working_dir = 1
   nnoremap <leader>jd :YcmCompleter GoTo<CR>
   "}}}
+  Plug 'SirVer/ultisnips'
+  "{{{
+  let g:UltiSnipsExpandTrigger="<c-b>"
+  let g:UltiSnipsEditSplit="vertical"
+  let g:UltiSnipsListSnippets="<c-l>"
+  "}}}
+  Plug 'honza/vim-snippets'
 endif
 if index(['default', 'win32'], s:config) != -1
   Plug 'davidhalter/jedi-vim'
   "{{{
   let g:jedi#usages_command = '<leader>u'
   "}}}
-endif
-if index(['default', 'win32', 'connector'], s:config) != -1
-  Plug 'bling/vim-airline'
-  "{{{
-  set guifont=Inconsolata\ for\ Powerline:h15
-  let g:Powerline_symbols = 'fancy'
-  set encoding=utf-8
-  set t_Co=256
-  set fillchars+=stl:\ ,stlnc:\
-  set termencoding=utf-8
-  " use airline tabs instead of normal tabs
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#fnamemod = ':t'
-  "let g:airline#extensions#tabline#show_buffers = 0
-  let g:airline#extensions#tabline#buffer_nr_show = 1
-  "}}}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'scrooloose/Syntastic'
   "{{{
   let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
@@ -235,9 +222,7 @@ if index(['default', 'win32'], s:config) != -1
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
   "}}}
-endif
-" NERDTREE: {{{2
-if index(['default', 'win32'], s:config) != -1
+  " Navigating files
   Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeClose'] }
    \ | Plug 'Xuyuanp/nerdtree-git-plugin'
    \ | Plug 'https://github.com/f4t-t0ny/nerdtree-hg-plugin'
@@ -251,25 +236,16 @@ if index(['default', 'win32'], s:config) != -1
   com! -nargs=1 -complete=dir Ncd NERDTreeClose | cd <args> |NERDTreeCWD
 
   "}}}
-endif
-
-" BUFFERS: {{{2
-if index(['default', 'win32'], s:config) != -1
   Plug 'ctrlpvim/ctrlp.vim'
   "{{{
   let g:ctrlp_map = '<c-p>'
   let g:ctrlp_cmd = 'CtrlP'
   "}}}
-endif
-"Bbye
-if index(['default', 'win32', 'connector'], s:config) != -1
-  Plug 'moll/vim-bbye'
-endif
-
-" VCS: {{{2
-" Version control plugins
-
-if index(['default', 'win32'], s:config) != -1
+  " General editing
+  Plug 'tpope/vim-abolish'
+  Plug 'tpope/vim-surround'
+  Plug 'nathanaelkane/vim-indent-guides'
+  " Version control
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-git'
   Plug 'mhinz/vim-signify'
@@ -284,65 +260,17 @@ if index(['default', 'win32'], s:config) != -1
     \ 'lg': 'hglg' 
     \ }
   "}}}
-endif
-" EDITING: {{{2
-" General editing plugins
-if index(['default', 'win32', 'connector'], s:config) != -1
-  Plug 'scrooloose/nerdcommenter'
-  "{{{
-  "custom delimiters
-  let g:NERDCustomDelimiters = { 
-    \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }, 
-    \ 'python': { 'left': '#', 'leftAlt': "''' ", 'rightAlt': "'''"}
-    \ }
-  "}}}
-endif
-if index(['default', 'win32'], s:config) != -1
-  Plug 'tpope/vim-abolish'
-  Plug 'tpope/vim-surround'
-  Plug 'nathanaelkane/vim-indent-guides'
-endif
-if index(['default'], s:config) != -1
-  Plug 'SirVer/ultisnips'
-  "{{{
-  let g:UltiSnipsExpandTrigger="<c-b>"
-  let g:UltiSnipsEditSplit="vertical"
-  let g:UltiSnipsListSnippets="<c-l>"
-  "}}}
-  Plug 'honza/vim-snippets'
-endif
-
-" SYNTAX: {{{2
-" Language/syntax plugins
-
-if index(['default', 'win32'], s:config) != -1
+  " Language/syntax plugins
   Plug 'fatih/vim-go', { 'for': 'go'}
   "{{{
   let g:go_fmt_command = "goimports"
   "}}}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss'}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'chase/vim-ansible-yaml', { 'for': 'yaml'}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'digitaltoad/vim-jade', { 'for': 'jade'}
-endif
-if index(['default', 'win32', 'connector'], s:config) != -1
-  Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile'}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'kchmck/vim-coffee-script', { 'for': 'coffee-script'}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'rodjek/vim-puppet', { 'for': 'puppet'}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'tfnico/vim-gradle', { 'for': 'gradle'}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'tpope/vim-rails', { 'for': 'ruby'}
   "{{{
   ""HACK, but works
@@ -360,33 +288,46 @@ if index(['default', 'win32'], s:config) != -1
   au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
   au FileType java nnoremap <silent> <buffer> <leader>c :JavaCorrect<cr>
   "}}}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'keith/swift.vim', { 'for': 'swift'}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'sudar/vim-arduino-syntax', { 'for': 'ino'}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'jplaut/vim-arduino-ino', { 'for': 'ino'}
   "{{{
   let g:vim_arduino_library_path = '/usr/share/arduino'
   let g:vim_arduino_serial_port = '/dev/ttyACM0' 
   "}}}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'derekwyatt/vim-sbt', { 'for': 'sbt.scala'}
-endif
-if index(['default', 'win32'], s:config) != -1
   Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
 endif
-
-"" COLORSCHEME: {{{2
+if index(['default', 'win32', 'connector'], s:config) != -1
+  " Minimal most important plugins
+  Plug 'bling/vim-airline'
+  "{{{
+  set guifont=Inconsolata\ for\ Powerline:h15
+  let g:Powerline_symbols = 'fancy'
+  set encoding=utf-8
+  set t_Co=256
+  set fillchars+=stl:\ ,stlnc:\
+  set termencoding=utf-8
+  " use airline tabs instead of normal tabs
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#fnamemod = ':t'
+  "let g:airline#extensions#tabline#show_buffers = 0
+  let g:airline#extensions#tabline#buffer_nr_show = 1
+  "}}}
+  Plug 'moll/vim-bbye'
+  Plug 'scrooloose/nerdcommenter'
+  "{{{
+  "custom delimiters
+  let g:NERDCustomDelimiters = { 
+    \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }, 
+    \ 'python': { 'left': '#', 'leftAlt': "''' ", 'rightAlt': "'''"}
+    \ }
+  "}}}
+  Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile'}
+endif
 if index(['default', 'connector'], s:config) != -1
   colorscheme summerfruit256
 endif
-
-" OTHER: {{{2
 
 "Plug 'vim-scripts/vimwiki'
 ""{{{
