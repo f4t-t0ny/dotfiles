@@ -148,7 +148,7 @@ au BufWinEnter *.* silent loadview
 
 " OS_DEPENDENT_SETTINGS: {{{1
 if has("unix")
-  "set term=xterm-256color
+  set term=xterm-256color
 
   let s:uname = system('uname -s')
   let s:distribution = system('lsb_release >/dev/null 2>&1 && lsb_release -si')

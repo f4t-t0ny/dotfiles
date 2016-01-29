@@ -1,0 +1,4 @@
+if [ $TERM == "vt102" ] && [ $HOSTNAME == "connector" ]; then
+  export TERM_SAVED=$TERM
+  export TERM=xterm-256color
+fi
