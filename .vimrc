@@ -32,6 +32,7 @@ set wrap
 set autoindent
 set cindent
 set showtabline=2 " always show tabs
+set scrolloff=15 " start scrolling x lines from bottom/top
 
 " KEY_MAPPINGS: {{{1
 " dont yank when pasting
@@ -147,7 +148,7 @@ au BufWinEnter *.* silent loadview
 
 " OS_DEPENDENT_SETTINGS: {{{1
 if has("unix")
-  set term=xterm-256color
+  "set term=xterm-256color
 
   let s:uname = system('uname -s')
   let s:distribution = system('lsb_release >/dev/null 2>&1 && lsb_release -si')
@@ -158,7 +159,17 @@ if has("unix")
   "endif
 endif
 
+" set config
+let s:config = 'default'
 if hostname() == 'connector'
+  let s:config = 'connector'
+elseif has('win32')
+  let s:config = 'win32'
+endif
+
+
+
+if index(['connector'], s:config) != -1
   set viminfo = "NONE"
 endif
 
@@ -167,17 +178,17 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
 
 " DEVELOPMENT: {{{2
+if index(['development'], s:config) != -1
 Plug 'vim-scripts/Decho'
 "{{{
 let g:dechomode=0
 let g:decho_winheight=30
 "}}}
 Plug 'tpope/vim-scriptease'
+endif
 
 " UI: {{{2
-if !has('win32')
-  \ && hostname() !~ 'connector'
-  \ && system('cmake -h >/dev/null 2>&1 && echo 1 || echo 0')
+if index(['default'], s:config) != -1
   Plug 'Valloric/YouCompleteMe'
   "{{{
   let g:ycm_confirm_extra_conf = 0
@@ -186,92 +197,112 @@ if !has('win32')
   nnoremap <leader>jd :YcmCompleter GoTo<CR>
   "}}}
 endif
-Plug 'davidhalter/jedi-vim'
-"{{{
-let g:jedi#usages_command = '<leader>u'
-"}}}
-Plug 'bling/vim-airline'
-"{{{
-set guifont=Inconsolata\ for\ Powerline:h15
-let g:Powerline_symbols = 'fancy'
-set encoding=utf-8
-set t_Co=256
-set fillchars+=stl:\ ,stlnc:\
-set termencoding=utf-8
-" use airline tabs instead of normal tabs
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-"let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#buffer_nr_show = 1
-"}}}
-Plug 'scrooloose/Syntastic'
-"{{{
-let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
-if hostname() =~ 'connector'
-  let g:syntastic_python_python_exec = 'python2'
+if index(['default', 'win32'], s:config) != -1
+  Plug 'davidhalter/jedi-vim'
+  "{{{
+  let g:jedi#usages_command = '<leader>u'
+  "}}}
 endif
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+if index(['default', 'win32', 'connector'], s:config) != -1
+  Plug 'bling/vim-airline'
+  "{{{
+  set guifont=Inconsolata\ for\ Powerline:h15
+  let g:Powerline_symbols = 'fancy'
+  set encoding=utf-8
+  set t_Co=256
+  set fillchars+=stl:\ ,stlnc:\
+  set termencoding=utf-8
+  " use airline tabs instead of normal tabs
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#fnamemod = ':t'
+  "let g:airline#extensions#tabline#show_buffers = 0
+  let g:airline#extensions#tabline#buffer_nr_show = 1
+  "}}}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'scrooloose/Syntastic'
+  "{{{
+  let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
+  if hostname() =~ 'connector'
+    let g:syntastic_python_python_exec = 'python2'
+  endif
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-"}}}
-
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+  "}}}
+endif
 " NERDTREE: {{{2
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeClose'] }
- \ | Plug 'Xuyuanp/nerdtree-git-plugin'
- \ | Plug 'https://github.com/f4t-t0ny/nerdtree-hg-plugin'
-Plug 'EvanDotPro/nerdtree-chmod', { 'on': '<plug>NERDTreeToggle' } 
-"{{{
-let g:NERDTreeShowHidden=1
-let NERDTreeIgnore = ['\.pyc$', '\$py.class']
-let g:nerdtree_tabs_focus_on_files=1
-noremap <Leader>n :NERDTreeToggle<CR>
-"}}}
+if index(['default', 'win32'], s:config) != -1
+  Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeClose'] }
+   \ | Plug 'Xuyuanp/nerdtree-git-plugin'
+   \ | Plug 'https://github.com/f4t-t0ny/nerdtree-hg-plugin'
+  Plug 'EvanDotPro/nerdtree-chmod', { 'on': '<plug>NERDTreeToggle' } 
+  "{{{
+  let g:NERDTreeShowHidden=1
+  let NERDTreeIgnore = ['\.pyc$', '\$py.class']
+  let g:nerdtree_tabs_focus_on_files=1
+  noremap <Leader>n :NERDTreeToggle<CR>
+  " Go to directory with nerdtree
+  com! -nargs=1 -complete=dir Ncd NERDTreeClose | cd <args> |NERDTreeCWD
+
+  "}}}
+endif
 
 " BUFFERS: {{{2
-Plug 'ctrlpvim/ctrlp.vim'
-"{{{
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-"}}}
+if index(['default', 'win32'], s:config) != -1
+  Plug 'ctrlpvim/ctrlp.vim'
+  "{{{
+  let g:ctrlp_map = '<c-p>'
+  let g:ctrlp_cmd = 'CtrlP'
+  "}}}
+endif
 "Bbye
-Plug 'moll/vim-bbye'
+if index(['default', 'win32', 'connector'], s:config) != -1
+  Plug 'moll/vim-bbye'
+endif
 
 " VCS: {{{2
 " Version control plugins
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-git'
-Plug 'mhinz/vim-signify'
-"{{{
-let g:signify_vcs_list = [ 'hg', 'git' ]
-"}}}
-Plug 'gregsexton/gitv'
-Plug 'https://github.com/f4t-t0ny/vim-lawrencium'
-"{{{
-let g:lawrencium_hg_commands_file_types = { 
-  \ 'log': 'hglog',
-  \ 'lg': 'hglg' 
-  \ }
-"}}}
 
+if index(['default', 'win32'], s:config) != -1
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-git'
+  Plug 'mhinz/vim-signify'
+  "{{{
+  let g:signify_vcs_list = [ 'hg', 'git' ]
+  "}}}
+  Plug 'gregsexton/gitv'
+  Plug 'https://github.com/f4t-t0ny/vim-lawrencium'
+  "{{{
+  let g:lawrencium_hg_commands_file_types = { 
+    \ 'log': 'hglog',
+    \ 'lg': 'hglg' 
+    \ }
+  "}}}
+endif
 " EDITING: {{{2
 " General editing plugins
-Plug 'scrooloose/nerdcommenter'
-"{{{
-"custom delimiters
-let g:NERDCustomDelimiters = { 
-  \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }, 
-  \ 'python': { 'left': '#', 'leftAlt': "''' ", 'rightAlt': "'''"}
-  \ }
-"}}}
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-surround'
-Plug 'nathanaelkane/vim-indent-guides'
-if !has('win32')
+if index(['default', 'win32', 'connector'], s:config) != -1
+  Plug 'scrooloose/nerdcommenter'
+  "{{{
+  "custom delimiters
+  let g:NERDCustomDelimiters = { 
+    \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }, 
+    \ 'python': { 'left': '#', 'leftAlt': "''' ", 'rightAlt': "'''"}
+    \ }
+  "}}}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'tpope/vim-abolish'
+  Plug 'tpope/vim-surround'
+  Plug 'nathanaelkane/vim-indent-guides'
+endif
+if index(['default'], s:config) != -1
   Plug 'SirVer/ultisnips'
   "{{{
   let g:UltiSnipsExpandTrigger="<c-b>"
@@ -283,87 +314,114 @@ endif
 
 " SYNTAX: {{{2
 " Language/syntax plugins
-Plug 'fatih/vim-go', { 'for': 'go'}
-"{{{
-let g:go_fmt_command = "goimports"
-"}}}
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss'}
-Plug 'chase/vim-ansible-yaml', { 'for': 'yaml'}
-Plug 'digitaltoad/vim-jade', { 'for': 'jade'}
-Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile'}
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee-script'}
-Plug 'rodjek/vim-puppet', { 'for': 'puppet'}
-Plug 'tfnico/vim-gradle', { 'for': 'gradle'}
-Plug 'tpope/vim-rails', { 'for': 'ruby'}
-"{{{
-""HACK, but works
-"for eclim_plugin in ['adt', 'cdt', 'dltk', 'dltkruby', 'groovy', 'jdt', 'pdt', 
-"\ 'pydev', 'sdt', 'vimplugin', 'wst']
-  "exec 'set rtp+='.$HOME.'/.vim/bundle/eclim/'.'org.eclim.'.eclim_plugin.'/vim/eclim'
-"endfor
-let g:EclimCompletionMethod = 'omnifunc'
-"let g:EclimFileTypeValidate=0 "disable eclim validation, enable syntastic
-let g:EclimJavascriptValidate=0
-let g:EclimJavaValidate=1
-au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
-au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
-au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
-au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
-au FileType java nnoremap <silent> <buffer> <leader>c :JavaCorrect<cr>
-"}}}
-Plug 'keith/swift.vim', { 'for': 'swift'}
-Plug 'sudar/vim-arduino-syntax', { 'for': 'ino'}
-Plug 'jplaut/vim-arduino-ino', { 'for': 'ino'}
-"{{{
-let g:vim_arduino_library_path = '/usr/share/arduino'
-let g:vim_arduino_serial_port = '/dev/ttyACM0' 
-"}}}
-Plug 'derekwyatt/vim-sbt', { 'for': 'sbt.scala'}
-Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
+
+if index(['default', 'win32'], s:config) != -1
+  Plug 'fatih/vim-go', { 'for': 'go'}
+  "{{{
+  let g:go_fmt_command = "goimports"
+  "}}}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss'}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'chase/vim-ansible-yaml', { 'for': 'yaml'}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'digitaltoad/vim-jade', { 'for': 'jade'}
+endif
+if index(['default', 'win32', 'connector'], s:config) != -1
+  Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile'}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'kchmck/vim-coffee-script', { 'for': 'coffee-script'}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'rodjek/vim-puppet', { 'for': 'puppet'}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'tfnico/vim-gradle', { 'for': 'gradle'}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'tpope/vim-rails', { 'for': 'ruby'}
+  "{{{
+  ""HACK, but works
+  "for eclim_plugin in ['adt', 'cdt', 'dltk', 'dltkruby', 'groovy', 'jdt', 'pdt', 
+  "\ 'pydev', 'sdt', 'vimplugin', 'wst']
+    "exec 'set rtp+='.$HOME.'/.vim/bundle/eclim/'.'org.eclim.'.eclim_plugin.'/vim/eclim'
+  "endfor
+  let g:EclimCompletionMethod = 'omnifunc'
+  "let g:EclimFileTypeValidate=0 "disable eclim validation, enable syntastic
+  let g:EclimJavascriptValidate=0
+  let g:EclimJavaValidate=1
+  au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
+  au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
+  au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
+  au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+  au FileType java nnoremap <silent> <buffer> <leader>c :JavaCorrect<cr>
+  "}}}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'keith/swift.vim', { 'for': 'swift'}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'sudar/vim-arduino-syntax', { 'for': 'ino'}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'jplaut/vim-arduino-ino', { 'for': 'ino'}
+  "{{{
+  let g:vim_arduino_library_path = '/usr/share/arduino'
+  let g:vim_arduino_serial_port = '/dev/ttyACM0' 
+  "}}}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'derekwyatt/vim-sbt', { 'for': 'sbt.scala'}
+endif
+if index(['default', 'win32'], s:config) != -1
+  Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
+endif
 
 "" COLORSCHEME: {{{2
-"if has('win32')
-  "colorscheme pablo
-"else
-  "Plug 'thinca/vim-guicolorscheme'
+if index(['default', 'connector'], s:config) != -1
   colorscheme summerfruit256
-"endif
+endif
 
 " OTHER: {{{2
-Plug 'vim-scripts/vimwiki'
-"{{{
-let vimwiki_path=$HOME.'/vimwiki/'
-let vimwiki_html_path=$HOME.'/vimwiki_html/'
-let g:vimwiki_table_auto_fmt = 0
-let wiki = {}
-let wiki.path_html = vimwiki_html_path
-let wiki.template_path = vimwiki_html_path
-let wiki.template_default = 'default'
-let wiki.template_ext = '.tpl'
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
-let g:vimwiki_list = [wiki]
 
-au BufWritePost *.wiki
-  \ call vimwiki#html#Wiki2HTML(expand(VimwikiGet('path_html')),
-  \                             expand('%'))
-nnoremap <leader>wv :60vs \| VimwikiIndex<cr>
-"}}}
-Plug 'rosenfeld/conque-term'
-"{{{
-let g:ConqueTerm_StartMessages = 0
-"}}}
-Plug 'f4t-t0ny/DrawIt'
-"{{{
-fun! CutBlock(brush) range
-  let b:drawit_brush= a:brush
-  if visualmode() == "\<c-v>" && ((a:firstline == line("'>") && a:lastline == line("'<")) || (a:firstline == line("'<") && a:lastline == line("'>")))
-   exe 'norm! gv"'.b:drawit_brush.'y'
-   exe 'norm! gvr "'
-  endif
-endfun
-com! -nargs=1 -range CutBlock <line1>,<line2>call CutBlock(<q-args>)
-com! -nargs=1 -range CopyBlock <line1>,<line2>call DrawIt#SetBrush(<q-args>)
-"}}}
+"Plug 'vim-scripts/vimwiki'
+""{{{
+"let vimwiki_path=$HOME.'/vimwiki/'
+"let vimwiki_html_path=$HOME.'/vimwiki_html/'
+"let g:vimwiki_table_auto_fmt = 0
+"let wiki = {}
+"let wiki.path_html = vimwiki_html_path
+"let wiki.template_path = vimwiki_html_path
+"let wiki.template_default = 'default'
+"let wiki.template_ext = '.tpl'
+"let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+"let g:vimwiki_list = [wiki]
+
+"au BufWritePost *.wiki
+  "\ call vimwiki#html#Wiki2HTML(expand(VimwikiGet('path_html')),
+  "\                             expand('%'))
+"nnoremap <leader>wv :60vs \| VimwikiIndex<cr>
+""}}}
+"Plug 'rosenfeld/conque-term'
+""{{{
+"let g:ConqueTerm_StartMessages = 0
+""}}}
+"Plug 'f4t-t0ny/DrawIt'
+""{{{
+"fun! CutBlock(brush) range
+  "let b:drawit_brush= a:brush
+  "if visualmode() == "\<c-v>" && ((a:firstline == line("'>") && a:lastline == line("'<")) || (a:firstline == line("'<") && a:lastline == line("'>")))
+   "exe 'norm! gv"'.b:drawit_brush.'y'
+   "exe 'norm! gvr "'
+  "endif
+"endfun
+"com! -nargs=1 -range CutBlock <line1>,<line2>call CutBlock(<q-args>)
+"com! -nargs=1 -range CopyBlock <line1>,<line2>call DrawIt#SetBrush(<q-args>)
+""}}}
 
 call plug#end()
 
@@ -373,9 +431,6 @@ com! Reload so ~/.vimrc
 
 " vert split with open buffer
 com! -nargs=* Vsb vert sb <args>
-
-" Go to directory with nerdtree
-com! -nargs=1 -complete=dir Ncd NERDTreeClose | cd <args> |NERDTreeCWD
 
 " Full window help 
 com! -nargs=1 -complete=help H enew | h <args> | wincmd k | bd       
