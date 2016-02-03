@@ -40,5 +40,6 @@ DOLLAR_COLOR="${green}"
 if [[ $EUID == 0 ]] ; then
   PS1="${bold}${red}\u@\h ${blue}\W ${normal}"
 else
-  PS1="${bold}${magenta}\u@\h ${normal}${blue}\w${magenta}$(__git_ps1)${green} \$ ${normal}"
+  # don't forget the ][-brackets around, they are important for line-breaking!!
+  PS1="\[${bold}${magenta}\]\u@\h \[${normal}${blue}\]\w\[${magenta}\]$(__git_ps1)\[${green}\] \$ \[${normal}\]"
 fi
