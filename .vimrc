@@ -381,6 +381,11 @@ for i in range(1,10)
   execute "noremap <leader>".i." :b".i."<cr>"
 endfor
 
+" Silent shell commands
+command! -nargs=+ Silent
+\ | execute ':silent !'.<q-args>
+\ | execute ':redraw!'
+
 " INIT: {{{1
 " colorize after 80 columns
 let &colorcolumn=join(range(81,999),',')
