@@ -92,7 +92,7 @@ syn match   pythonFunction
       \ "\%(\%(def\s\|class\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained
 
 syn match   pythonComment	"#\s.*$" contains=pythonTodo,@Spell
-syn match   pythonCommentCode	"#\w.*$" contains=pythonTodo,@Spell
+syn match   pythonCommentCode	"#[^\s].*$" contains=pythonTodo
 syn keyword pythonTodo		FIXME NOTE NOTES TODO XXX contained
 
 " Triple-quoted strings can contain doctests.
