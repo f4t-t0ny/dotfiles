@@ -226,7 +226,7 @@ if index(['default', 'win32'], s:config) != -1
   Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeClose'] }
    \ | Plug 'Xuyuanp/nerdtree-git-plugin'
    \ | Plug 'https://github.com/f4t-t0ny/nerdtree-hg-plugin'
-  Plug 'EvanDotPro/nerdtree-chmod', { 'on': '<plug>NERDTreeToggle' } 
+  Plug 'EvanDotPro/nerdtree-chmod', { 'on': 'NERDTreeToggle' } 
   "{{{
   let g:NERDTreeShowHidden=1
   let NERDTreeIgnore = ['\.pyc$', '\$py.class']
