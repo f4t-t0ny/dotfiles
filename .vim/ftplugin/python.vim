@@ -5,3 +5,4 @@ setl textwidth=80
 setl smarttab
 setl expandtab
 setl spell
+setl fdm=indent

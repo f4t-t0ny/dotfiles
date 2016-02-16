@@ -40,9 +40,16 @@ class RequestHandler(BaseHTTPRequestHandler):
     do_DELETE = do_GET
         
 def main():
-    port = 9200
+    import sys
+    if len(sys.argv) == 3:
+      host = sys.argv[1]
+      port = int(sys.argv[2])
+    else:
+      host = '0.0.0.0'
+      port = 9200
+    
     print('Listening on localhost:%s' % port)
-    server = HTTPServer(('', port), RequestHandler)
+    server = HTTPServer((host, port), RequestHandler)
     server.serve_forever()
 
         

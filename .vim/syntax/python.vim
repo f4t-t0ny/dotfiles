@@ -91,8 +91,8 @@ syn match   pythonDecorator	"@" display nextgroup=pythonFunction skipwhite
 syn match   pythonFunction
       \ "\%(\%(def\s\|class\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained
 
-syn match   pythonCommentCode	"#.*$" contains=pythonTodo
-syn match   pythonComment	"#[ #].*$" contains=pythonTodo,@Spell
+syn match   pythonComment	"#.*$" contains=pythonTodo
+syn match   pythonCommentHint	"#[ #!].*$" contains=pythonTodo,@Spell
 syn keyword pythonTodo		FIXME NOTE NOTES TODO XXX contained
 
 " Triple-quoted strings can contain doctests.
@@ -272,7 +272,6 @@ if version >= 508 || !exists("did_python_syn_inits")
   HiLink pythonDecorator	Define
   HiLink pythonFunction		Function
   HiLink pythonComment		Comment
-  HiLink pythonCommentCode	CommentLight
   HiLink pythonTodo		Todo
   HiLink pythonString		String
   HiLink pythonRawString	String

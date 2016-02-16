@@ -119,7 +119,7 @@ function! Output()
 endfunction
 
 " AUTOCOMMANDS: {{{1
-" set custom filetypes 
+" Set custom filetypes 
 au BufRead,BufNewFile *.vim.custom setfiletype vim
 au BufRead,BufNewFile *.gitignore setfiletype conf
 au BufRead,BufNewFile *.jshintrc setfiletype json
@@ -127,8 +127,11 @@ au BufRead,BufNewFile *.nmf setfiletype json
 au BufRead,BufNewFile Podfile,*.podspec setfiletype ruby
 au BufRead,BufNewFile *.pde setfiletype arduino
 au BufRead,BufNewFile *.ino setfiletype arduino
-"directory dependent filetypes
-au BufRead,BufNewFile ~/.bash/* setfiletype sh
+" Directory dependent filetypes
+au BufRead,BufNewFile ~/.bash/functions.d/* setfiletype sh
+au BufRead,BufNewFile ~/.bash/rc.d/* setfiletype sh
+au BufRead,BufNewFile ~/.bash/aliases.d/* setfiletype sh
+au BufRead,BufNewFile ~/.bash/variables.d/* setfiletype sh
 au BufRead,BufNewFile /etc/icinga2/* set filetype=cpp " overwrite ft
 au BufRead,BufNewFile /usr/share/icinga2/* set filetype=cpp
 au BufRead,BufNewFile /var/folders/* set filetype=sh
@@ -145,6 +148,12 @@ au BufWinLeave *.* mkview
 au BufWinEnter *.* silent loadview
 " DISABLED
 "au BufWritePre <buffer> call Indent() " Indent on save hook
+
+"" General highlighting for vim '%%%'-section
+"augroup HiglightSection
+    "autocmd!
+    "autocmd WinEnter,VimEnter * :silent! call matchadd('StatusLine', '^.*\s%%%.*$', -1)
+"augroup END
 
 " OS_DEPENDENT_SETTINGS: {{{1
 if has("unix")
@@ -297,6 +306,10 @@ if index(['default', 'win32'], s:config) != -1
   "}}}
   Plug 'derekwyatt/vim-sbt', { 'for': 'sbt.scala'}
   Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
+
+  "" Development
+  "Plug '~/dev/vim-sections'
+
 endif
 if index(['default', 'win32', 'connector'], s:config) != -1
   " Minimal most important plugins
@@ -327,6 +340,50 @@ if index(['default', 'win32', 'connector'], s:config) != -1
 endif
 if index(['default', 'connector'], s:config) != -1
   colorscheme summerfruit256
+
+  " Custom light comment
+  " {{{
+  let g:delMap = {
+      \ 'python': '#',
+      \ 'vim': '"',
+      \ 'sh': '#',
+      \ 'Dockerfile': '#',
+      \ }
+  " }}}
+
+  " Retrieve normal comment fg color
+  let g:ctermfg_comment = synIDattr( hlID('Comment'), 'fg')
+
+  fun! LightComment()
+    " Get correct delimiter for filetype 
+    try
+      let comDel = g:delMap[&l:ft]
+    catch
+      return
+    endtry
+
+    " Create basic syntax rule for all filetypes
+    let synCmd = "syn match CommentHint "
+      \ ."'\\v\\s+" .comDel ."+ .*$' contains=Todo,@Spell"
+    exec synCmd
+
+    " Tweaking for different filetypes / syntaxes
+    if &l:ft == 'vim'
+      syn cluster vimFuncBodyList add=CommentHint
+    endif
+
+    " Change default comment to lighter version
+    hi Comment ctermfg=114 gui=bold cterm=bold
+
+    " Highlight only comments with spaces as full comments
+    exec 'hi CommentHint ctermfg=' .g:ctermfg_comment .'gui=bold cterm=bold'
+
+  endfun
+  augroup LightComment
+      autocmd!
+      autocmd WinEnter,VimEnter,BufEnter * :silent! call LightComment() 
+  augroup END
+
 endif
 
 "Plug 'vim-scripts/vimwiki'
@@ -367,16 +424,16 @@ endif
 call plug#end()
 
 " COMMANDS: {{{1
-"reload vimrc
+" Reload vimrc
 com! Reload so ~/.vimrc
 
-" vert split with open buffer
+" Vert split with open buffer
 com! -nargs=* Vsb vert sb <args>
 
 " Full window help 
 com! -nargs=1 -complete=help H enew | h <args> | wincmd k | bd       
 
-" go to open buffer with <leader>i
+" Go to open buffer with <leader>i
 for i in range(1,10)
   execute "noremap <leader>".i." :b".i."<cr>"
 endfor
@@ -385,6 +442,11 @@ endfor
 command! -nargs=+ Silent
 \ | execute ':silent !'.<q-args>
 \ | execute ':redraw!'
+
+" Identify syntax group under the cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " INIT: {{{1
 " colorize after 80 columns
