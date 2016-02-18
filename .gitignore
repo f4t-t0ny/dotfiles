@@ -9,6 +9,7 @@
 !/.gitignore_global
 #and mercurial files
 !/.hgrc
+!/.hgrc.d/
 !/.hg.log.style
 
 #except bash files

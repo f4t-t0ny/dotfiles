@@ -10,8 +10,6 @@ purge=
 rebase=
 graphlog=
 hgext.bookmarks=
-hggit=
-mercurial_keyring=
 mq=
 histedit=
 
@@ -53,3 +51,5 @@ custom.hashsecret = bold red
 prechangegroup.mq-no-pull = ! hg qtop > /dev/null 2>&1
 # Prevent "hg push" if MQ patches are applied.
 preoutgoing.mq-no-push = ! hg qtop > /dev/null 2>&1
+
+%include ~/.hgrc.d/$HOSTNAME.rc
