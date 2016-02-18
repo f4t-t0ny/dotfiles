@@ -226,8 +226,8 @@ if index(['default', 'win32'], s:config) != -1
   set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
 
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
+  "let g:syntastic_always_populate_loc_list = 1
+  "let g:syntastic_auto_loc_list = 1
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
   "}}}
@@ -364,7 +364,7 @@ if index(['default', 'connector'], s:config) != -1
 
     " Create basic syntax rule for all filetypes
     let synCmd = "syn match CommentHint "
-      \ ."'\\v\\s+" .comDel ."+ .*$' contains=Todo,@Spell"
+      \ ."'\\v\\s*" .comDel ."+ .*$' contains=Todo,@Spell"
     exec synCmd
 
     " Tweaking for different filetypes / syntaxes

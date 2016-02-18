@@ -34,6 +34,8 @@ intree = 1
 wirecard.schemes = http https
 wirecard.prefix = p-ops-vcs.wirecard.sys/scm-webapp/hg
 wirecard.username = andreas.wallner
+# load auth file with passwords
+%include ~/.hgauth
 
 [alias]
 lg = log -G -l 20 --style ~/.vim/plugged/vim-lawrencium/resources/hg_lg.style
