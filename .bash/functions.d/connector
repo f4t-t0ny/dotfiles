@@ -16,3 +16,12 @@ function apps-flogs() {
   APP_NAME=$1
   docker logs -f $(apps-list |grep -A7 $APP_NAME | grep container | awk '{print $2}')
 }
+function apps-restart(){
+  if [ $# -lt 1 ]; then
+    echo 'App name not specified'
+    return 1
+  fi
+  APP_NAME=$1
+  container_id=$(apps-list |grep -A7 $APP_NAME | grep container | awk '{print $2}')
+  docker restart $container_id
+}
