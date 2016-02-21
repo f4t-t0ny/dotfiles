@@ -5,6 +5,8 @@ if [[ $UNAME == 'Darwin' ]]; then
   export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home
 elif [[ $UNAME == 'Linux' && $DISTRIBUTION == 'CentOS' ]]; then
   export JAVA_HOME=/usr/java/default
+elif [[ $UNAME == 'Linux' && $DISTRIBUTION == 'Ubuntu' ]]; then
+  export JAVA_HOME=~/opt/java/jdk8-oracle
 fi
 
 export JDK_HOME=$JAVA_HOME
