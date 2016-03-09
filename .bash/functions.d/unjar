@@ -1,0 +1,25 @@
+function unjar() {
+
+  # Check number of arguments
+  if [ $# -ne 1 ]; then
+    echo "Wrong number of arguments" >&2
+    return 1
+  fi
+
+  # Create jar folder
+  JAR_NAME=$1
+  JAR_BASE=$(basename $JAR_NAME .jar)
+  if [ -z $JAR_BASE ]; then
+    echo "File specified is no jar file" >&2
+    return 1
+  fi
+  mkdir $JAR_BASE
+  echo "Created $JAR_BASE"
+  
+  # Extract
+  (
+    cd $JAR_BASE
+    jar xvf ../$JAR_NAME
+  )
+  
+}

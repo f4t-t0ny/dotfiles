@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export PYTHONPATH=./packages/
-export PYTHONPATH=$PYTHONPATH:~/dev/python/
 
 case $UNAME in 
   Linux)

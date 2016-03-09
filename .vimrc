@@ -118,10 +118,54 @@ function! Output()
     silent! r! ls
 endfunction
 
+" Hexmode
+" ex command for toggling hex mode - define mapping if desired
+command -bar Hex call ToggleHex()
+
+" helper function to toggle hex mode
+function ToggleHex()
+  " hex mode should be considered a read-only operation
+  " save values for modified and read-only for restoration later,
+  " and clear the read-only flag for now
+  let l:modified=&mod
+  let l:oldreadonly=&readonly
+  let &readonly=0
+  let l:oldmodifiable=&modifiable
+  let &modifiable=1
+  if !exists("b:editHex") || !b:editHex
+    " save old options
+    let b:oldft=&ft
+    let b:oldbin=&bin
+    " set new options
+    setlocal binary " make sure it overrides any textwidth, etc.
+    silent :e " this will reload the file without trickeries 
+              "(DOS line endings will be shown entirely )
+    let &ft="xxd"
+    " set status
+    let b:editHex=1
+    " switch to hex editor
+    %!xxd
+  else
+    " restore old options
+    let &ft=b:oldft
+    if !b:oldbin
+      setlocal nobinary
+    endif
+    " set status
+    let b:editHex=0
+    " return to normal editing
+    %!xxd -r
+  endif
+  " restore values for modified and read only state
+  let &mod=l:modified
+  let &readonly=l:oldreadonly
+  let &modifiable=l:oldmodifiable
+endfunction
+
 " AUTOCOMMANDS: {{{1
 " Set custom filetypes 
 au BufRead,BufNewFile *.vim.custom setfiletype vim
-au BufRead,BufNewFile *.gitignore setfiletype conf
+au BufRead,BufNewFile .gitignore,.hgignore setfiletype conf
 au BufRead,BufNewFile *.jshintrc setfiletype json
 au BufRead,BufNewFile *.nmf setfiletype json
 au BufRead,BufNewFile Podfile,*.podspec setfiletype ruby
@@ -139,8 +183,12 @@ au BufRead,BufNewFile /var/folders/* set filetype=sh
 au Filetype gitcommit setlocal spell textwidth=72
 au Filetype java setlocal foldmethod=indent
 
-" load all .vim.custom files for each opened file
-au BufRead * call SourceRecursive('.vim.custom', expand('%:p:h'))
+"" Load all .vim.custom files for each opened file
+" This was disabled due to bug in SourceRecursive: Sometimes setting the new 
+" path doesn't work correctly.  Instead of going back to the project dir it's 
+" staying in root
+"au BufRead * call SourceRecursive('.vim.custom', expand('%:p:h'))
+
 " FIXME source vimrc after save
 "au! bufwritepost .vimrc source % "source vimrc after save
 " FIXME only save folds, but nothing else
@@ -175,8 +223,6 @@ if hostname() == 'connector'
 elseif has('win32')
   let s:config = 'win32'
 endif
-
-
 
 if index(['connector'], s:config) != -1
   set viminfo = "NONE"
@@ -230,6 +276,8 @@ if index(['default', 'win32'], s:config) != -1
   "let g:syntastic_auto_loc_list = 1
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
+
+  let g:syntastic_ignore_files = ['\v.*\.sbt']
   "}}}
   " Navigating files
   Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeClose'] }
@@ -272,7 +320,7 @@ if index(['default', 'win32'], s:config) != -1
   " Language/syntax plugins
   Plug 'fatih/vim-go', { 'for': 'go'}
   "{{{
-  let g:go_fmt_command = "goimports"
+  "let g:go_fmt_command = "goimports"
   "}}}
   Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss'}
   Plug 'chase/vim-ansible-yaml', { 'for': 'yaml'}
@@ -328,6 +376,7 @@ if index(['default', 'win32', 'connector'], s:config) != -1
   let g:airline#extensions#tabline#buffer_nr_show = 1
   "}}}
   Plug 'moll/vim-bbye'
+  Plug 'BufOnly.vim'
   Plug 'scrooloose/nerdcommenter'
   "{{{
   "custom delimiters
@@ -344,10 +393,14 @@ if index(['default', 'connector'], s:config) != -1
   " Custom light comment
   " {{{
   let g:delMap = {
-      \ 'python': '#',
-      \ 'vim': '"',
-      \ 'sh': '#',
+      \ 'conf': '#',
       \ 'Dockerfile': '#',
+      \ 'java': '//',
+      \ 'groovy': '#',
+      \ 'python': '#',
+      \ 'scala': '//',
+      \ 'sh': '#',
+      \ 'vim': '"',
       \ }
   " }}}
 
@@ -370,6 +423,9 @@ if index(['default', 'connector'], s:config) != -1
     " Tweaking for different filetypes / syntaxes
     if &l:ft == 'vim'
       syn cluster vimFuncBodyList add=CommentHint
+    elseif &l:ft == 'sh'
+      syn cluster shIfList add=CommentHint
+      syn cluster shFunctionList add=CommentHint
     endif
 
     " Change default comment to lighter version

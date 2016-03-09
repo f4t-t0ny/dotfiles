@@ -34,4 +34,4 @@ vim +PlugInstall +qall
 if [ ! -f ~/.bash_profile ]; then
   echo '. ~/.bashrc' >> ~/.bash_profile
 fi
-. .bash_profile
+. ~/.bash_profile

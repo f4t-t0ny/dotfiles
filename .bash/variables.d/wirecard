@@ -1,0 +1,7 @@
+# Analytics project
+export PDI_HOME=~/Applications/data-integration
+export ETL_HOME=~/cpos/analytics/analytics/etl
+
+# Python
+export PYTHONPATH=$PYTHONPATH:./packages/
+export PYTHONPATH=$PYTHONPATH:~/cpos/apps/connector-apps-libs-python

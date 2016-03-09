@@ -1,9 +1,11 @@
 #!/bin/bash
 . ~/.bash/functions.d/path
 
+# EDITOR
 export EDITOR=vim
 export PAGER=less
 
+# PATH
 updatepath ~/homebrew/bin
 updatepath /usr/sbin
 updatepath /sbin
@@ -13,7 +15,10 @@ updatepath ~/.bash/scripts.d
 updatepath /usr/local/go/bin
 updatepath /usr/local/share/jruby/bin
 updatepath /opt/gradle/bin
-updatepath ~/dev/python/connector/scripts
+updatepath ~/cpos/apps/connector-apps-libs-python/connector/scripts
+
+# PYTHONPATH
+export PYTHONPATH=.
 
 UNAME=$(uname)
 DISTRIBUTION=$(lsb_release >/dev/null 2>&1 && lsb_release -si)

@@ -1,5 +1,5 @@
 # Go up directory tree X number of directories
-function up() {
+function cu() {
         COUNTER="$@";
     # default $COUNTER to 1 if it isn't already set
 if [[ -z $COUNTER ]]; then

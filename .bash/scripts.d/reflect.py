@@ -1,23 +1,18 @@
 #!/usr/bin/env python2
-# Reflects the requests from HTTP methods GET, POST, PUT, and DELETE
-# Written by Nathan Hamiel (2010)
+# vim: set ft=python:
 
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
-from optparse import OptionParser
 
 class RequestHandler(BaseHTTPRequestHandler):
     
     def do_GET(self):
-        
-        request_path = self.path
-        
         print("\n----- Request Start ----->\n")
-        print(request_path)
+        print(self.path)
         print(self.headers)
         print("<----- Request End -----\n")
         
         self.send_response(200)
-        self.send_header("Set-Cookie", "foo=bar")
+        self.connection.close()
         
     def do_POST(self):
         
@@ -41,23 +36,23 @@ class RequestHandler(BaseHTTPRequestHandler):
         
 def main():
     import sys
-    if len(sys.argv) == 3:
-      host = sys.argv[1]
-      port = int(sys.argv[2])
-    else:
-      host = '0.0.0.0'
-      port = 9200
+    import argparse
+
+    # Parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-H', dest='host', help='Host to run on', default='0.0.0.0')
+    parser.add_argument('-p', dest='port', type=int, help='Server port', default=9000)
+    args = parser.parse_args()
+
+    # Copy to vars
+    port = args.port
+    host = args.host
     
-    print('Listening on localhost:%s' % port)
+    # Start server and print startup message
+    print('Listening on ' +host +':%s' % port)
     server = HTTPServer((host, port), RequestHandler)
     server.serve_forever()
 
         
 if __name__ == "__main__":
-    parser = OptionParser()
-    parser.usage = ("Creates an http-server that will echo out any GET or POST parameters\n"
-                    "Run:\n\n"
-                    "   reflect")
-    (options, args) = parser.parse_args()
-    
     main()

@@ -1,3 +1,12 @@
-#if [[ -d ~/.vim/bundle/vim-man && -x ~/.bash/scripts.d/viman ]]; then
-  #alias man=viman
-#fi
+#!/bin/bash
+
+case $UNAME in 
+  Linux)
+    ;;
+  Darwin)
+    alias vim="DYLD_FORCE_FLAT_NAMESPACE=1 vim"
+    ;;
+  *)
+    return
+    ;;
+esac

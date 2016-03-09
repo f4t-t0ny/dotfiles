@@ -1,10 +1,18 @@
-function apps-packinstall() {
+function apps-pack() {
   if [[ ! -f "Dockerfile" ]]; then
-    echo "no valid app directory!" >&2
+    echo "No valid app directory!" >&2
     return
   fi
-  P="/tmp/$(basename $PWD).tar.gz"
+  P="/tmp/$(basename $PWD)-$(timestamp).tar.gz"
   tar -cvzf $P . --exclude-vcs 
+  echo $P
+}
+
+function apps-packinstall() {
+  P=$(apps-pack)
+  if [ -z $P ]; then
+    return 1
+  fi
   docker build . 
   apps-install $P
 }
