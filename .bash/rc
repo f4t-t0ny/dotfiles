@@ -1,4 +1,4 @@
-#rc
+# Add rc folder
 for file in ~/.bash/rc.d/*; do 
     log "loading $file"
     . $file

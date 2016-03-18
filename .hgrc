@@ -12,6 +12,7 @@ graphlog=
 hgext.bookmarks=
 mq=
 histedit=
+shelve=
 
 [color]
 mode=auto

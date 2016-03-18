@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export PYTHONPATH=$PYTHONPATH:~/dev/:~/git/:~
-
 function docker(){
 DOCKER=/usr/bin/docker
 if [[ $1 == "ips" ]]; then
@@ -14,5 +12,5 @@ else
 fi
 }
 
-export CDPATH=$CDPATH:~/cpos/analytics/analytics
+export CDPATH=$CDPATH:~/cpos/analytics/
 export CDPATH=$CDPATH:~/cpos/

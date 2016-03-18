@@ -120,10 +120,10 @@ endfunction
 
 " Hexmode
 " ex command for toggling hex mode - define mapping if desired
-command -bar Hex call ToggleHex()
+command! -bar Hex call ToggleHex()
 
 " helper function to toggle hex mode
-function ToggleHex()
+function! ToggleHex()
   " hex mode should be considered a read-only operation
   " save values for modified and read-only for restoration later,
   " and clear the read-only flag for now
@@ -171,6 +171,8 @@ au BufRead,BufNewFile *.nmf setfiletype json
 au BufRead,BufNewFile Podfile,*.podspec setfiletype ruby
 au BufRead,BufNewFile *.pde setfiletype arduino
 au BufRead,BufNewFile *.ino setfiletype arduino
+au BufRead,BufNewFile .behaverc setfiletype cfg
+au BufRead,BufNewFile *.conf setfiletype conf
 " Directory dependent filetypes
 au BufRead,BufNewFile ~/.bash/functions.d/* setfiletype sh
 au BufRead,BufNewFile ~/.bash/rc.d/* setfiletype sh
@@ -182,6 +184,8 @@ au BufRead,BufNewFile /var/folders/* set filetype=sh
 
 au Filetype gitcommit setlocal spell textwidth=72
 au Filetype java setlocal foldmethod=indent
+"Disable Terminal bell in mvim
+autocmd! GUIEnter * set vb t_vb=
 
 "" Load all .vim.custom files for each opened file
 " This was disabled due to bug in SourceRecursive: Sometimes setting the new 
@@ -191,9 +195,9 @@ au Filetype java setlocal foldmethod=indent
 
 " FIXME source vimrc after save
 "au! bufwritepost .vimrc source % "source vimrc after save
-" FIXME only save folds, but nothing else
-au BufWinLeave *.* mkview
-au BufWinEnter *.* silent loadview
+"" FIXME only save folds, but nothing else
+"au BufWinLeave *.* mkview
+"au BufWinEnter *.* silent loadview
 " DISABLED
 "au BufWritePre <buffer> call Indent() " Indent on save hook
 
@@ -205,7 +209,9 @@ au BufWinEnter *.* silent loadview
 
 " OS_DEPENDENT_SETTINGS: {{{1
 if has("unix")
-  set term=xterm-256color
+  if !has("gui_running")
+    set term=xterm-256color
+  endif
 
   let s:uname = system('uname -s')
   let s:distribution = system('lsb_release >/dev/null 2>&1 && lsb_release -si')
@@ -215,6 +221,7 @@ if has("unix")
     "\ str2float(s:release) <= 6.6 
   "endif
 endif
+" }}}
 
 " set config
 let s:config = 'default'
@@ -228,7 +235,6 @@ if index(['connector'], s:config) != -1
   set viminfo = "NONE"
 endif
 
-" PLUGINS: {{{1
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
 
@@ -272,6 +278,9 @@ if index(['default', 'win32'], s:config) != -1
   set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
 
+  " Add autocommand for java
+  au BufWritePost *.java SyntasticCheck
+
   "let g:syntastic_always_populate_loc_list = 1
   "let g:syntastic_auto_loc_list = 1
   let g:syntastic_check_on_open = 1
@@ -291,6 +300,9 @@ if index(['default', 'win32'], s:config) != -1
   noremap <Leader>n :NERDTreeToggle<CR>
   " Go to directory with nerdtree
   com! -nargs=1 -complete=dir Ncd NERDTreeClose | cd <args> |NERDTreeCWD
+  if s:uname =~ 'Darwin'
+    let g:HgExecutablePath = '$HOME/homebrew/bin/hg'
+  endif
 
   "}}}
   Plug 'ctrlpvim/ctrlp.vim'
@@ -363,7 +375,8 @@ if index(['default', 'win32', 'connector'], s:config) != -1
   " Minimal most important plugins
   Plug 'bling/vim-airline'
   "{{{
-  set guifont=Inconsolata\ for\ Powerline:h15
+  "set guifont=Inconsolata\ for\ Powerline:h15
+  set guifont=Monaco
   let g:Powerline_symbols = 'fancy'
   set encoding=utf-8
   set t_Co=256
@@ -372,7 +385,6 @@ if index(['default', 'win32', 'connector'], s:config) != -1
   " use airline tabs instead of normal tabs
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#fnamemod = ':t'
-  "let g:airline#extensions#tabline#show_buffers = 0
   let g:airline#extensions#tabline#buffer_nr_show = 1
   "}}}
   Plug 'moll/vim-bbye'
@@ -428,11 +440,13 @@ if index(['default', 'connector'], s:config) != -1
       syn cluster shFunctionList add=CommentHint
     endif
 
-    " Change default comment to lighter version
-    hi Comment ctermfg=114 gui=bold cterm=bold
-
-    " Highlight only comments with spaces as full comments
-    exec 'hi CommentHint ctermfg=' .g:ctermfg_comment .'gui=bold cterm=bold'
+    if has('gui_running')
+      hi Comment guifg=#82c681 gui=Bold
+      hi CommentHint guifg=#22a21f gui=bold
+    else
+      hi Comment ctermfg=114 cterm=Bold
+      exec 'hi CommentHint ctermfg='.g:ctermfg_comment.' cterm=bold'
+    endif
 
   endfun
   augroup LightComment
@@ -507,5 +521,6 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " INIT: {{{1
 " colorize after 80 columns
 let &colorcolumn=join(range(81,999),',')
+hi Colorcolumn ctermbg=25 guibg=#a9d4e2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

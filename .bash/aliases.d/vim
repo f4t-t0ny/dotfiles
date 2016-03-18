@@ -4,7 +4,7 @@ case $UNAME in
   Linux)
     ;;
   Darwin)
-    alias vim="DYLD_FORCE_FLAT_NAMESPACE=1 vim"
+    #alias vim="DYLD_FORCE_FLAT_NAMESPACE=1 vim"
     ;;
   *)
     return
