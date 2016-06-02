@@ -1,8 +1,8 @@
 #print path in
-function lspath(){
-  for TMP_PATH in ${PATH//:/ }
-    do echo $TMP_PATH
-  done
+function pprint(){
+  IFS=:
+  eval "VAR=\$$1"
+  printf "%s\n" "$VAR"
 }
 
 #add to path, but check before, if already present

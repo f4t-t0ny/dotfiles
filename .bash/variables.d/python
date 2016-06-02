@@ -6,6 +6,7 @@ case $UNAME in
     ;;
   Darwin)
     PYTHONPATH=$PYTHONPATH:~/lib/python2.7/site-packages
+    PYTHONPATH=$PYTHONPATH:~/homebrew/Cellar/python/2.7.11/libexec/pip
     ;;
   *)
     return

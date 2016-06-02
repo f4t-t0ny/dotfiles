@@ -3,8 +3,8 @@ function apps-pack() {
     echo "No valid app directory!" >&2
     return
   fi
-  P="/tmp/$(basename $PWD)-$(timestamp).tar.gz"
-  tar -cvzf $P . --exclude-vcs 
+  P="/tmp/$(basename $PWD)-$(date +%s).tar.gz"
+  tar -cvzf $P . --exclude-vcs >&2
   echo $P
 }
 

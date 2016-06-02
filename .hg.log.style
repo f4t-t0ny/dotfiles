@@ -1,4 +1,4 @@
-changeset = '{lrev}:{lhash}:{phase} \n {ldesc} {ltag} \n {lage} {luser} \n\n'
+changeset = '{lrev}:{lhash}:{lbookmark}:{phase} \n {ldesc} {ltag} \n {lage} {luser} \n\n'
 
 lrev = "{label('custom.rev', rev)}"
 lhash = "{label('custom.hash{phase}',node|short)}"
@@ -6,3 +6,4 @@ lage = "{label('custom.age', date|age)}"
 ldesc = "{desc}"
 luser = "{label('custom.user', author|user)}"
 ltag = "{label('custom.tag',tags)}"
+lbookmark = "{label('custom.bookmark',bookmarks)}"

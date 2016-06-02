@@ -15,6 +15,7 @@ syntax on
 set noswapfile
 set number 
 set foldmethod=marker
+set nofoldenable
 set tabstop=2
 set shiftwidth=2
 set textwidth=0
@@ -224,7 +225,9 @@ endif
 " }}}
 
 " set config
-let s:config = 'default'
+let s:config_default = 'default'
+"let s:config_default = 'connector'
+let s:config = s:config_default
 if hostname() == 'connector'
   let s:config = 'connector'
 elseif has('win32')
@@ -248,46 +251,46 @@ Plug 'tpope/vim-scriptease'
 endif
 
 if index(['default'], s:config) != -1
-  Plug 'Valloric/YouCompleteMe'
-  "{{{
-  let g:ycm_confirm_extra_conf = 0
-  let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-  let g:ycm_filepath_completion_use_working_dir = 1
-  nnoremap <leader>jd :YcmCompleter GoTo<CR>
-  "}}}
-  Plug 'SirVer/ultisnips'
-  "{{{
-  let g:UltiSnipsExpandTrigger="<c-b>"
-  let g:UltiSnipsEditSplit="vertical"
-  let g:UltiSnipsListSnippets="<c-l>"
-  "}}}
-  Plug 'honza/vim-snippets'
+  "Plug 'Valloric/YouCompleteMe'
+  ""{{{
+  "let g:ycm_confirm_extra_conf = 0
+  "let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+  "let g:ycm_filepath_completion_use_working_dir = 1
+  "nnoremap <leader>jd :YcmCompleter GoTo<CR>
+  ""}}}
+  "Plug 'SirVer/ultisnips'
+  ""{{{
+  "let g:UltiSnipsExpandTrigger="<c-b>"
+  "let g:UltiSnipsEditSplit="vertical"
+  "let g:UltiSnipsListSnippets="<c-l>"
+  ""}}}
+  "Plug 'honza/vim-snippets'
 endif
 if index(['default', 'win32'], s:config) != -1
   Plug 'davidhalter/jedi-vim'
   "{{{
   let g:jedi#usages_command = '<leader>u'
   "}}}
-  Plug 'scrooloose/Syntastic'
-  "{{{
-  let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
-  if hostname() =~ 'connector'
-    let g:syntastic_python_python_exec = 'python2'
-  endif
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
+  "Plug 'scrooloose/Syntastic'
+  ""{{{
+  "let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
+  "if hostname() =~ 'connector'
+    "let g:syntastic_python_python_exec = 'python2'
+  "endif
+  "set statusline+=%#warningmsg#
+  "set statusline+=%{SyntasticStatuslineFlag()}
+  "set statusline+=%*
 
-  " Add autocommand for java
-  au BufWritePost *.java SyntasticCheck
+  "" Add autocommand for java
+  "au BufWritePost *.java SyntasticCheck
 
-  "let g:syntastic_always_populate_loc_list = 1
-  "let g:syntastic_auto_loc_list = 1
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
+  ""let g:syntastic_always_populate_loc_list = 1
+  ""let g:syntastic_auto_loc_list = 1
+  "let g:syntastic_check_on_open = 1
+  "let g:syntastic_check_on_wq = 0
 
-  let g:syntastic_ignore_files = ['\v.*\.sbt']
-  "}}}
+  "let g:syntastic_ignore_files = ['\v.*\.sbt']
+  ""}}}
   " Navigating files
   Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeClose'] }
    \ | Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -303,17 +306,19 @@ if index(['default', 'win32'], s:config) != -1
   if s:uname =~ 'Darwin'
     let g:HgExecutablePath = '$HOME/homebrew/bin/hg'
   endif
-
   "}}}
-  Plug 'ctrlpvim/ctrlp.vim'
-  "{{{
-  let g:ctrlp_map = '<c-p>'
-  let g:ctrlp_cmd = 'CtrlP'
-  "}}}
+  
+  "Plug 'ctrlpvim/ctrlp.vim'
+  ""{{{
+  "let g:ctrlp_map = '<c-p>'
+  "let g:ctrlp_cmd = 'CtrlP'
+  ""}}}
+  
   " General editing
   Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-surround'
   Plug 'nathanaelkane/vim-indent-guides'
+
   " Version control
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-git'
@@ -321,14 +326,15 @@ if index(['default', 'win32'], s:config) != -1
   "{{{
   let g:signify_vcs_list = [ 'hg', 'git' ]
   "}}}
-  Plug 'gregsexton/gitv'
-  Plug 'https://github.com/f4t-t0ny/vim-lawrencium'
-  "{{{
-  let g:lawrencium_hg_commands_file_types = { 
-    \ 'log': 'hglog',
-    \ 'lg': 'hglg' 
-    \ }
-  "}}}
+  
+  "Plug 'gregsexton/gitv'
+  "Plug 'https://github.com/f4t-t0ny/vim-lawrencium'
+  ""{{{
+  "let g:lawrencium_hg_commands_file_types = { 
+    "\ 'log': 'hglog',
+    "\ 'lg': 'hglg' 
+    "\ }
+  ""}}}
   " Language/syntax plugins
   Plug 'fatih/vim-go', { 'for': 'go'}
   "{{{

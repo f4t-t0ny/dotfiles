@@ -2,6 +2,7 @@
 username = Andreas Wallner <andreas.wallner@wirecard.com>
 editor = vim
 ignore = ~/.hgignore_global
+#merge = vimdiff
 
 [extensions]
 color=
@@ -20,11 +21,10 @@ mode=auto
 [hostfingerprints]
 p-ops-vcs.wirecard.sys = 8f:d3:be:5b:cf:8c:fe:44:dd:f6:e5:5b:96:90:bd:10:9f:5d:a6:94
 
-[merge-tools]
-#fix hg merging
-vimdiff.executable = vimdiff
-vimdiff.args = -f -d $output -M $local $base $other -c "wincmd J" -c "set modifiable" -c "set write"
-vimdiff.premerge = keep
+#[merge-tools]
+#vimdiff.executable = vimdiff
+#vimdiff.args = -f -d $output -M $local $base $other -c "wincmd J" -c "set modifiable" -c "set write"
+#vimdiff.premerge = keep
 
 [git]
 intree = 1
@@ -37,7 +37,7 @@ wirecard.username = andreas.wallner
 %include ~/.hgauth
 
 [alias]
-lg = log -G -l 20 --style ~/.vim/plugged/vim-lawrencium/resources/hg_lg.style
+lg = log -G -l 20 --style ~/.hg.log.style
 
 [color]
 custom.rev = yellow
