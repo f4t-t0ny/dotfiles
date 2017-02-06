@@ -37,9 +37,15 @@ DIRECTORY_COLOR="${yellow}"
 GIT_BRANCH_COLOR="${magenta}"
 DOLLAR_COLOR="${green}"
 
+export DIR_SCRIPT='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{
+if (length($0) > 14) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF;
+else if (NF>3) print $1 "/" $2 "/.../" $NF;
+else print $1 "/.../" $NF; }
+else print $0;}'"'"')'
+
 if [[ $EUID == 0 ]] ; then
   PS1="\[${bold}${red}\]\u@\h \[${normal}${blue}\]\w \[${normal}\]"
 else
   # don't forget the ][-brackets around, they are important for line-breaking!!
-  PS1="\[${bold}${magenta}\]\u@\h \[${normal}${blue}\]\w\[${magenta}\]$(__git_ps1)\[${green}\] \$ \[${normal}\]"
+  PS1="\[${bold}${magenta}\]\u@\h \[${normal}${blue}\]$(eval 'echo ${DIR_SCRIPT}')\[${magenta}\]$(__git_ps1)\[${green}\] \$ \[${normal}\]"
 fi

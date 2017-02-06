@@ -1,532 +1,65 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               _                                              "
-"                        __   _(_)_ __ ___  _ __ ___                           "
-"                        \ \ / / | '_ ` _ \| '__/ __|                          "
-"                         \ V /| | | | | | | | | (__                           "
-"                          \_/ |_|_| |_| |_|_|  \___|                          "
-"                                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                Basic Settings                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General settings
+set ts=2
+set sw=2
+set nu
 
+" Fix for backspace to work on mac
+set backspace=indent,eol,start 
 
-
+" Enable syntax highlighting
 syntax on
-set noswapfile
-set number 
-set foldmethod=marker
-set nofoldenable
-set tabstop=2
-set shiftwidth=2
-set textwidth=0
-set expandtab
-set mouse=a " always use mouse
-set backspace=indent,eol,start
-set wildmode=longest,list,full "wildcard type in ex mode
-set wildmenu
-set clipboard=unnamed " use system clipboard
-filetype plugin indent on " activate all filetype triggers
-let mapleader="," " set leader key
-set splitright
-set splitbelow
-set wrap
-set autoindent
-set cindent
-set showtabline=2 " always show tabs
-set scrolloff=15 " start scrolling x lines from bottom/top
 
-" KEY_MAPPINGS: {{{1
-" dont yank when pasting
-xnoremap p pgvy
-" tab switching
-nnoremap th  :tabfirst<cr>
-nnoremap tj  :tabnext<cr>
-nnoremap tk  :tabprev<cr>
-nnoremap tl  :tablast<cr>
-nnoremap tt  :tabedit<cr>
-nnoremap tn  :tabnext<cr>
-nnoremap tm  :tabm<cr>
-nnoremap td  :tabclose<cr>
-" edit vimrc in split
-nnoremap <leader>e :e $MYVIMRC<cr>
+" set leader key
+let mapleader=","
 
-" FUNCTION: Preserve(command) {{{1
-" Restore cursor position, window position, and last search after running a
-" command.
-fun! Preserve(command)
-  " Save the last search.
-  let search = @/
+" activate mouse
+set mouse=a
 
-  " Save the current cursor position.
-  let cursor_position = getpos('.')
+" Use system clipboard on mac
+set clipboard=unnamed
 
-  " Save the current window position.
-  normal! H
-  let window_position = getpos('.')
-  call setpos('.', cursor_position)
+" Plugins begin
+call plug#begin('~/.vim/plugged')  
 
-  " Execute the command.
-  execute a:command
+"" Jedi
+Plug 'davidhalter/jedi-vim'
+let g:jedi#usages_command = "<leader>u"
+autocmd FileType python setlocal completeopt-=preview
 
-  " Restore the last search.
-  let @/ = search
+" Bbye
+Plug 'moll/vim-bbye'
 
-  " Restore the previous window position.
-  call setpos('.', window_position)
-  normal! zt
+" Nerdtree
+Plug 'scrooloose/nerdtree'
+noremap <Leader>n :NERDTreeToggle<CR>
 
-  " Restore the previous cursor position.
-  call setpos('.', cursor_position)
-endfun
+" Nerdcommenter
+Plug 'scrooloose/nerdcommenter'
 
-"FUNCTION: SourceRecursive(vim_custom_filename, targetdir) {{{1
-fun! SourceRecursive(vim_custom_filename, targetdir)
-  let savedir = getcwd() 
-  if &l:modifiable == 0
-    return
-  endif
-  chdir / "goto root 
-  "split full current path into directories
-  for dir in split( a:targetdir, '/') 
-    "goto next dir
-    "echom "sourcing " . dir
-    if isdirectory(dir)
-      exe 'lcd ' . dir 
-    else
-      exe 'lcd ' . savedir 
-      return
-    endif
-    let fullname = getcwd() . '/' . a:vim_custom_filename
-    "check in every dir if a custom vim file exists
-    if filereadable( fullname ) 
-      "echom 'sourcing ' . fullname
-      exe ':so ' . fullname 
-    endif
-  endfor
-  exe 'lcd ' . savedir 
-endfun
-"}}}
-" FUNCTION: Output() {{{1
-function! Output()
-    let winnr = bufwinnr('^_output$')
-    if ( winnr >= 0 )
-        execute winnr . 'wincmd w'
-        execute 'normal ggdG'
-    else
-        new _output
-        setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-    endif
-    silent! r! ls
-endfunction
+" Airline for buffer line
+Plug 'bling/vim-airline'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
-" Hexmode
-" ex command for toggling hex mode - define mapping if desired
-command! -bar Hex call ToggleHex()
+" Syntastic
+Plug 'vim-syntastic/syntastic'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
-" helper function to toggle hex mode
-function! ToggleHex()
-  " hex mode should be considered a read-only operation
-  " save values for modified and read-only for restoration later,
-  " and clear the read-only flag for now
-  let l:modified=&mod
-  let l:oldreadonly=&readonly
-  let &readonly=0
-  let l:oldmodifiable=&modifiable
-  let &modifiable=1
-  if !exists("b:editHex") || !b:editHex
-    " save old options
-    let b:oldft=&ft
-    let b:oldbin=&bin
-    " set new options
-    setlocal binary " make sure it overrides any textwidth, etc.
-    silent :e " this will reload the file without trickeries 
-              "(DOS line endings will be shown entirely )
-    let &ft="xxd"
-    " set status
-    let b:editHex=1
-    " switch to hex editor
-    %!xxd
-  else
-    " restore old options
-    let &ft=b:oldft
-    if !b:oldbin
-      setlocal nobinary
-    endif
-    " set status
-    let b:editHex=0
-    " return to normal editing
-    %!xxd -r
-  endif
-  " restore values for modified and read only state
-  let &mod=l:modified
-  let &readonly=l:oldreadonly
-  let &modifiable=l:oldmodifiable
-endfunction
+" Signify
+Plug 'mhinz/vim-signify'
+let g:signify_vcs_list = [ 'hg', 'git' ]
 
-" AUTOCOMMANDS: {{{1
-" Set custom filetypes 
-au BufRead,BufNewFile *.vim.custom setfiletype vim
-au BufRead,BufNewFile .gitignore,.hgignore setfiletype conf
-au BufRead,BufNewFile *.jshintrc setfiletype json
-au BufRead,BufNewFile *.nmf setfiletype json
-au BufRead,BufNewFile Podfile,*.podspec setfiletype ruby
-au BufRead,BufNewFile *.pde setfiletype arduino
-au BufRead,BufNewFile *.ino setfiletype arduino
-au BufRead,BufNewFile .behaverc setfiletype cfg
-au BufRead,BufNewFile *.conf setfiletype conf
-" Directory dependent filetypes
-au BufRead,BufNewFile ~/.bash/functions.d/* setfiletype sh
-au BufRead,BufNewFile ~/.bash/rc.d/* setfiletype sh
-au BufRead,BufNewFile ~/.bash/aliases.d/* setfiletype sh
-au BufRead,BufNewFile ~/.bash/variables.d/* setfiletype sh
-au BufRead,BufNewFile /etc/icinga2/* set filetype=cpp " overwrite ft
-au BufRead,BufNewFile /usr/share/icinga2/* set filetype=cpp
-au BufRead,BufNewFile /var/folders/* set filetype=sh
+" Hocon
+Plug 'GEverding/vim-hocon'
 
-au Filetype gitcommit setlocal spell textwidth=72
-au Filetype java setlocal foldmethod=indent
-"Disable Terminal bell in mvim
-autocmd! GUIEnter * set vb t_vb=
-
-"" Load all .vim.custom files for each opened file
-" This was disabled due to bug in SourceRecursive: Sometimes setting the new 
-" path doesn't work correctly.  Instead of going back to the project dir it's 
-" staying in root
-"au BufRead * call SourceRecursive('.vim.custom', expand('%:p:h'))
-
-" FIXME source vimrc after save
-"au! bufwritepost .vimrc source % "source vimrc after save
-"" FIXME only save folds, but nothing else
-"au BufWinLeave *.* mkview
-"au BufWinEnter *.* silent loadview
-" DISABLED
-"au BufWritePre <buffer> call Indent() " Indent on save hook
-
-"" General highlighting for vim '%%%'-section
-"augroup HiglightSection
-    "autocmd!
-    "autocmd WinEnter,VimEnter * :silent! call matchadd('StatusLine', '^.*\s%%%.*$', -1)
-"augroup END
-
-" OS_DEPENDENT_SETTINGS: {{{1
-if has("unix")
-  if !has("gui_running")
-    set term=xterm-256color
-  endif
-
-  let s:uname = system('uname -s')
-  let s:distribution = system('lsb_release >/dev/null 2>&1 && lsb_release -si')
-  let s:release = system('lsb_release >/dev/null 2>&1 && lsb_release -sr')
-  "if s:uname =~ 'Linux'
-    "if s:distribution =~ 'RedHatEnterpriseServer' &&
-    "\ str2float(s:release) <= 6.6 
-  "endif
-endif
-" }}}
-
-" set config
-let s:config_default = 'default'
-"let s:config_default = 'connector'
-let s:config = s:config_default
-if hostname() == 'connector'
-  let s:config = 'connector'
-elseif has('win32')
-  let s:config = 'win32'
-endif
-
-if index(['connector'], s:config) != -1
-  set viminfo = "NONE"
-endif
-
-call plug#begin('~/.vim/plugged')
-Plug 'junegunn/vim-plug'
-
-if index(['development'], s:config) != -1
-Plug 'vim-scripts/Decho'
-"{{{
-let g:dechomode=0
-let g:decho_winheight=30
-"}}}
-Plug 'tpope/vim-scriptease'
-endif
-
-if index(['default'], s:config) != -1
-  "Plug 'Valloric/YouCompleteMe'
-  ""{{{
-  "let g:ycm_confirm_extra_conf = 0
-  "let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-  "let g:ycm_filepath_completion_use_working_dir = 1
-  "nnoremap <leader>jd :YcmCompleter GoTo<CR>
-  ""}}}
-  "Plug 'SirVer/ultisnips'
-  ""{{{
-  "let g:UltiSnipsExpandTrigger="<c-b>"
-  "let g:UltiSnipsEditSplit="vertical"
-  "let g:UltiSnipsListSnippets="<c-l>"
-  ""}}}
-  "Plug 'honza/vim-snippets'
-endif
-if index(['default', 'win32'], s:config) != -1
-  Plug 'davidhalter/jedi-vim'
-  "{{{
-  let g:jedi#usages_command = '<leader>u'
-  "}}}
-  "Plug 'scrooloose/Syntastic'
-  ""{{{
-  "let g:syntastic_javascript_checkers = ['jshint'] "check js files with jshint
-  "if hostname() =~ 'connector'
-    "let g:syntastic_python_python_exec = 'python2'
-  "endif
-  "set statusline+=%#warningmsg#
-  "set statusline+=%{SyntasticStatuslineFlag()}
-  "set statusline+=%*
-
-  "" Add autocommand for java
-  "au BufWritePost *.java SyntasticCheck
-
-  ""let g:syntastic_always_populate_loc_list = 1
-  ""let g:syntastic_auto_loc_list = 1
-  "let g:syntastic_check_on_open = 1
-  "let g:syntastic_check_on_wq = 0
-
-  "let g:syntastic_ignore_files = ['\v.*\.sbt']
-  ""}}}
-  " Navigating files
-  Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeClose'] }
-   \ | Plug 'Xuyuanp/nerdtree-git-plugin'
-   \ | Plug 'https://github.com/f4t-t0ny/nerdtree-hg-plugin'
-  Plug 'EvanDotPro/nerdtree-chmod', { 'on': 'NERDTreeToggle' } 
-  "{{{
-  let g:NERDTreeShowHidden=1
-  let NERDTreeIgnore = ['\.pyc$', '\$py.class']
-  let g:nerdtree_tabs_focus_on_files=1
-  noremap <Leader>n :NERDTreeToggle<CR>
-  " Go to directory with nerdtree
-  com! -nargs=1 -complete=dir Ncd NERDTreeClose | cd <args> |NERDTreeCWD
-  if s:uname =~ 'Darwin'
-    let g:HgExecutablePath = '$HOME/homebrew/bin/hg'
-  endif
-  "}}}
-  
-  "Plug 'ctrlpvim/ctrlp.vim'
-  ""{{{
-  "let g:ctrlp_map = '<c-p>'
-  "let g:ctrlp_cmd = 'CtrlP'
-  ""}}}
-  
-  " General editing
-  Plug 'tpope/vim-abolish'
-  Plug 'tpope/vim-surround'
-  Plug 'nathanaelkane/vim-indent-guides'
-
-  " Version control
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-git'
-  Plug 'mhinz/vim-signify'
-  "{{{
-  let g:signify_vcs_list = [ 'hg', 'git' ]
-  "}}}
-  
-  "Plug 'gregsexton/gitv'
-  "Plug 'https://github.com/f4t-t0ny/vim-lawrencium'
-  ""{{{
-  "let g:lawrencium_hg_commands_file_types = { 
-    "\ 'log': 'hglog',
-    "\ 'lg': 'hglg' 
-    "\ }
-  ""}}}
-  " Language/syntax plugins
-  Plug 'fatih/vim-go', { 'for': 'go'}
-  "{{{
-  "let g:go_fmt_command = "goimports"
-  "}}}
-  Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss'}
-  Plug 'chase/vim-ansible-yaml', { 'for': 'yaml'}
-  Plug 'digitaltoad/vim-jade', { 'for': 'jade'}
-  Plug 'kchmck/vim-coffee-script', { 'for': 'coffee-script'}
-  Plug 'rodjek/vim-puppet', { 'for': 'puppet'}
-  Plug 'tfnico/vim-gradle', { 'for': 'gradle'}
-  Plug 'tpope/vim-rails', { 'for': 'ruby'}
-  "{{{
-  ""HACK, but works
-  "for eclim_plugin in ['adt', 'cdt', 'dltk', 'dltkruby', 'groovy', 'jdt', 'pdt', 
-  "\ 'pydev', 'sdt', 'vimplugin', 'wst']
-    "exec 'set rtp+='.$HOME.'/.vim/bundle/eclim/'.'org.eclim.'.eclim_plugin.'/vim/eclim'
-  "endfor
-  let g:EclimCompletionMethod = 'omnifunc'
-  "let g:EclimFileTypeValidate=0 "disable eclim validation, enable syntastic
-  let g:EclimJavascriptValidate=0
-  let g:EclimJavaValidate=1
-  au FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
-  au FileType java nnoremap <silent> <buffer> <leader>a :JavaImportOrganize<cr>
-  au FileType java nnoremap <silent> <buffer> <leader>d :JavaSearch -x declarations<cr>
-  au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
-  au FileType java nnoremap <silent> <buffer> <leader>c :JavaCorrect<cr>
-  "}}}
-  Plug 'keith/swift.vim', { 'for': 'swift'}
-  Plug 'sudar/vim-arduino-syntax', { 'for': 'ino'}
-  Plug 'jplaut/vim-arduino-ino', { 'for': 'ino'}
-  "{{{
-  let g:vim_arduino_library_path = '/usr/share/arduino'
-  let g:vim_arduino_serial_port = '/dev/ttyACM0' 
-  "}}}
-  Plug 'derekwyatt/vim-sbt', { 'for': 'sbt.scala'}
-  Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
-
-  "" Development
-  "Plug '~/dev/vim-sections'
-
-endif
-if index(['default', 'win32', 'connector'], s:config) != -1
-  " Minimal most important plugins
-  Plug 'bling/vim-airline'
-  "{{{
-  "set guifont=Inconsolata\ for\ Powerline:h15
-  set guifont=Monaco
-  let g:Powerline_symbols = 'fancy'
-  set encoding=utf-8
-  set t_Co=256
-  set fillchars+=stl:\ ,stlnc:\
-  set termencoding=utf-8
-  " use airline tabs instead of normal tabs
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#fnamemod = ':t'
-  let g:airline#extensions#tabline#buffer_nr_show = 1
-  "}}}
-  Plug 'moll/vim-bbye'
-  Plug 'BufOnly.vim'
-  Plug 'scrooloose/nerdcommenter'
-  "{{{
-  "custom delimiters
-  let g:NERDCustomDelimiters = { 
-    \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }, 
-    \ 'python': { 'left': '#', 'leftAlt': "''' ", 'rightAlt': "'''"}
-    \ }
-  "}}}
-  Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile'}
-endif
-if index(['default', 'connector'], s:config) != -1
-  colorscheme summerfruit256
-
-  " Custom light comment
-  " {{{
-  let g:delMap = {
-      \ 'conf': '#',
-      \ 'Dockerfile': '#',
-      \ 'java': '//',
-      \ 'groovy': '#',
-      \ 'python': '#',
-      \ 'scala': '//',
-      \ 'sh': '#',
-      \ 'vim': '"',
-      \ }
-  " }}}
-
-  " Retrieve normal comment fg color
-  let g:ctermfg_comment = synIDattr( hlID('Comment'), 'fg')
-
-  fun! LightComment()
-    " Get correct delimiter for filetype 
-    try
-      let comDel = g:delMap[&l:ft]
-    catch
-      return
-    endtry
-
-    " Create basic syntax rule for all filetypes
-    let synCmd = "syn match CommentHint "
-      \ ."'\\v\\s*" .comDel ."+ .*$' contains=Todo,@Spell"
-    exec synCmd
-
-    " Tweaking for different filetypes / syntaxes
-    if &l:ft == 'vim'
-      syn cluster vimFuncBodyList add=CommentHint
-    elseif &l:ft == 'sh'
-      syn cluster shIfList add=CommentHint
-      syn cluster shFunctionList add=CommentHint
-    endif
-
-    if has('gui_running')
-      hi Comment guifg=#82c681 gui=Bold
-      hi CommentHint guifg=#22a21f gui=bold
-    else
-      hi Comment ctermfg=114 cterm=Bold
-      exec 'hi CommentHint ctermfg='.g:ctermfg_comment.' cterm=bold'
-    endif
-
-  endfun
-  augroup LightComment
-      autocmd!
-      autocmd WinEnter,VimEnter,BufEnter * :silent! call LightComment() 
-  augroup END
-
-endif
-
-"Plug 'vim-scripts/vimwiki'
-""{{{
-"let vimwiki_path=$HOME.'/vimwiki/'
-"let vimwiki_html_path=$HOME.'/vimwiki_html/'
-"let g:vimwiki_table_auto_fmt = 0
-"let wiki = {}
-"let wiki.path_html = vimwiki_html_path
-"let wiki.template_path = vimwiki_html_path
-"let wiki.template_default = 'default'
-"let wiki.template_ext = '.tpl'
-"let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
-"let g:vimwiki_list = [wiki]
-
-"au BufWritePost *.wiki
-  "\ call vimwiki#html#Wiki2HTML(expand(VimwikiGet('path_html')),
-  "\                             expand('%'))
-"nnoremap <leader>wv :60vs \| VimwikiIndex<cr>
-""}}}
-"Plug 'rosenfeld/conque-term'
-""{{{
-"let g:ConqueTerm_StartMessages = 0
-""}}}
-"Plug 'f4t-t0ny/DrawIt'
-""{{{
-"fun! CutBlock(brush) range
-  "let b:drawit_brush= a:brush
-  "if visualmode() == "\<c-v>" && ((a:firstline == line("'>") && a:lastline == line("'<")) || (a:firstline == line("'<") && a:lastline == line("'>")))
-   "exe 'norm! gv"'.b:drawit_brush.'y'
-   "exe 'norm! gvr "'
-  "endif
-"endfun
-"com! -nargs=1 -range CutBlock <line1>,<line2>call CutBlock(<q-args>)
-"com! -nargs=1 -range CopyBlock <line1>,<line2>call DrawIt#SetBrush(<q-args>)
-""}}}
+" Puppet
+Plug 'rodjek/vim-puppet'
 
 call plug#end()
-
-" COMMANDS: {{{1
-" Reload vimrc
-com! Reload so ~/.vimrc
-
-" Vert split with open buffer
-com! -nargs=* Vsb vert sb <args>
-
-" Full window help 
-com! -nargs=1 -complete=help H enew | h <args> | wincmd k | bd       
-
-" Go to open buffer with <leader>i
-for i in range(1,10)
-  execute "noremap <leader>".i." :b".i."<cr>"
-endfor
-
-" Silent shell commands
-command! -nargs=+ Silent
-\ | execute ':silent !'.<q-args>
-\ | execute ':redraw!'
-
-" Identify syntax group under the cursor
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" INIT: {{{1
-" colorize after 80 columns
-let &colorcolumn=join(range(81,999),',')
-hi Colorcolumn ctermbg=25 guibg=#a9d4e2
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

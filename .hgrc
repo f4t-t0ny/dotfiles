@@ -20,18 +20,19 @@ mode=auto
 
 [hostfingerprints]
 p-ops-vcs.wirecard.sys = 8f:d3:be:5b:cf:8c:fe:44:dd:f6:e5:5b:96:90:bd:10:9f:5d:a6:94
+p-puppet-vcs01.wirecard.sys = 06:dc:0b:f7:82:f6:7a:af:84:90:a2:f7:01:9a:6c:96:b1:c3:c8:98
 
-#[merge-tools]
-#vimdiff.executable = vimdiff
-#vimdiff.args = -f -d $output -M $local $base $other -c "wincmd J" -c "set modifiable" -c "set write"
-#vimdiff.premerge = keep
+[merge-tools]
+vimdiff.executable = vimdiff
+vimdiff.args = -f -d $output -M $local $base $other -c "wincmd J" -c "set modifiable" -c "set write"
+vimdiff.premerge = keep
 
 [git]
 intree = 1
 
 [auth]
 wirecard.schemes = http https
-wirecard.prefix = p-ops-vcs.wirecard.sys/scm-webapp/hg
+wirecard.prefix = p-
 wirecard.username = andreas.wallner
 # load auth file with passwords
 %include ~/.hgauth

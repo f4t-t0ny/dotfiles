@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Checks
+if [ $# -ne 1 ]; then
+  echo "Nargs should equal 1, abort." >&2
+  exit 1
+fi
+BM=$1
+[[ $BM =~ ^CPOSBD-[0-9]+-[A-Z]+$ ]] || { echo "Invalid BM \"$BM\""; exit 1; }
+
+# Check if hg repo
+hg status >/dev/null 2>&1 || { echo "Not a hg repo"; exit 1; }
+# Check if BM exists
+hg update $BM >/dev/null 2>&1 || { echo "Bookmark doesn't exist"; exit 1; }
+
+echo "Doing cpos-merge for $1"
+hg pull
+
+## Commit merge with base
+hg commit -m "Merge with base"
+
+## Merge bookmark to dev
+echo "Merging $BM to dev"
+hg update dev
+hg merge $BM ||{ echo "Merge conflicts with dev, resolve manually."; exit 1; }
+hg commit -m "Merge with $BM"
+
+# Merge dev to base
+echo "Merging with dev"
+hg update base
+hg merge dev ||{ echo "Merge conflicts with dev, resolve manually."; exit 1; }
+hg commit -m "Merge with dev"
+
+# Cleanup
+echo "Doing cleanup"
+hg bookmark -d $BM ||{ echo "Unmerged changes in bookmark"; exit 1; }
+
+# Pushing
+echo "Pushing dev, base, deleting $BM"
+hg push -b dev
+hg push -B base
+hg push -B $BM
+echo "Done"
+
