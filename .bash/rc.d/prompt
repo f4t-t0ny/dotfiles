@@ -37,15 +37,23 @@ DIRECTORY_COLOR="${yellow}"
 GIT_BRANCH_COLOR="${magenta}"
 DOLLAR_COLOR="${green}"
 
-export DIR_SCRIPT='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{
-if (length($0) > 14) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF;
-else if (NF>3) print $1 "/" $2 "/.../" $NF;
-else print $1 "/.../" $NF; }
-else print $0;}'"'"')'
+dir_fun() {
+"${PWD/#$HOME/~}" | awk -F "/" '"'"'{ if (length($0) > 14) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF; else if (NF>3) print $1 "/" $2 "/.../" $NF; else print $1 "/.../" $NF; } else print $0;}'"'"'
+}
+
+hg_br() {
+  BR=$(hg branch 2> /dev/null | awk '{print $1}')
+	echo "$(test -n "$BR" && echo -n " ($BR)")"
+}
+
+hg_bo() {
+	BO=$(hg bookmark 2> /dev/null |grep -E "^ \*" |awk '{print $2}')
+	echo "$(test -n "$BO" && echo -n " [$BO]")"
+}
 
 if [[ $EUID == 0 ]] ; then
   PS1="\[${bold}${red}\]\u@\h \[${normal}${blue}\]\w \[${normal}\]"
 else
   # don't forget the ][-brackets around, they are important for line-breaking!!
-  PS1="\[${bold}${magenta}\]\u@\h \[${normal}${blue}\]$(eval 'echo ${DIR_SCRIPT}')\[${magenta}\]$(__git_ps1)\[${green}\] \$ \[${normal}\]"
+  PS1='\[${bold}${magenta}\]\u@\h \[${normal}${blue}\]\w\[${cyan}\]$(hg_br)\[${red}\]$(hg_bo)\[${green}\] \$ \[${normal}\]'
 fi
