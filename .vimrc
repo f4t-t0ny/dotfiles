@@ -15,6 +15,7 @@ let mapleader=","
 " activate mouse
 set mouse=a
 
+
 " Use system clipboard on mac
 set clipboard=unnamed
 
