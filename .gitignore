@@ -1,6 +1,7 @@
 #just ignore everything
 /*
 
+
 #except git files
 !/.gitignore
 !/.gitconfig
