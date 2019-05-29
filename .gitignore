@@ -18,6 +18,7 @@
 !/.bash/
 !/.bash/*
 
+
 #except vim files
 !/.vimrc
 !/.vim/
